@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<data>
+	<items>
+		<item id="web">
+			<title>WEB</title>
+			<rub_title>WEB DESIGN</rub_title>
+			<projects>
+				<project>
+					<title>MON PROJET</title>
+					<date><![CDATA[23 juillet 2010]]></date>
+					<agence>Wunderman</agence>
+					<client>Wunderman</client>
+					<images id="project0">
+						<image><![CDATA[img_detail_grande_projet1_1.jpg]]></image>
+						<image><![CDATA[img_detail_grande_projet1_2.jpg]]></image>
+						<image><![CDATA[img_detail_grande_projet1_3.jpg]]></image>
+						<image><![CDATA[img_detail_grande_projet1_4.jpg]]></image>
+						<image><![CDATA[img_detail_grande_projet1_5.jpg]]></image>
+						<image><![CDATA[img_detail_grande_projet1_6.jpg]]></image>
+						<image><![CDATA[img_detail_grande_projet1_7.jpg]]></image>
+						<image><![CDATA[img_detail_grande_projet1_8.jpg]]></image>
+					</images>
+				</project>
+			</projects>
+		</item>
+		<item id="inter_app">
+			<title>INTERACTIVE APP</title>
+			<rub_title>INTERACTIVE APPLICATIONS</rub_title>
+			<projects>
+				<project>
+					<title>MON PROJET 2</title>
+					<date><![CDATA[43 juillet 2010]]></date>
+					<agence>Wundermawqen</agence>
+					<client>Wundermaqwen</client>
+					<images id="project0">
+						<image><![CDATA[img_detail_grande_projet1_1.jpg]]></image>
+						<image><![CDATA[img_detail_grande_projet1_2.jpg]]></image>
+						<image><![CDATA[img_detail_grande_projet1_3.jpg]]></image>
+						<image><![CDATA[img_detail_grande_projet1_4.jpg]]></image>
+						<image><![CDATA[img_detail_grande_projet1_5.jpg]]></image>
+						<image><![CDATA[img_detail_grande_projet1_6.jpg]]></image>
+						<image><![CDATA[img_detail_grande_projet1_7.jpg]]></image>
+						<image><![CDATA[img_detail_grande_projet1_8.jpg]]></image>
+					</images>
+				</project>
+			</projects>
+		</item>
+	</items>
+</data>

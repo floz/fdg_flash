@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<data>
+	
+	<paths>
+		<xml>xml/</xml>
+		<css>css/</css>
+		<swf>swf/</swf>
+	</paths>
+	
+	<preload>
+		<item id="site"><![CDATA[site.swf]]></item>
+	</preload>
+	
+	<stylesheet>style.css</stylesheet>
+	
+	<fonts>
+		<item id="fonts">
+			<classId><![CDATA[assets.fonts.AssetArialRegular]]></classId>
+			<classId><![CDATA[assets.fonts.AssetHelveticaNeue45Light]]></classId>
+			<url>fonts.swf</url>
+		</item>
+	</fonts>
+
+</data>

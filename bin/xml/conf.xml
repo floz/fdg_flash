@@ -18,6 +18,7 @@
 		<item id="fonts">
 			<classId><![CDATA[assets.fonts.AssetArialRegular]]></classId>
 			<classId><![CDATA[assets.fonts.AssetHelveticaNeue45Light]]></classId>
+			<classId><![CDATA[assets.fonts.AssetStarAvenue]]></classId>
 			<url>fonts.swf</url>
 		</item>
 	</fonts>

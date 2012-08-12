@@ -3,16 +3,20 @@
  */
 package fr.filsdegraphiste.module.loader 
 {
-	import flash.display.StageAlign;
-	import flash.display.StageScaleMode;
-	import flash.events.Event;
-	import flash.events.ProgressEvent;
+	import fr.filsdegraphiste.config.FDGData;
 	import fr.filsdegraphiste.config._;
 	import fr.filsdegraphiste.ui.loading.LoadingIcon;
 	import fr.minuit4.core.configuration.conf;
 	import fr.minuit4.core.navigation.modules.Module;
-	import fr.minuit4.core.navigation.modules.ModulePart;
 	import fr.minuit4.net.loaders.AssetLoader;
+
+	import flash.display.StageAlign;
+	import flash.display.StageScaleMode;
+	import flash.events.Event;
+	import flash.events.ProgressEvent;
+	import flash.net.URLLoader;
+	import flash.net.URLLoaderDataFormat;
+	import flash.net.URLRequest;
 	
 	public class LoaderModule extends Module
 	{
@@ -20,6 +24,7 @@ package fr.filsdegraphiste.module.loader
 		// - PRIVATE VARIABLES -----------------------------------------------------------
 		
 		private var _loadingIcon:LoadingIcon;
+		private var _urlLoader:URLLoader;
 		
 		// - PUBLIC VARIABLES ------------------------------------------------------------
 		
@@ -28,7 +33,8 @@ package fr.filsdegraphiste.module.loader
 		public function LoaderModule() 
 		{
 			stage.align = StageAlign.TOP_LEFT;
-			stage.scaleMode = StageScaleMode.NO_SCALE;
+			stage.scaleMode = StageScaleMode.NO_SCALE;		
+			stage.frameRate = 60;	
 			
 			_.stage = stage;
 			
@@ -56,32 +62,51 @@ package fr.filsdegraphiste.module.loader
 		
 		private function confCompleteHandler(e:Event):void 
 		{
-			_launchSite();
+			_loadData();
 		}
 		
 		private function _enterFrameHandler(e:Event):void 
 		{
-			_loadingIcon.percent += .01;
+			_loadingIcon.percent += .05;
 			if ( _loadingIcon.percent >= 1 )
 			{
 				removeEventListener( Event.ENTER_FRAME, _enterFrameHandler );
-				_launchSite();
+				_loadData();
 			}
+		}
+		
+		private function _loadData():void
+		{
+			_urlLoader = new URLLoader();
+			_urlLoader.dataFormat = URLLoaderDataFormat.TEXT;
+			_urlLoader.load( new URLRequest( "php/services.php") );
+			_urlLoader.addEventListener( Event.COMPLETE, _loadDataCompleteHandler );
+		}
+
+		private function _loadDataCompleteHandler(event : Event) : void 
+		{
+			_.data = new FDGData( JSON.parse( _urlLoader.data ) );			
+			_launchSite();
 		}
 		
 		// - PRIVATE METHODS -------------------------------------------------------------
 		
 		private function _launchSite():void
 		{
-			addChild( ModulePart( AssetLoader( conf.getItem( "site" ) ).content ) );
+			removeChild( _loadingIcon );
+			
+			var site:Module = AssetLoader( conf.getItem( "site" ) ).content as Module;
+			addChild( site );
+			
+			site.show();
 		}
 		
 		// - PUBLIC METHODS --------------------------------------------------------------
 		
 		// - GETTERS & SETTERS -----------------------------------------------------------
 		
-		public function get confURL():String { return loaderInfo.parameters.conf || "./xml/conf.xml"; }
-		public function get isDev():Boolean { return loaderInfo.parameters.isDev == "true" || false; }
+		public function get confURL():String { return loaderInfo.parameters[ "conf " ] || "./xml/conf.xml"; }
+		public function get isDev():Boolean { return loaderInfo.parameters[ "isDev" ] == "true" || false; }
 		
 	}
 	

@@ -3,6 +3,8 @@
  */
 package fr.filsdegraphiste.ui.loading 
 {
+	import fr.filsdegraphiste.config._;
+
 	import flash.display.CapsStyle;
 	import flash.display.Graphics;
 	import flash.display.JointStyle;
@@ -10,18 +12,17 @@ package fr.filsdegraphiste.ui.loading
 	import flash.display.Shape;
 	import flash.display.Sprite;
 	import flash.events.Event;
-	import fr.filsdegraphiste.config._;
 	
 	public class LoadingIcon extends Sprite
 	{
 		
 		// - PRIVATE VARIABLES -----------------------------------------------------------
 		
-		private const W:Number = 100;
-		private const H:Number = 90;
+		protected const W:Number = 100;
+		protected const H:Number = 90;
 		private const TIER:Number = 1 / 3;
 		
-		private var _mainShape:Shape;
+		protected var _mainShape:Shape;
 		private var _percent:Number = 0;
 		
 		// - PUBLIC VARIABLES ------------------------------------------------------------

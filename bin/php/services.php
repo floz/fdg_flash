@@ -110,7 +110,7 @@ $result = array();
 $result[ "message" ] = "error";
 
 //$action = $_GET[ "action" ];
-$action = $_POST[ "action" ];
+$action = $_POST[ "action" ] || "get_projects";
 switch( $action )
 {
 	case "get_projects": 

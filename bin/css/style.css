@@ -3,3 +3,5 @@
 
 .base>.menu_item {  font-size: 11px; color: #303d5c;  }
 .base>.rubrique_title { font-size: 36px; font-weight: bold; color: #ffffff; }
+
+.base>.loading_title { font-family: Star Avenue; font-size: 110px; color: #53cecf; }

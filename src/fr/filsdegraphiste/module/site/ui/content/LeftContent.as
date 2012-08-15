@@ -1,32 +1,22 @@
 /**
- * @author Floz
- */
+* @author floz
+*/
 package fr.filsdegraphiste.module.site.ui.content 
 {
-	import fr.minuit4.core.navigation.modules.ModulePart;
-	
-	public class LeftContent extends ModulePart
+	import fr.filsdegraphiste.module.site.ui.image.LeftImage;
+
+	import flash.display.BitmapData;
+	public class LeftContent extends BaseContent
 	{
-		
-		// - PRIVATE VARIABLES -----------------------------------------------------------
-		
-		// - PUBLIC VARIABLES ------------------------------------------------------------
-		
-		// - CONSTRUCTOR -----------------------------------------------------------------
-		
-		public function LeftContent() 
+		public function LeftContent()
 		{
 			
 		}
 		
-		// - EVENTS HANDLERS -------------------------------------------------------------
-		
-		// - PRIVATE METHODS -------------------------------------------------------------
-		
-		// - PUBLIC METHODS --------------------------------------------------------------
-		
-		// - GETTERS & SETTERS -----------------------------------------------------------
-		
+		override public function setImage(bd : BitmapData) : void 
+		{
+			addChild( _currentImage = new LeftImage( bd ) );
+			_currentImage.show();
+		}
 	}
-	
 }

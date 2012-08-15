@@ -1,32 +1,22 @@
 /**
- * @author Floz
- */
+* @author floz
+*/
 package fr.filsdegraphiste.module.site.ui.content 
 {
-	import fr.minuit4.core.navigation.modules.ModulePart;
-	
-	public class RightContent extends ModulePart
-	{
-		
-		// - PRIVATE VARIABLES -----------------------------------------------------------
-		
-		// - PUBLIC VARIABLES ------------------------------------------------------------
-		
-		// - CONSTRUCTOR -----------------------------------------------------------------
-		
-		public function RightContent() 
+	import fr.filsdegraphiste.module.site.ui.image.RightImage;
+	import flash.display.BitmapData;
+	public class RightContent extends BaseContent
+	{		
+		public function RightContent()
 		{
 			
 		}
-		
-		// - EVENTS HANDLERS -------------------------------------------------------------
-		
-		// - PRIVATE METHODS -------------------------------------------------------------
-		
-		// - PUBLIC METHODS --------------------------------------------------------------
-		
-		// - GETTERS & SETTERS -----------------------------------------------------------
-		
+
+		override public function setImage(bd : BitmapData) : void 
+		{
+			addChild( _currentImage = new RightImage( bd ) );
+			_currentImage.show();
+		}
+
 	}
-	
 }

@@ -3,11 +3,14 @@
  */
 package fr.filsdegraphiste.module.site.ui 
 {
+	import fr.filsdegraphiste.config._;
 	import fr.filsdegraphiste.module.site.ui.content.LeftContent;
 	import fr.filsdegraphiste.module.site.ui.content.MidContent;
 	import fr.filsdegraphiste.module.site.ui.content.RightContent;
 	import fr.filsdegraphiste.module.site.ui.diaporama.Diaporama;
 	import fr.minuit4.core.navigation.modules.ModulePart;
+
+	import flash.events.Event;
 	
 	public class MainView extends ModulePart
 	{
@@ -31,6 +34,19 @@ package fr.filsdegraphiste.module.site.ui
 			addChild( _right = new RightContent() );
 			addChild( _shadow = new GradientShadow() );
 			addChild( _mid = new MidContent() );
+			
+			_.stage.addEventListener( Event.RESIZE, _resizeHandler );
+			_onResize();
+		}
+
+		private function _resizeHandler(event : Event) : void 
+		{
+			_onResize();
+		}
+
+		private function _onResize() : void 
+		{
+			_right.x = _.stage.stageWidth >> 1;
 		}
 		
 		// - EVENTS HANDLERS -------------------------------------------------------------
@@ -39,7 +55,8 @@ package fr.filsdegraphiste.module.site.ui
 		
 		public function setDiaporama( data:Object ):void
 		{
-			_mid.clearContent();			
+			_mid.clearContent();	
+					
 			addChild( _diaporama = new Diaporama( data, this ) );
 			_diaporama.show();
 		}

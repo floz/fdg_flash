@@ -3,17 +3,19 @@
 */
 package fr.filsdegraphiste.module.site.ui.loading 
 {
-	import aze.motion.EazeTween;
-	import fr.filsdegraphiste.ui.loading.LoadingIcon;
 	import aze.motion.easing.Quint;
 	import aze.motion.eaze;
 
 	import fr.digitas.flowearth.command.Batcher;
+	import fr.digitas.flowearth.event.BatchEvent;
 	import fr.digitas.flowearth.net.BatchLoaderItem;
 	import fr.filsdegraphiste.config._;
+	import fr.filsdegraphiste.config.fdgDataLoaded;
+	import fr.filsdegraphiste.ui.loading.LoadingIcon;
 	import fr.minuit4.core.navigation.modules.ModulePart;
 	import fr.minuit4.text.Text;
 
+	import flash.display.Bitmap;
 	import flash.display.Graphics;
 	import flash.display.Shape;
 	import flash.display.Sprite;
@@ -33,8 +35,11 @@ package fr.filsdegraphiste.module.site.ui.loading
 		private var _batcher:Batcher;
 		private var _loadingIcon:LoadingIcon;		
 		
+		private var _filesToLoad:Array;
+		private var _idxLoaded:int;
+		
 		private var _showAnimationComplete:Boolean;
-		private var _loadComplete:Boolean;
+		private var _loadComplete:Boolean;		
 		
 		public function LoadingRubView( label:String, data:Object = null )
 		{
@@ -112,15 +117,18 @@ package fr.filsdegraphiste.module.site.ui.loading
 		
 		private function _initLoader():void
 		{			
-			var filesToLoad:Array = _data[ "files_to_load" ];
+			_idxLoaded = 0;
+			
+			_filesToLoad = _data[ "files_to_load" ];
 			_batcher = new Batcher();
 			_batcher.addEventListener( ProgressEvent.PROGRESS, _progressHandler );
+			_batcher.addEventListener( BatchEvent.ITEM_COMPLETE, _itemCompleteHandler );
 			_batcher.addEventListener( Event.COMPLETE, _loadCompleteHandler );
 			
-			var n:int = filesToLoad.length;
+			var n:int = _filesToLoad.length;
 			for( var i:int; i < n; i++ )
 			{
-				_batcher.addItem( new BatchLoaderItem( new URLRequest( filesToLoad[ i ] ) ) );
+				_batcher.addItem( new BatchLoaderItem( new URLRequest( _filesToLoad[ i ] ) ) );
 			}
 			
 			addChild( _loadingIcon = new LoadingIcon() );
@@ -129,6 +137,13 @@ package fr.filsdegraphiste.module.site.ui.loading
 		private function _progressHandler(event : ProgressEvent) : void 
 		{
 			_loadingIcon.percent = event.bytesLoaded / event.bytesTotal;			
+		}
+		
+		private function _itemCompleteHandler(event : BatchEvent) : void 
+		{
+			var b:BatchLoaderItem = _batcher.getCurrentItem() as BatchLoaderItem;
+			fdgDataLoaded.add( _filesToLoad[ _idxLoaded ], Bitmap( b.loader.content ).bitmapData );
+			_idxLoaded++;
 		}
 
 		private function _loadCompleteHandler(event : Event) : void 
@@ -170,13 +185,12 @@ package fr.filsdegraphiste.module.site.ui.loading
 		override public function hide( delay:Number = 0 ):Number
 		{
 			var j:int, 
-				i:int = _letters.length,
-				n:int = _letters.length;
+				i:int = _letters.length;
 			
 			while( --i > -1 )
 			{
 				eaze( _letters[ i ] ).delay( delay + j * .07 )
-									 .to( .3, { y: -100 } ).easing( Quint.easeOut );
+									 .to( .3, { y: -100 } ).easing( Quint.easeIn );
 				j++;
 			}
 			_line.hide( delay + .07 );

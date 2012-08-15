@@ -3,13 +3,16 @@
 */
 package fr.filsdegraphiste.module.site.ui.diaporama 
 {
-	import flash.events.Event;
+	import flash.events.MouseEvent;
 	import fr.filsdegraphiste.config._;
+	import fr.filsdegraphiste.config.fdgDataLoaded;
 	import fr.filsdegraphiste.module.site.ui.MainView;
 	import fr.filsdegraphiste.module.site.ui.button.BtClose;
 	import fr.filsdegraphiste.module.site.ui.button.BtNext;
 	import fr.filsdegraphiste.module.site.ui.button.BtPrev;
 	import fr.minuit4.core.navigation.modules.ModulePart;
+
+	import flash.events.Event;
 	
 	public class Diaporama extends ModulePart
 	{
@@ -21,7 +24,7 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 		private var _btPrev:BtPrev;
 		private var _btNext:BtNext;
 		
-		private var _currentIdx:int;
+		private var _currentIdx:int = -1;
 		private var _idxProject:int;
 		
 		private var _zoomed:Boolean;
@@ -40,8 +43,20 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 			addChild( _btPrev = new BtPrev() );
 			addChild( _btNext = new BtNext() );
 			
+			_btPrev.addEventListener( MouseEvent.CLICK, _clickHandler, false, 0, true );
+			_btNext.addEventListener( MouseEvent.CLICK, _clickHandler, false, 0, true );
+			
 			_.stage.addEventListener( Event.RESIZE, _resizeHandler );
 			_onResize();
+		}
+
+		private function _clickHandler(event : MouseEvent) : void 
+		{
+			switch( event.currentTarget )
+			{
+				case _btPrev: prev(); break;
+				case _btNext: next(); break;
+			}
 		}
 
 		private function _resizeHandler(event : Event) : void 
@@ -59,10 +74,6 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 		
 		private function _updateButtons( delay:Number = 0 ):void
 		{
-			_btPrev.show();
-			_btNext.show();
-			return;
-			
 			if( _currentIdx <= 0 )
 				_btPrev.hide( delay );
 			else 
@@ -76,12 +87,23 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 		
 		public function next():void
 		{
-			
+			_currentIdx++;
+			_showProject();
+			_updateButtons();
 		}
 		
 		public function prev():void
 		{
-			
+			_currentIdx--;
+			_showProject();
+			_updateButtons();
+		}
+
+		private function _showProject() : void 
+		{
+			var project:Object = _projects[ _currentIdx ];
+			_mainView.left.setImage( fdgDataLoaded.getImage( project.images[ project.images.length - 1 ] ) );
+			_mainView.right.setImage( fdgDataLoaded.getImage( project.images[ 1 ] ) );
 		}
 		
 		public function zoomIn():void
@@ -96,6 +118,7 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 		
 		override public function show( delay:Number = 0 ):Number
 		{
+			next();
 			_updateButtons( delay );
 			
 			return super.show( delay );

@@ -83,6 +83,7 @@ package fr.filsdegraphiste.module.site
 			if( _loadingRubView.data != null )
 			{
 				_mainView.setDiaporama( _loadingRubView.data );
+				navSiteManager.frozen = false;
 			}
 			else
 			{

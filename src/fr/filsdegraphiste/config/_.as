@@ -10,7 +10,6 @@ package fr.filsdegraphiste.config
 		
 		public static var stage:Stage;
 		public static var data:FDGData;
-		
 	}
 	
 }

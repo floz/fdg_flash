@@ -3,6 +3,7 @@
 */
 package fr.filsdegraphiste.module.site.ui.diaporama 
 {
+	import fr.filsdegraphiste.module.site.ui.details.DetailsView;
 	import flash.events.MouseEvent;
 	import fr.filsdegraphiste.config._;
 	import fr.filsdegraphiste.config.fdgDataLoaded;
@@ -104,6 +105,9 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 			var project:Object = _projects[ _currentIdx ];
 			_mainView.left.setImage( fdgDataLoaded.getImage( project.images[ project.images.length - 1 ] ) );
 			_mainView.right.setImage( fdgDataLoaded.getImage( project.images[ 1 ] ) );
+			
+			var detailsView:DetailsView = new DetailsView( project );
+			_mainView.mid.setContent( detailsView );
 		}
 		
 		public function zoomIn():void
@@ -126,6 +130,9 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 		
 		override public function hide( delay:Number = 0 ):Number
 		{
+			_mainView.left.hide( delay );
+			_mainView.right.hide( delay );
+			
 			return super.hide( delay );
 		}
 	}

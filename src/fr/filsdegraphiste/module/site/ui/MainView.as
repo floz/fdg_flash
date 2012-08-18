@@ -55,7 +55,7 @@ package fr.filsdegraphiste.module.site.ui
 		
 		public function setDiaporama( data:Object ):void
 		{
-			_mid.clearContent();	
+			clear();	
 					
 			addChild( _diaporama = new Diaporama( data, this ) );
 			_diaporama.show();
@@ -63,7 +63,22 @@ package fr.filsdegraphiste.module.site.ui
 		
 		public function setContent( content:ModulePart ):void
 		{
+			clear();
 			_mid.setContent( content );
+		}
+		
+		public function clear():void
+		{
+			if( _diaporama )
+			{
+				trace( "diaporama clear" );
+				_diaporama.hide();
+				_diaporama = null;
+			}
+			else
+			{
+				_mid.clearContent();
+			}
 		}
 		
 		// - PUBLIC METHODS --------------------------------------------------------------

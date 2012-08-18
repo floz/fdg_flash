@@ -27,6 +27,7 @@ package fr.filsdegraphiste.module.site.ui.loading
 	{
 		private var _label:String;
 		private var _data:Object;
+		private var _filesToLoad:Array;
 		private var _cntTitle:Sprite;
 		private var _cntLetters:Sprite;
 		private var _mask:Shape;
@@ -35,16 +36,16 @@ package fr.filsdegraphiste.module.site.ui.loading
 		private var _batcher:Batcher;
 		private var _loadingIcon:LoadingIcon;		
 		
-		private var _filesToLoad:Array;
 		private var _idxLoaded:int;
 		
 		private var _showAnimationComplete:Boolean;
 		private var _loadComplete:Boolean;		
 		
-		public function LoadingRubView( label:String, data:Object = null )
+		public function LoadingRubView( label:String, data:Object = null, filesToLoad:Array = null )
 		{
 			_label = label;
 			_data = data;
+			_filesToLoad = filesToLoad;
 			
 			_init();
 			
@@ -119,7 +120,6 @@ package fr.filsdegraphiste.module.site.ui.loading
 		{			
 			_idxLoaded = 0;
 			
-			_filesToLoad = _data[ "files_to_load" ];
 			_batcher = new Batcher();
 			_batcher.addEventListener( ProgressEvent.PROGRESS, _progressHandler );
 			_batcher.addEventListener( BatchEvent.ITEM_COMPLETE, _itemCompleteHandler );

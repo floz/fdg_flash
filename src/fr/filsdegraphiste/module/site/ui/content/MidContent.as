@@ -23,6 +23,8 @@ package fr.filsdegraphiste.module.site.ui.content
 		private var _menu:MainMenu;
 		private var _mask:Shape;
 		
+		private var _currentContent:ModulePart;
+		
 		// - PUBLIC VARIABLES ------------------------------------------------------------
 		
 		// - CONSTRUCTOR -----------------------------------------------------------------
@@ -71,6 +73,7 @@ package fr.filsdegraphiste.module.site.ui.content
 		
 		public function setContent( content:ModulePart ):void
 		{
+			_currentContent = content;
 			_cntContent.addChild( content );			
 		}
 		

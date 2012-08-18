@@ -33,5 +33,11 @@ package fr.filsdegraphiste.module.site.ui.content
 				
 		}
 		
+		override public function hide( delay:Number = 0 ):Number
+		{
+			_currentImage.hide( delay );
+			return super.hide( delay );
+		}
+		
 	}
 }

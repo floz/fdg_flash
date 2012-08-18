@@ -3,6 +3,8 @@
  */
 package fr.filsdegraphiste.module.site 
 {
+	import fr.filsdegraphiste.module.site.nav.NavWorkId;
+	import fr.filsdegraphiste.module.site.nav.navWorkManager;
 	import flash.events.Event;
 	import fr.filsdegraphiste.config._;
 	import fr.filsdegraphiste.event.StepEvent;
@@ -55,9 +57,12 @@ package fr.filsdegraphiste.module.site
 			navSiteManager.frozen = true;
 			switch( navSiteManager.currentId )
 			{
-				case NavSiteId.NEWS: _showLoadingView( "news", _.data.news ); break;
-				case NavSiteId.WORKS: _showLoadingView( "works", _.data.works ); break;
-				case NavSiteId.LAB: _showLoadingView( "lab", _.data.lab ); break;
+				case NavSiteId.NEWS: _showLoadingView( "news", _.data.news, _.data.news.files_to_load ); break;
+				case NavSiteId.WORKS:
+					navWorkManager.currentId = NavWorkId.ILLUSTRATIONS; 
+					_showLoadingView( "works", _.data.works[ navWorkManager.currentId ], _.data.works.files_to_load ); 
+					break;
+				case NavSiteId.LAB: _showLoadingView( "lab", _.data.lab, _.data.lab.files_to_load ); break;
 				case NavSiteId.ABOUT: _showLoadingView( "fdg" ); break;
 			}
 		}
@@ -70,9 +75,9 @@ package fr.filsdegraphiste.module.site
 			navSiteManager.currentId = NavSiteId.NEWS;
 		}
 		
-		private function _showLoadingView( title:String, data:Object = null ):void
+		private function _showLoadingView( title:String, data:Object = null, filesToLoad:Array = null ):void
 		{
-			_loadingRubView = new LoadingRubView( title, data );
+			_loadingRubView = new LoadingRubView( title, data, filesToLoad );
 			_loadingRubView.addEventListener( Event.COMPLETE, _loadCompleteHandler );
 			_mainView.setContent( _loadingRubView );
 			_loadingRubView.show();		

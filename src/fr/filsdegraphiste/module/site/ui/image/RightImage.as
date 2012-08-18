@@ -3,6 +3,9 @@
 */
 package fr.filsdegraphiste.module.site.ui.image 
 {
+	import aze.motion.easing.Expo;
+	import aze.motion.eaze;
+
 	import fr.filsdegraphiste.config._;
 
 	import flash.display.BitmapData;
@@ -43,6 +46,14 @@ package fr.filsdegraphiste.module.site.ui.image
 			
 			_bot.x = _w;
 			_bot.y = _h;
+		}
+			
+		override public function hide(delay : Number = 0) : Number 
+		{
+			eaze( _top ).delay( delay ).to( .4, { x: -_w, y: -_h } ).easing( Expo.easeIn );
+			eaze( _bot ).delay( delay ).to( .4, { x: _w, y: _h } ).easing( Expo.easeIn );
+			
+			return super.hide(delay);
 		}
 		
 	}

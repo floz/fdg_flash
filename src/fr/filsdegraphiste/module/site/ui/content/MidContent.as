@@ -3,6 +3,7 @@
  */
 package fr.filsdegraphiste.module.site.ui.content 
 {
+	import fr.filsdegraphiste.module.site.ui.menu.WorkMenu;
 	import fr.filsdegraphiste.config._;
 	import fr.filsdegraphiste.module.site.ui.menu.MainMenu;
 	import fr.minuit4.core.navigation.modules.ModulePart;
@@ -21,6 +22,7 @@ package fr.filsdegraphiste.module.site.ui.content
 		private var _bg:Shape;
 		private var _cntContent:Sprite;
 		private var _menu:MainMenu;
+		private var _workMenu:WorkMenu;
 		private var _mask:Shape;
 		
 		private var _currentContent:ModulePart;
@@ -35,6 +37,7 @@ package fr.filsdegraphiste.module.site.ui.content
 			_cnt.addChild( _bg = new Shape() );
 			_cnt.addChild( _cntContent = new Sprite() );
 			_cnt.addChild( _menu = new MainMenu() );
+			_cnt.addChild( _workMenu = new WorkMenu() );
 			addChild( _mask = new Shape() );
 			
 			_cnt.mask = _mask;
@@ -91,7 +94,7 @@ package fr.filsdegraphiste.module.site.ui.content
 		
 		override public function hide( delay:Number = 0 ):Number
 		{
-			return super.hide( delay );
+			return _currentContent.hide( delay );
 		}
 		
 		// - GETTERS & SETTERS -----------------------------------------------------------

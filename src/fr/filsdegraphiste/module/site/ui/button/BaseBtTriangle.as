@@ -54,15 +54,17 @@ package fr.filsdegraphiste.module.site.ui.button
 		{
 			addEventListener( MouseEvent.ROLL_OVER, _rollOverHandler );
 			_zone.buttonMode = 
-			_zone.useHandCursor = true;	
+			_zone.useHandCursor = true;
+			this.mouseEnabled = true;	
 		}
 		
 		private function _deactivate():void
 		{
 			removeEventListener( MouseEvent.ROLL_OVER, _rollOverHandler );
-			removeEventListener( MouseEvent.ROLL_OUT, _rollOverHandler );
+			removeEventListener( MouseEvent.ROLL_OUT, _rollOutHandler );
 			_zone.buttonMode = 
 			_zone.useHandCursor = false;
+			this.mouseEnabled = false;
 		}
 		
 		private function _init():void

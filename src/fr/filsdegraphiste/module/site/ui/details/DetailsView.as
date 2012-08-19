@@ -32,8 +32,10 @@ package fr.filsdegraphiste.module.site.ui.details
 			
 			_init();
 			
-			_title.y = _image.y + _image.height + 10 >> 0;
+			_image.x = 35;
+			_title.y = _image.y + _image.height + 30 >> 0;
 			_separator.y = _title.y + _title.height + 10 >> 0;
+			_separator.alpha = 0;
 			_text.y = _separator.y + _separator.height + 10 >> 0;
 			
 			_.stage.addEventListener( Event.RESIZE, _resizeHandler );
@@ -58,17 +60,32 @@ package fr.filsdegraphiste.module.site.ui.details
 		private function _onResize() : void 
 		{
 			this.x = _.stage.stageWidth - 280 >> 1;
+			this.y = 35;
 		}
 		
 		override public function show( delay:Number = 0 ):Number
 		{
-			eaze( _separator ).delay( delay ).to( .4, { scaleX: 1 } ).easing( Expo.easeOut );
+			_image.show( delay );
+			_title.show( delay + .1 );
+			eaze( _separator ).delay( delay + .2 ).to( .4, { alpha: 1, scaleX: 1 } );
+			_text.show( delay + .3 );
+			
 			return super.show( delay );
 		}
 		
 		override public function hide( delay:Number = 0 ):Number
 		{
+			_image.hide( delay );
+			_title.hide( delay + .1 );
+			eaze( _separator ).delay( delay + .2 ).to( .4, { alpha: 0, scaleX: .6 } );
+			eaze( this ).delay( _text.hide( delay + .3 ) ).onComplete( _clear );
+			
 			return super.hide( delay );
+		}
+
+		private function _clear() : void 
+		{
+			parent.removeChild( this );
 		}
 	}
 }

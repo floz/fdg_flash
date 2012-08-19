@@ -3,11 +3,13 @@
 */
 package fr.filsdegraphiste.module.site.ui.content 
 {
-	import fr.filsdegraphiste.module.site.ui.image.BaseImage;
-	import flash.display.BitmapData;
+	import aze.motion.eaze;
+
 	import fr.filsdegraphiste.config._;
+	import fr.filsdegraphiste.module.site.ui.image.BaseImage;
 	import fr.minuit4.core.navigation.modules.ModulePart;
 
+	import flash.display.BitmapData;
 	import flash.events.Event;
 	
 	public class BaseContent extends ModulePart
@@ -28,9 +30,12 @@ package fr.filsdegraphiste.module.site.ui.content
 		{
 		}
 		
-		public function setImage( bd:BitmapData ):void
+		public function setImage( bd:BitmapData, delay:Number = 0 ):void
 		{
-				
+			if( _currentImage )
+			{
+				eaze( _currentImage ).delay( .4 ).onComplete( removeChild, _currentImage );
+			}	
 		}
 		
 		override public function hide( delay:Number = 0 ):Number

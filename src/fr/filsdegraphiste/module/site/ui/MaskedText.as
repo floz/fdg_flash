@@ -3,6 +3,7 @@
 */
 package fr.filsdegraphiste.module.site.ui 
 {
+	import aze.motion.easing.Quadratic;
 	import aze.motion.eaze;
 
 	import fr.minuit4.core.navigation.modules.ModulePart;
@@ -29,7 +30,6 @@ package fr.filsdegraphiste.module.site.ui
 			var newLine:Boolean = true;
 			
 			var words:Array = label.split( " " );
-			trace( words );
 			var n:int = words.length;
 			for( var i:int; i < n; i++ )
 			{
@@ -40,6 +40,8 @@ package fr.filsdegraphiste.module.site.ui
 					
 					cnt.addChild( t = new Text( words[ i ], styleId ) );
 					cnt.addChild( m = new Shape() );
+					t.alpha = 0;
+					t.mask = m;
 					
 					if( forcedWidth != -1 )
 					{
@@ -57,14 +59,12 @@ package fr.filsdegraphiste.module.site.ui
 					t.text += " " + words[ i ];
 					if( forcedWidth != -1 && t.width > forcedWidth )
 					{
-						//t.y += t.height;
 						py += t.height;
 						newLine = true;
 					}
 				}				
 			}
 			
-			trace( "end: " + t.text );
 			if( forcedWidth == -1 )
 			{
 				g = m.graphics;
@@ -75,12 +75,17 @@ package fr.filsdegraphiste.module.site.ui
 		
 		override public function show( delay:Number = 0 ):Number
 		{
+			var d:Number = 0;
+			
 			var t:Text;
 			var n:int = _texts.length;
 			for( var i:int; i < n; i++ )
 			{
 				t = _texts[ i ];
-				eaze( t ).delay( delay ).to( .4, { y: 0 } );				
+				t.y += t.height;
+				eaze( t ).delay( delay + d ).to( .4, { y: 0, alpha: 1 } );
+				
+				d += .1;				
 			}
 			
 			return super.show( delay );
@@ -88,7 +93,19 @@ package fr.filsdegraphiste.module.site.ui
 		
 		override public function hide( delay:Number = 0 ):Number
 		{
-			return super.hide( delay );
+			var d:Number = 0;
+			
+			var t:Text;
+			var n:int = _texts.length;
+			for( var i:int; i < n; i++ )
+			{
+				t = _texts[ i ];
+				eaze( t ).delay( delay + d ).to( .4, { y: t.height, alpha: 0 } ).easing( Quadratic.easeIn );
+				
+				d += .1;				
+			}
+			
+			return d + .3;
 		}
 	}
 }

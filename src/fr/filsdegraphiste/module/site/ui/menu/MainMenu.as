@@ -126,10 +126,12 @@ package fr.filsdegraphiste.module.site.ui.menu
 			var g:Graphics;
 			
 			g = _bgLeft.graphics;
+			g.clear();
 			g.beginFill( 0x53cecf );
 			g.drawRect( -_.stage.stageWidth >> 1, 0, _.stage.stageWidth >> 1, 85 );
 			
 			g = _bgRight.graphics;
+			g.clear();
 			g.beginFill( 0x53cecf );
 			g.drawRect( 0, 0, _.stage.stageWidth >> 1, 85 );
 			
@@ -140,6 +142,7 @@ package fr.filsdegraphiste.module.site.ui.menu
 			_matrix.createGradientBox( w << 1, 85, Math.PI * .5 );
 			
 			g = _bgMid.graphics;
+			g.clear();
 			g.beginGradientFill( GradientType.LINEAR, [ 0x48b3b4, 0x53cecf ], [ 1, 1 ], [ 0, 125 ], _matrix );
 			g.moveTo( 0, 0 );
 			g.lineTo( -w, 85 >> 1 );

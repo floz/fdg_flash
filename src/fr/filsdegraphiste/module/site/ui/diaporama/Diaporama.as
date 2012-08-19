@@ -3,22 +3,25 @@
 */
 package fr.filsdegraphiste.module.site.ui.diaporama 
 {
-	import fr.filsdegraphiste.module.site.ui.details.DetailsView;
-	import flash.events.MouseEvent;
+	import aze.motion.eaze;
+
 	import fr.filsdegraphiste.config._;
 	import fr.filsdegraphiste.config.fdgDataLoaded;
 	import fr.filsdegraphiste.module.site.ui.MainView;
 	import fr.filsdegraphiste.module.site.ui.button.BtClose;
 	import fr.filsdegraphiste.module.site.ui.button.BtNext;
 	import fr.filsdegraphiste.module.site.ui.button.BtPrev;
+	import fr.filsdegraphiste.module.site.ui.details.DetailsView;
 	import fr.minuit4.core.navigation.modules.ModulePart;
 
 	import flash.events.Event;
+	import flash.events.MouseEvent;
 	
 	public class Diaporama extends ModulePart
 	{
 		private var _data:Object;
 		private var _mainView:MainView;
+		private var _detailsView:DetailsView;
 		private var _projects:Vector.<Object>;
 		
 		private var _btClose:BtClose;
@@ -27,6 +30,7 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 		
 		private var _currentIdx:int = -1;
 		private var _idxProject:int;
+		
 		
 		private var _zoomed:Boolean;
 		
@@ -43,9 +47,6 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 			
 			addChild( _btPrev = new BtPrev() );
 			addChild( _btNext = new BtNext() );
-			
-			_btPrev.addEventListener( MouseEvent.CLICK, _clickHandler, false, 0, true );
-			_btNext.addEventListener( MouseEvent.CLICK, _clickHandler, false, 0, true );
 			
 			_.stage.addEventListener( Event.RESIZE, _resizeHandler );
 			_onResize();
@@ -76,14 +77,26 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 		private function _updateButtons( delay:Number = 0 ):void
 		{
 			if( _currentIdx <= 0 )
+			{
 				_btPrev.hide( delay );
+				_btPrev.removeEventListener( MouseEvent.CLICK, _clickHandler );
+			}
 			else 
+			{
 				_btPrev.show( delay );
+				_btPrev.addEventListener( MouseEvent.CLICK, _clickHandler, false, 0, true );
+			}
 			
 			if( _currentIdx >= _projects.length - 1 )
+			{
 				_btNext.hide( delay );
+				_btNext.removeEventListener( MouseEvent.CLICK, _clickHandler );
+			}
 			else
-				_btNext.show( delay );	
+			{
+				_btNext.show( delay );
+				_btNext.addEventListener( MouseEvent.CLICK, _clickHandler, false, 0, true );	
+			}
 		}
 		
 		public function next():void
@@ -103,11 +116,20 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 		private function _showProject() : void 
 		{
 			var project:Object = _projects[ _currentIdx ];
-			_mainView.left.setImage( fdgDataLoaded.getImage( project.images[ project.images.length - 1 ] ) );
-			_mainView.right.setImage( fdgDataLoaded.getImage( project.images[ 1 ] ) );
 			
-			var detailsView:DetailsView = new DetailsView( project );
-			_mainView.mid.setContent( detailsView );
+			var d:Number = 0;
+			if( _detailsView != null )
+			{
+				_detailsView.hide();
+				d = .2;
+			}
+			
+			_mainView.left.setImage( fdgDataLoaded.getImage( project.images[ project.images.length - 1 ] ), d );
+			_mainView.right.setImage( fdgDataLoaded.getImage( project.images[ 1 ] ), d );
+			
+			_detailsView = new DetailsView( project );
+			_mainView.mid.setContent( _detailsView );
+			_detailsView.show( d );
 		}
 		
 		public function zoomIn():void
@@ -130,10 +152,22 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 		
 		override public function hide( delay:Number = 0 ):Number
 		{
+			_mainView.mid.hide( delay );
 			_mainView.left.hide( delay );
 			_mainView.right.hide( delay );
 			
+			_btPrev.hide( delay );
+			_btNext.hide( delay );
+			
+			eaze( this ).delay( .5 ).onComplete( dispose );
+				
 			return super.hide( delay );
+		}
+		
+		override public function dispose():void
+		{
+			_btPrev.removeEventListener( MouseEvent.CLICK, _clickHandler );
+			_btNext.removeEventListener( MouseEvent.CLICK, _clickHandler );
 		}
 	}
 }

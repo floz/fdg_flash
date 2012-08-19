@@ -97,7 +97,7 @@ package fr.filsdegraphiste.module.site.ui.loading
 			{
 				letter = new Text( _label.charAt( i ), "loading_title" );
 				letter.x = px;
-				letter.y = -100;
+				letter.y = -110;
 				_letters[ i ] = letter;
 				_cntLetters.addChild( letter );
 				
@@ -158,6 +158,13 @@ package fr.filsdegraphiste.module.site.ui.loading
 		private function _onAnimationShowComplete():void
 		{
 			_showAnimationComplete = true;
+			
+			if( _data == null )
+			{
+				hide();
+				return;
+			}
+			
 			if( !_loadComplete )
 				return;
 			
@@ -190,13 +197,15 @@ package fr.filsdegraphiste.module.site.ui.loading
 			while( --i > -1 )
 			{
 				eaze( _letters[ i ] ).delay( delay + j * .07 )
-									 .to( .3, { y: -100 } ).easing( Quint.easeIn );
+									 .to( .3, { y: -110 } ).easing( Quint.easeIn );
 				j++;
 			}
 			_line.hide( delay + .07 );
 			
 			if( _loadingIcon )
-				eaze( _loadingIcon ).delay( delay ).to( .4, { alpha: 0 } ).onComplete( _onLoadEnd );
+				eaze( _loadingIcon ).delay( delay ).to( .4, { alpha: 0 } );
+			
+			eaze( this ).delay( delay + .4 ).onComplete( _onLoadEnd );
 			
 			return super.hide( delay );
 		}
@@ -290,10 +299,13 @@ final class Line extends ModulePart
 		return super.hide(delay);
 	}
 
-	public function get percent() : Number {
+	public function get percent() : Number 
+	{
 		return _percent;
 	}
-	public function set percent(percent : Number) : void {
+	
+	public function set percent(percent : Number) : void 
+	{
 		_percent = percent;
 	}
 }

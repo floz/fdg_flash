@@ -17,5 +17,20 @@ package fr.filsdegraphiste.module.site.ui.details
 			
 			_subtitle.y = _title.y + _title.height >> 0;	
 		}
+		
+		override public function show( delay:Number = 0 ):Number
+		{
+			_title.show( delay );
+			_subtitle.show( delay + .1 );
+			return super.show( delay );
+		}
+		
+		override public function hide( delay:Number = 0 ):Number
+		{
+			_title.hide( delay );
+			_subtitle.hide( delay + .1 );
+			return super.hide( delay );
+		}
+
 	}
 }

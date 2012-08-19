@@ -13,10 +13,11 @@ package fr.filsdegraphiste.module.site.ui.content
 			
 		}
 		
-		override public function setImage(bd : BitmapData) : void 
+		override public function setImage(bd : BitmapData, delay:Number = 0 ) : void 
 		{
+			super.setImage( bd, delay );
 			addChild( _currentImage = new LeftImage( bd ) );
-			_currentImage.show();
+			_currentImage.show( delay );
 		}
 	}
 }

@@ -14,5 +14,16 @@ package fr.filsdegraphiste.module.site.ui.details
 		{
 			addChild( _text = new MaskedText( description, "details_description", 280 ) );			
 		}
+		
+		override public function show( delay:Number = 0 ):Number
+		{
+			_text.show( delay );
+			return super.show( delay );
+		}
+		
+		override public function hide( delay:Number = 0 ):Number
+		{
+			return _text.hide( delay );
+		}
 	}
 }

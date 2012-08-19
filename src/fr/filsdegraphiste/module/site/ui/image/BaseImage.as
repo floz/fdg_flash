@@ -98,7 +98,7 @@ package fr.filsdegraphiste.module.site.ui.image
 			eaze( _top ).delay( delay ).to( .4, { x: 0, y: 0 } ).easing( Expo.easeOut );
 			eaze( _bot ).delay( delay ).to( .4, { x: 0, y: 0 } ).easing( Expo.easeOut );
 			eaze( this ).delay( delay + .1 ).to( .4, { alpha: 1 } );
-			return super.show( delay );
+			return .5;
 		}
 		
 		override public function hide( delay:Number = 0 ):Number

@@ -40,20 +40,17 @@ package fr.filsdegraphiste.module.site.ui.image
 			g.moveTo( 0, 0 );
 			g.lineTo( _w, _h );
 			g.lineTo( 0, _h );
+		}
 			
+		override public function show(delay : Number = 0) : Number 
+		{
 			_top.x = -_w;
 			_top.y = -_h;
 			
 			_bot.x = _w;
 			_bot.y = _h;
-		}
 			
-		override public function hide(delay : Number = 0) : Number 
-		{
-			eaze( _top ).delay( delay ).to( .4, { x: -_w, y: -_h } ).easing( Expo.easeIn );
-			eaze( _bot ).delay( delay ).to( .4, { x: _w, y: _h } ).easing( Expo.easeIn );
-			
-			return super.hide(delay);
+			return super.show(delay);
 		}
 		
 	}

@@ -26,6 +26,8 @@ package fr.filsdegraphiste.module.site
 		
 		private var _loadingRubView:LoadingRubView;
 		
+		private var _firstLoad:Boolean = true;
+		
 		// - PUBLIC VARIABLES ------------------------------------------------------------
 		
 		// - CONSTRUCTOR -----------------------------------------------------------------
@@ -72,7 +74,7 @@ package fr.filsdegraphiste.module.site
 		private function _start():void
 		{
 			navSiteManager.addEventListener( NavEvent.NAV_CHANGE, _navChangeHandler );
-			navSiteManager.currentId = NavSiteId.NEWS;
+			navSiteManager.currentId = NavSiteId.WORKS;
 		}
 		
 		private function _showLoadingView( title:String, data:Object = null, filesToLoad:Array = null ):void
@@ -80,15 +82,17 @@ package fr.filsdegraphiste.module.site
 			_loadingRubView = new LoadingRubView( title, data, filesToLoad );
 			_loadingRubView.addEventListener( Event.COMPLETE, _loadCompleteHandler );
 			_mainView.setContent( _loadingRubView );
-			_loadingRubView.show();		
+			_loadingRubView.show( _firstLoad ? 0 : .4 );
+			
+			_firstLoad = false;
 		}
 
 		private function _loadCompleteHandler(event : Event) : void 
 		{
+			navSiteManager.frozen = false;
 			if( _loadingRubView.data != null )
 			{
 				_mainView.setDiaporama( _loadingRubView.data );
-				navSiteManager.frozen = false;
 			}
 			else
 			{

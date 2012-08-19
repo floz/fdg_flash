@@ -71,7 +71,6 @@ package fr.filsdegraphiste.module.site.ui
 		{
 			if( _diaporama )
 			{
-				trace( "diaporama clear" );
 				_diaporama.hide();
 				_diaporama = null;
 			}

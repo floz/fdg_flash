@@ -60,7 +60,9 @@ package fr.filsdegraphiste.module.site.ui.details
 		private function _onResize() : void 
 		{
 			this.x = _.stage.stageWidth - 280 >> 1;
-			this.y = 35;
+			this.y = ( _.stage.stageHeight - this.height ) * .5 - 200 >> 0;
+			if( this.y < 40 ) this.y = 40;
+			trace( this.y );
 		}
 		
 		override public function show( delay:Number = 0 ):Number

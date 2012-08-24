@@ -41,6 +41,8 @@ package fr.filsdegraphiste.module.site.ui.loading
 		private var _showAnimationComplete:Boolean;
 		private var _loadComplete:Boolean;		
 		
+		private var _shown:Boolean;
+		
 		public function LoadingRubView( label:String, data:Object = null, filesToLoad:Array = null )
 		{
 			_label = label;
@@ -173,6 +175,10 @@ package fr.filsdegraphiste.module.site.ui.loading
 		
 		override public function show( delay:Number = 0 ):Number
 		{
+			if( _shown )
+				return 0;
+			_shown = true;
+			
 			var n:int = _letters.length;
 			for( var i:int; i < n; i++ )
 			{
@@ -191,6 +197,10 @@ package fr.filsdegraphiste.module.site.ui.loading
 		
 		override public function hide( delay:Number = 0 ):Number
 		{
+			if( !_shown	)
+				return 0;
+			_shown = false;			
+			
 			var j:int, 
 				i:int = _letters.length;
 			
@@ -200,19 +210,21 @@ package fr.filsdegraphiste.module.site.ui.loading
 									 .to( .3, { y: -110 } ).easing( Quint.easeIn );
 				j++;
 			}
-			_line.hide( delay + .07 );
+			_line.hide( delay + .2 );
 			
 			if( _loadingIcon )
 				eaze( _loadingIcon ).delay( delay ).to( .4, { alpha: 0 } );
 			
 			eaze( this ).delay( delay + .4 ).onComplete( _onLoadEnd );
-			
+						
 			return super.hide( delay );
 		}
 
 		private function _onLoadEnd() : void 
 		{
-			dispatchEvent(new Event(Event.COMPLETE));
+			dispatchEvent(new Event(Event.COMPLETE));			
+			_.stage.removeEventListener( Event.RESIZE, _resizeHandler );
+			parent.removeChild( this );
 		}
 
 		public function get data() : Object {
@@ -262,41 +274,50 @@ final class Line extends ModulePart
 		
 		if( _show )
 		{			
+			g = _s.graphics;
+			g.clear();
+			g.lineStyle( 0, 0x53cecf, 1, true, LineScaleMode.NORMAL, CapsStyle.SQUARE, JointStyle.MITER );
+			g.moveTo( 70, 0 );
+			g.lineTo( 70 - p, p );
+			
+			
+			p *= 2;
 			g = _bg.graphics;
 			g.clear();
 			g.beginFill( 0xffffff );
 			g.moveTo( 70, 0 );
 			g.lineTo( 70, p );
 			g.lineTo( 70 - p, p );
-			
-			g = _s.graphics;
-			g.clear();
-			g.lineStyle( 0, 0x53cecf, 1, true, LineScaleMode.NORMAL, CapsStyle.SQUARE, JointStyle.MITER );
-			g.moveTo( 70, 0 );
-			g.lineTo( 70 - p, p );
 		}
 		else
 		{
-			g = _bg.graphics;
-			g.clear();
-			g.beginFill( 0xffffff );
-			g.moveTo( 0 , 70 );
-			g.lineTo( p, 70 - p );
-			g.lineTo( p, 70 );
-			
 			g = _s.graphics;
 			g.clear();
 			g.lineStyle( 0, 0x53cecf, 1, true, LineScaleMode.NORMAL, CapsStyle.SQUARE, JointStyle.MITER );
 			g.moveTo( 0, 70 );
 			g.lineTo( p, 70 - p );
+			
+			p *= 2;
+			g = _bg.graphics;
+			g.clear();
+			g.beginFill( 0xffffff );
+			g.moveTo( -70, 140 );
+			g.lineTo( -70 + p, 140 - p );
+			g.lineTo( -70 + p, 140 );		
 		}
 	}
 	
 	override public function hide( delay:Number = 0 ):Number
 	{
 		_show = false;
-		eaze( this ).delay( delay ).to( .5, { percent: 0 } ).easing( Expo.easeOut );
+		eaze( this ).delay( delay ).to( .5, { percent: 0 } ).easing( Expo.easeOut )
+					.onComplete( _dispose );
 		return super.hide(delay);
+	}
+
+	private function _dispose():void
+	{
+		removeEventListener( Event.ENTER_FRAME, _enterFrameHandler );
 	}
 
 	public function get percent() : Number 

@@ -82,8 +82,10 @@ package fr.filsdegraphiste.module.site.ui.content
 		
 		public function clearContent():void
 		{
-			while( _cntContent.numChildren )
-				_cntContent.removeChildAt( 0 );
+			if( _currentContent != null )
+				_currentContent.hide();
+			//while( _cntContent.numChildren )
+				//_cntContent.removeChildAt( 0 );
 		}
 		
 		override public function show( delay:Number = 0 ):Number

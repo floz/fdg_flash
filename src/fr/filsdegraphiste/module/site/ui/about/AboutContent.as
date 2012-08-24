@@ -79,7 +79,8 @@ package fr.filsdegraphiste.module.site.ui.about
 		private function _onResize() : void 
 		{
 			this.x = _.stage.stageWidth - _W >> 1;
-			this.y = 70;
+			this.y = ( _.stage.stageHeight - this.height ) * .5 - 200 >> 0;
+			if( this.y < 80 ) this.y = 80;
 		}
 		
 		private function _createSeparator( s:Shape ):void
@@ -104,12 +105,25 @@ package fr.filsdegraphiste.module.site.ui.about
 			eaze( _linkCV ).delay( delay + .6 ).to( .4, { alpha: 1 } );
 			eaze( _linkLinkedin ).delay( delay + .7 ).to( .4, { alpha: 1 } );
 			eaze( _linkTwitter ).delay( delay + .8 ).to( .4, { alpha: 1 } );
+			
 			return super.show( delay );
 		}
 		
 		override public function hide( delay:Number = 0 ):Number
 		{
-			return super.hide( delay );
+			eaze( _icon ).delay( delay + .4 ).to( .2, { alpha: 0 } );
+			eaze( _separatorTop ).delay( delay + .35 ).to( .2, { alpha: 0, scaleX: .4 } );
+			eaze( _tf ).delay( delay + .3 ).to( .4, { alpha: 0 } );
+			eaze( _separatorBot ).delay( delay + .25 ).to( .2, { alpha: 0, scaleX: .4 } );
+			eaze( _tfContact ).delay( delay + .2 ).to( .2, { alpha: 0 } );
+			eaze( _linkMail ).delay( delay + .15 ).to( .2, { alpha: 0 } );
+			eaze( _linkCV ).delay( delay + .1 ).to( .2, { alpha: 0 } );
+			eaze( _linkLinkedin ).delay( delay + .05 ).to( .2, { alpha: 0 } );
+			eaze( _linkTwitter ).delay( delay ).to( .2, { alpha: 0 } );
+			
+			eaze( this ).delay( 1.2 ).onComplete( parent.removeChild, this );
+			
+			return 1.2;
 		}
 	}
 }

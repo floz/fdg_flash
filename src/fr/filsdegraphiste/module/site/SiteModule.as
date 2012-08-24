@@ -45,18 +45,23 @@ package fr.filsdegraphiste.module.site
 		
 		private function _step1CompleteHandler(event : StepEvent) : void
 		{
+			_loadingIcon.removeEventListener( StepEvent.STEP1_COMPLETE, _step1CompleteHandler );
+			
 			addChildAt( _mainView = new MainView(), 0 );
 			_mainView.show();
 		}
 
 		private function _step2CompleteHandler(event : StepEvent) : void 
 		{
+			_loadingIcon.removeEventListener( StepEvent.STEP2_COMPLETE, _step2CompleteHandler );
+			
 			removeChild( _loadingIcon );
 			_start();
 		}
 		
 		private function _navChangeHandler(event : NavEvent) : void 
 		{
+			trace( "navChangeHandler" ); 
 			navSiteManager.frozen = true;
 			switch( navSiteManager.currentId )
 			{
@@ -75,13 +80,13 @@ package fr.filsdegraphiste.module.site
 		private function _start():void
 		{
 			navSiteManager.addEventListener( NavEvent.NAV_CHANGE, _navChangeHandler );
-			navSiteManager.currentId = NavSiteId.ABOUT;
+			navSiteManager.currentId = NavSiteId.LAB;
 		}
 		
 		private function _showLoadingView( title:String, data:Object = null, filesToLoad:Array = null ):void
 		{
 			_loadingRubView = new LoadingRubView( title, data, filesToLoad );
-			_loadingRubView.addEventListener( Event.COMPLETE, _loadCompleteHandler );
+			_loadingRubView.addEventListener( Event.COMPLETE, _loadCompleteHandler, false, 0, true );
 			_mainView.setContent( _loadingRubView );
 			_loadingRubView.show( _firstLoad ? 0 : .4 );
 			
@@ -90,6 +95,8 @@ package fr.filsdegraphiste.module.site
 
 		private function _loadCompleteHandler(event : Event) : void 
 		{
+			_loadingRubView.removeEventListener( Event.COMPLETE, _loadCompleteHandler );
+			
 			navSiteManager.frozen = false;
 			if( _loadingRubView.data != null )
 			{

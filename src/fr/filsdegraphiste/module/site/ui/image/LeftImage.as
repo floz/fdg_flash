@@ -39,7 +39,7 @@ package fr.filsdegraphiste.module.site.ui.image
 			g.beginBitmapFill( _bd, _matrix, false, true );
 			g.moveTo( 0, _h );
 			g.lineTo( _w, _h );
-			g.lineTo( _h, 0 );
+			g.lineTo( _w, 0 );
 		}
 		
 		override public function show(delay : Number = 0) : Number 

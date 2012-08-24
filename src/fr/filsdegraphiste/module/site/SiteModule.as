@@ -3,6 +3,7 @@
  */
 package fr.filsdegraphiste.module.site 
 {
+	import fr.filsdegraphiste.module.site.ui.about.AboutContent;
 	import fr.filsdegraphiste.module.site.nav.NavWorkId;
 	import fr.filsdegraphiste.module.site.nav.navWorkManager;
 	import flash.events.Event;
@@ -74,7 +75,7 @@ package fr.filsdegraphiste.module.site
 		private function _start():void
 		{
 			navSiteManager.addEventListener( NavEvent.NAV_CHANGE, _navChangeHandler );
-			navSiteManager.currentId = NavSiteId.WORKS;
+			navSiteManager.currentId = NavSiteId.ABOUT;
 		}
 		
 		private function _showLoadingView( title:String, data:Object = null, filesToLoad:Array = null ):void
@@ -97,7 +98,11 @@ package fr.filsdegraphiste.module.site
 			else
 			{
 				if( navSiteManager.currentId == NavSiteId.ABOUT )
-					trace( "about" );
+				{
+					var about:AboutContent = new AboutContent();
+					_mainView.setContent( about );
+					about.show();
+				}
 			}
 		}
 		

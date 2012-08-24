@@ -10,3 +10,7 @@
 .base>.details_title { font-size: 18px; color: #5f5f5f; } 
 .base>.details_subtitle { font-size: 10px; color: #5f5f5f; } 
 .base>.details_description{ font-family: Arial; font-size: 10px; color: #5f5f5f; }
+
+.base>.about { font-family: Helvetica Neue LT Std 45 Light; font-size: 10px; color: #5f5f5f; multiline: true; wordWrap: true; width: 290px; leading: 7px; }
+.about>.about_title { font-size: 18px; }
+.about>.about_link { text-decoration: underline; }

@@ -3,6 +3,7 @@
 */
 package fr.filsdegraphiste.module.site.ui.about 
 {
+	import fr.filsdegraphiste.module.site.ui.MaskedText;
 	import assets.AssetAboutBigIcon;
 
 	import aze.motion.eaze;
@@ -22,10 +23,10 @@ package fr.filsdegraphiste.module.site.ui.about
 		private var _icon:AssetAboutBigIcon;
 		private var _cnt:Sprite;
 		private var _separatorTop:Shape;
-		private var _tfTitle:Text;
-		private var _tf:Text;
+		private var _tfTitleContent:MaskedText;
+		private var _tfContent:MaskedText;
 		private var _separatorBot:Shape;
-		private var _tfContact:Text;
+		private var _tfContact:MaskedText;
 		private var _cntLink:Sprite;		
 		private var _linkMail:AboutLink;
 		private var _linkCV:AboutLink;
@@ -37,9 +38,10 @@ package fr.filsdegraphiste.module.site.ui.about
 			addChild( _icon = new AssetAboutBigIcon() );
 			addChild( _cnt = new Sprite() );
 			_cnt.addChild( _separatorTop = new Shape() );
-			_cnt.addChild( _tf = new Text( "<span class='about_title'>Hello world !</span>\n\nMy name is Lionel TAURUS, also known as Filsdegraphiste. I'm a graphic and interaction designer.\nI was a student at Gobelins, l'école de l'image, a design school and I'm currently working at Mob In Life since September 2011.", "about" ) );
+			_cnt.addChild( _tfTitleContent = new MaskedText( "Hello world !", "about_title" ) );
+			_cnt.addChild( _tfContent = new MaskedText( "My name is Lionel TAURUS, also known as Filsdegraphiste. I'm a graphic and interaction designer. %% I was a student at Gobelins, l'école de l'image, a design school and I'm currently working at Mob In Life since September 2011.", "about" ) );
 			_cnt.addChild( _separatorBot = new Shape() );
-			_cnt.addChild( _tfContact = new Text( "Contact", "about_title" ) );
+			_cnt.addChild( _tfContact = new MaskedText( "Contact", "about_title" ) );
 			_cnt.addChild( _cntLink = new Sprite() );
 			_cntLink.addChild( _linkMail = new AboutLink( "tauruslionel@gmail.com" ) );
 			_cntLink.addChild( _linkCV = new AboutLink( "Download my CV" ) );
@@ -53,11 +55,11 @@ package fr.filsdegraphiste.module.site.ui.about
 			_createSeparator( _separatorBot );
 			
 			_cnt.y = 60;
-			_tf.y = 30;
-			_tf.alpha = 0;
-			_separatorBot.y = _tf.y + _tf.height + 30 >> 0;		
+			
+			_tfTitleContent.y = 30;
+			_tfContent.y = 60;
+			_separatorBot.y = _tfContent.y + _tfContent.height + 30 >> 0;		
 			_tfContact.y = _separatorBot.y + 30;
-			_tfContact.alpha = 0;
 			_cntLink.y = _tfContact.y + 30;
 			_linkMail.alpha = 0;
 			_linkCV.y = _linkMail.y + _linkMail.height;
@@ -98,9 +100,10 @@ package fr.filsdegraphiste.module.site.ui.about
 		{
 			eaze( _icon ).delay( delay ).to( .4, { alpha:1 } );
 			eaze( _separatorTop ).delay( delay + .1 ).to( .4, { alpha: 1, scaleX: 1 } );
-			eaze( _tf ).delay( delay + .2 ).to( .4, { alpha: 1 } );
+			_tfTitleContent.show( delay + .2 );
+			_tfContent.show( delay + .25 );
 			eaze( _separatorBot ).delay( delay + .3 ).to( .4, { alpha: 1, scaleX: 1 } );
-			eaze( _tfContact ).delay( delay + .4 ).to( .4, { alpha: 1 } );
+			_tfContact.show( delay + .4 );
 			eaze( _linkMail ).delay( delay + .5 ).to( .4, { alpha: 1 } );
 			eaze( _linkCV ).delay( delay + .6 ).to( .4, { alpha: 1 } );
 			eaze( _linkLinkedin ).delay( delay + .7 ).to( .4, { alpha: 1 } );
@@ -113,9 +116,10 @@ package fr.filsdegraphiste.module.site.ui.about
 		{
 			eaze( _icon ).delay( delay + .4 ).to( .2, { alpha: 0 } );
 			eaze( _separatorTop ).delay( delay + .35 ).to( .2, { alpha: 0, scaleX: .4 } );
-			eaze( _tf ).delay( delay + .3 ).to( .4, { alpha: 0 } );
+			_tfTitleContent.hide( delay + .3 );
+			_tfContent.hide( delay + .275 );
 			eaze( _separatorBot ).delay( delay + .25 ).to( .2, { alpha: 0, scaleX: .4 } );
-			eaze( _tfContact ).delay( delay + .2 ).to( .2, { alpha: 0 } );
+			_tfContent.hide( delay + .2 );
 			eaze( _linkMail ).delay( delay + .15 ).to( .2, { alpha: 0 } );
 			eaze( _linkCV ).delay( delay + .1 ).to( .2, { alpha: 0 } );
 			eaze( _linkLinkedin ).delay( delay + .05 ).to( .2, { alpha: 0 } );

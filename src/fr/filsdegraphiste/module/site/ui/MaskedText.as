@@ -28,6 +28,7 @@ package fr.filsdegraphiste.module.site.ui
 			
 			var py:int = 0;
 			var newLine:Boolean = true;
+			var forceNewLine:Boolean = false;
 			
 			var words:Array = label.split( " " );
 			var n:int = words.length;
@@ -38,39 +39,46 @@ package fr.filsdegraphiste.module.site.ui
 					addChild( cnt = new Sprite() );
 					cnt.y = py;
 					
-					cnt.addChild( t = new Text( words[ i ], styleId ) );
+					cnt.addChild( t = new Text( "", styleId ) );
 					cnt.addChild( m = new Shape() );
 					t.alpha = 0;
 					t.mask = m;
 					
-					if( forcedWidth != -1 )
-					{
-						g = m.graphics;
-						g.beginFill( 0xffffff * Math.random(), .1 );
-						g.drawRect( 0, 0, forcedWidth, t.height );
-					}
-					
+					i--;
 					_texts[ _texts.length ] = t;
 					
 					newLine = false;
 				}
 				else
 				{
-					t.text += " " + words[ i ];
-					if( forcedWidth != -1 && t.width > forcedWidth )
+					if( words[ i ] != "%%" )
 					{
+						t.text += words[ i ] + " ";						
+					}
+					else
+					{
+						forceNewLine = true;
+						py += 4;
+					}
+					
+					if( forceNewLine || ( forcedWidth != -1 && t.width > forcedWidth ) )
+					{						
+						g = m.graphics;
+						g.clear();
+						g.beginFill( 0x0000ff * Math.random(), .1 );
+						g.drawRect( 0, 0, t.width, t.height );
+						
 						py += t.height;
 						newLine = true;
+						forceNewLine = false;
 					}
 				}				
 			}
 			
-			if( forcedWidth == -1 )
-			{
-				g = m.graphics;
-				g.beginFill( 0xff00ff, .1 );
-				g.drawRect( 0, 0, t.width, t.height );
-			}
+			g = m.graphics;
+			g.clear();
+			g.beginFill( 0xff00ff, .1 );
+			g.drawRect( 0, 0, t.width, t.height );
 		}
 		
 		override public function show( delay:Number = 0 ):Number

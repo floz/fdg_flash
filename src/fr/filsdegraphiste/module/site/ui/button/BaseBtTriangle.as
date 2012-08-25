@@ -46,7 +46,7 @@ package fr.filsdegraphiste.module.site.ui.button
 			addChild( _zone = new Sprite() );
 			var g:Graphics = _zone.graphics;
 			g.beginFill( 0xff00ff, 0 );
-			g.drawRect( 0, -50, 50, 100 );
+			g.drawRect( -2, -50, 52, 100 );
 			g.endFill();
 		}
 		
@@ -91,8 +91,8 @@ package fr.filsdegraphiste.module.site.ui.button
 			g.clear();
 			g.beginFill( color );
 			g.moveTo( 0, 0 );
-			g.lineTo( 0, -50 );
-			g.lineTo( 50, 0 );
+			g.lineTo( 0, -52 );
+			g.lineTo( 52, 0 );
 			g.endFill();
 		}
 		
@@ -101,8 +101,8 @@ package fr.filsdegraphiste.module.site.ui.button
 			g.clear();
 			g.beginFill( color );
 			g.moveTo( 0, 0 );
-			g.lineTo( 0, 50 );
-			g.lineTo( 50, 0 );
+			g.lineTo( 0, 52 );
+			g.lineTo( 52, 0 );
 			g.endFill();
 		}
 		

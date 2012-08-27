@@ -3,6 +3,7 @@
  */
 package fr.filsdegraphiste.module.site 
 {
+	import fr.minuit4.debug.FPS;
 	import fr.filsdegraphiste.module.site.ui.about.AboutContent;
 	import fr.filsdegraphiste.module.site.nav.NavWorkId;
 	import fr.filsdegraphiste.module.site.nav.navWorkManager;
@@ -49,6 +50,8 @@ package fr.filsdegraphiste.module.site
 			
 			addChildAt( _mainView = new MainView(), 0 );
 			_mainView.show();
+			
+			addChild( new FPS() );
 		}
 
 		private function _step2CompleteHandler(event : StepEvent) : void 
@@ -60,19 +63,22 @@ package fr.filsdegraphiste.module.site
 		}
 		
 		private function _navChangeHandler(event : NavEvent) : void 
-		{
-			trace( "navChangeHandler" ); 
+		{ 
 			navSiteManager.frozen = true;
+			
 			switch( navSiteManager.currentId )
 			{
 				case NavSiteId.NEWS: _showLoadingView( "news", _.data.news, _.data.news.files_to_load ); break;
 				case NavSiteId.WORKS:
-					navWorkManager.currentId = NavWorkId.ILLUSTRATIONS; 
+					navWorkManager.currentId = NavWorkId.WEB; 
 					_showLoadingView( "works", _.data.works[ navWorkManager.currentId ], _.data.works.files_to_load ); 
 					break;
 				case NavSiteId.LAB: _showLoadingView( "lab", _.data.lab, _.data.lab.files_to_load ); break;
 				case NavSiteId.ABOUT: _showLoadingView( "fdg" ); break;
 			}
+			
+			if( navSiteManager.currentId != NavSiteId.WORKS )
+				_mainView.mid.workMenu.hide();
 		}
 		
 		// - PRIVATE METHODS -------------------------------------------------------------
@@ -80,7 +86,7 @@ package fr.filsdegraphiste.module.site
 		private function _start():void
 		{
 			navSiteManager.addEventListener( NavEvent.NAV_CHANGE, _navChangeHandler );
-			navSiteManager.currentId = NavSiteId.LAB;
+			navSiteManager.currentId = NavSiteId.WORKS;
 		}
 		
 		private function _showLoadingView( title:String, data:Object = null, filesToLoad:Array = null ):void
@@ -101,6 +107,10 @@ package fr.filsdegraphiste.module.site
 			if( _loadingRubView.data != null )
 			{
 				_mainView.setDiaporama( _loadingRubView.data );
+				if( navSiteManager.currentId == NavSiteId.WORKS )
+				{
+					_mainView.mid.workMenu.show();
+				}
 			}
 			else
 			{

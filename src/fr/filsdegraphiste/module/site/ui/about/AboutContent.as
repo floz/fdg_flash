@@ -120,6 +120,7 @@ package fr.filsdegraphiste.module.site.ui.about
 			_tfContent.hide( delay + .275 );
 			eaze( _separatorBot ).delay( delay + .25 ).to( .2, { alpha: 0, scaleX: .4 } );
 			_tfContent.hide( delay + .2 );
+			_tfContact.hide( delay + .175 );
 			eaze( _linkMail ).delay( delay + .15 ).to( .2, { alpha: 0 } );
 			eaze( _linkCV ).delay( delay + .1 ).to( .2, { alpha: 0 } );
 			eaze( _linkLinkedin ).delay( delay + .05 ).to( .2, { alpha: 0 } );

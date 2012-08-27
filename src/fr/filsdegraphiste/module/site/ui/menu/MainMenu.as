@@ -3,6 +3,7 @@
  */
 package fr.filsdegraphiste.module.site.ui.menu 
 {
+	import fr.minuit4.core.navigation.nav.events.NavEvent;
 	import fr.filsdegraphiste.module.site.nav.NavSiteId;
 	import fr.filsdegraphiste.module.site.nav.navSiteManager;
 	import flash.events.EventDispatcher;
@@ -78,6 +79,13 @@ package fr.filsdegraphiste.module.site.ui.menu
 			
 			_.stage.addEventListener( Event.RESIZE, _resizeHandler );
 			_onResize();
+			
+			navSiteManager.addEventListener( NavEvent.NAV_CHANGE, _navChangeHandler );
+		}
+
+		private function _navChangeHandler(event : NavEvent) : void 
+		{
+			
 		}
 		
 		// - EVENTS HANDLERS -------------------------------------------------------------

@@ -1,8 +1,9 @@
 
 .base { font-family: Helvetica Neue LT Std 45 Light; autoSize: left; sharpness: 0; thickness: 0; }
 
-.base>.menu_item {  font-size: 11px; color: #303d5c;  }
-.base>.work_menu_item {  font-size: 12px; color: #5f5f5f;  }
+.base>.menu_item { font-size: 11px; color: #303d5c; }
+.base>.work_menu_item { font-size: 12px; color: #5f5f5f; }
+.work_menu_item>.work_menu_item_activated { color: #ffffff; thickness: -200; }
 .base>.rubrique_title { font-size: 36px; font-weight: bold; color: #ffffff; }
 
 .base>.loading_title { font-family: Star Avenue; font-size: 110px; color: #53cecf; }

@@ -147,7 +147,7 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 			next();
 			_updateButtons( delay );
 			
-			return super.show( delay );
+			return .5;
 		}
 		
 		override public function hide( delay:Number = 0 ):Number

@@ -3,12 +3,18 @@
  */
 package fr.filsdegraphiste.module.site.ui 
 {
+	import aze.motion.eaze;
+
 	import fr.filsdegraphiste.config._;
+	import fr.filsdegraphiste.module.site.nav.NavSiteId;
+	import fr.filsdegraphiste.module.site.nav.navSiteManager;
+	import fr.filsdegraphiste.module.site.nav.navWorkManager;
 	import fr.filsdegraphiste.module.site.ui.content.LeftContent;
 	import fr.filsdegraphiste.module.site.ui.content.MidContent;
 	import fr.filsdegraphiste.module.site.ui.content.RightContent;
 	import fr.filsdegraphiste.module.site.ui.diaporama.Diaporama;
 	import fr.minuit4.core.navigation.modules.ModulePart;
+	import fr.minuit4.core.navigation.nav.events.NavEvent;
 
 	import flash.events.Event;
 	
@@ -59,6 +65,18 @@ package fr.filsdegraphiste.module.site.ui
 					
 			addChild( _diaporama = new Diaporama( data, this ) );
 			_diaporama.show();
+			
+			if( navSiteManager.currentId == NavSiteId.WORKS )
+			{
+				navWorkManager.addEventListener( NavEvent.NAV_CHANGE, _navWorkHandler );
+			}
+		}
+
+		private function _navWorkHandler(event : NavEvent) : void 
+		{
+			_diaporama.hide();
+			addChild( _diaporama = new Diaporama( _.data.works[ navWorkManager.currentId ], this ) );
+			_diaporama.show( .2 );
 		}
 		
 		public function setContent( content:ModulePart ):void
@@ -69,6 +87,8 @@ package fr.filsdegraphiste.module.site.ui
 		
 		public function clear():void
 		{
+			navWorkManager.removeEventListener( NavEvent.NAV_CHANGE, _navWorkHandler );
+			
 			if( _diaporama )
 			{
 				_diaporama.hide();

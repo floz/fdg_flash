@@ -10,6 +10,8 @@ package fr.filsdegraphiste.module.site.ui.menu
 	{
 		private var _items:Vector.<WorkMenuItem>;
 		
+		private var _shown:Boolean;
+		
 		public function WorkMenu()
 		{
 			_items = new Vector.<WorkMenuItem>();
@@ -25,10 +27,8 @@ package fr.filsdegraphiste.module.site.ui.menu
 				wmi.x = px;
 				addChild( wmi );
 				
-				px += wmi.width - 29;
+				px += wmi.width - 28;
 			}
-			
-			this.visible = false;
 			
 			_.stage.addEventListener( Event.RESIZE, _resizeHandler );
 			_onResize();
@@ -51,13 +51,33 @@ package fr.filsdegraphiste.module.site.ui.menu
 		
 		override public function show( delay:Number = 0 ):Number
 		{
-			this.visible = true;	
+			if( _shown )
+				return 0;
+			_shown = true;
+			
+			var d:Number = 0;
+			var i:int = numChildren;
+			while( --i > -1 )
+			{
+				WorkMenuItem( getChildAt( i ) ).show( d );
+				d += .1;	
+			}
 			return super.show( delay );
 		}
 		
 		override public function hide( delay:Number = 0 ):Number
 		{
-			this.visible = false;
+			if( !_shown )
+				return 0;
+			_shown = false;
+			
+			var d:Number = 0;
+			var n:int = numChildren;
+			for( var i:int; i < n; i++ )
+			{
+				WorkMenuItem( getChildAt( i ) ).hide( d );
+				d += .1;	
+			}
 			return super.hide( delay );
 		}
 	}

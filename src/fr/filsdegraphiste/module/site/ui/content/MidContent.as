@@ -96,10 +96,15 @@ package fr.filsdegraphiste.module.site.ui.content
 		
 		override public function hide( delay:Number = 0 ):Number
 		{
-			return _currentContent.hide( delay );
+			return _currentContent.hide(delay);
 		}
 		
 		// - GETTERS & SETTERS -----------------------------------------------------------
+		
+		public function get workMenu() : WorkMenu 
+		{
+			return _workMenu;
+		}
 		
 	}
 	

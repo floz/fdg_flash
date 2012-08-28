@@ -99,7 +99,7 @@ package fr.filsdegraphiste.module.site.ui.loading
 			{
 				letter = new Text( _label.charAt( i ), "loading_title" );
 				letter.x = px;
-				letter.y = -110;
+				letter.y = -120;
 				_letters[ i ] = letter;
 				_cntLetters.addChild( letter );
 				
@@ -108,7 +108,7 @@ package fr.filsdegraphiste.module.site.ui.loading
 			
 			var g:Graphics = _mask.graphics;
 			g.beginFill( 0xff00ff, .5 );
-			g.drawRect( 0, 0, _cntLetters.width, 110 );
+			g.drawRect( 0, -10, _cntLetters.width, 120 );
 			_cntLetters.mask = _mask;
 			_mask.y = 20;
 		}
@@ -207,7 +207,7 @@ package fr.filsdegraphiste.module.site.ui.loading
 			while( --i > -1 )
 			{
 				eaze( _letters[ i ] ).delay( delay + j * .07 )
-									 .to( .3, { y: -110 } ).easing( Quint.easeIn );
+									 .to( .3, { y: -120 } ).easing( Quint.easeIn );
 				j++;
 			}
 			_line.hide( delay + .2 );

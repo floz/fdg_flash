@@ -107,7 +107,6 @@ package fr.filsdegraphiste.module.site.ui.menu
 		private function _onActivate() : void 
 		{
 			var activatedStatus:Boolean = navWorkManager.currentId == _label;
-			trace( activatedStatus );
 			if( activatedStatus == _isActivated )
 				return;	
 			

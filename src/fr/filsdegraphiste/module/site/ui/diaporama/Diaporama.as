@@ -29,8 +29,7 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 		private var _btNext:BtNext;
 		
 		private var _currentIdx:int = -1;
-		private var _idxProject:int;
-		
+		private var _idxProject:int;		
 		
 		private var _zoomed:Boolean;
 		
@@ -127,14 +126,15 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 			_mainView.left.setImage( fdgDataLoaded.getImage( project.images[ project.images.length - 1 ] ), d );
 			_mainView.right.setImage( fdgDataLoaded.getImage( project.images[ 1 ] ), d );
 			
-			_detailsView = new DetailsView( project );
+			_detailsView = new DetailsView( project, this );
 			_mainView.mid.setContent( _detailsView );
 			_detailsView.show( d );
 		}
 		
 		public function zoomIn():void
 		{
-			_zoomed = true;	
+			_zoomed = true;
+			trace( )
 		}
 		
 		public function zoomOut():void

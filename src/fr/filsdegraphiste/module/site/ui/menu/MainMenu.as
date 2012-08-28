@@ -3,6 +3,8 @@
  */
 package fr.filsdegraphiste.module.site.ui.menu 
 {
+	import flash.utils.Dictionary;
+	import flash.display.MovieClip;
 	import fr.minuit4.core.navigation.nav.events.NavEvent;
 	import fr.filsdegraphiste.module.site.nav.NavSiteId;
 	import fr.filsdegraphiste.module.site.nav.navSiteManager;
@@ -37,6 +39,9 @@ package fr.filsdegraphiste.module.site.ui.menu
 		private var _iconWorks:AssetWorksIcon;
 		private var _iconLab:AssetLabIcon;
 		private var _iconAbout:AssetAboutIcon;
+		
+		private var _iconsById:Object;
+		private var _idsByTarget:Dictionary;
 		
 		// - PUBLIC VARIABLES ------------------------------------------------------------
 		
@@ -81,11 +86,31 @@ package fr.filsdegraphiste.module.site.ui.menu
 			_onResize();
 			
 			navSiteManager.addEventListener( NavEvent.NAV_CHANGE, _navChangeHandler );
+			_onNavChange();
+			
+			_iconsById = {};
+			_iconsById[ NavSiteId.WORKS ] = _iconWorks;
+			_iconsById[ NavSiteId.LAB ] = _iconLab;
+			_iconsById[ NavSiteId.ABOUT ] = _iconAbout;
+			
+			_idsByTarget = new Dictionary();
+			_idsByTarget[ _bgLeft ] = NavSiteId.WORKS;
+			_idsByTarget[ _bgMid ] = NavSiteId.ABOUT;
+			_idsByTarget[ _bgRight ] = NavSiteId.LAB;
 		}
 
 		private function _navChangeHandler(event : NavEvent) : void 
 		{
-			
+			_onNavChange();
+		}
+
+		private function _onNavChange() : void 
+		{
+			for( var s:String in _iconsById )
+			{
+				trace( navSiteManager.currentId, s, navSiteManager.currentId == s );
+				MovieClip( _iconsById[ s ] ).gotoAndStop( ( navSiteManager.currentId == s ) ? "over" : "out" );
+			}
 		}
 		
 		// - EVENTS HANDLERS -------------------------------------------------------------
@@ -97,7 +122,10 @@ package fr.filsdegraphiste.module.site.ui.menu
 		
 		private function _rollOverHandler(event : MouseEvent) : void 
 		{
-			EventDispatcher( event.currentTarget ).addEventListener( MouseEvent.ROLL_OUT, _rollOutHandler );
+			if( _idsByTarget[ event.currentTarget ] == navSiteManager.currentId )
+				return;
+				
+			EventDispatcher( event.currentTarget ).addEventListener( MouseEvent.ROLL_OUT, _rollOutHandler );			
 			switch( event.currentTarget )
 			{
 				case _bgLeft: _iconWorks.gotoAndPlay( "over" ); break;
@@ -109,6 +137,10 @@ package fr.filsdegraphiste.module.site.ui.menu
 		private function _rollOutHandler(event : MouseEvent) : void 
 		{
 			EventDispatcher( event.currentTarget ).removeEventListener( MouseEvent.ROLL_OUT, _rollOutHandler );
+			
+			if( _idsByTarget[ event.currentTarget ] == navSiteManager.currentId )
+				return;
+			
 			switch( event.currentTarget )
 			{
 				case _bgLeft: _iconWorks.gotoAndPlay( "out" ); break;

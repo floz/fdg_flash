@@ -10,7 +10,8 @@
 
 .base>.details_title { font-size: 18px; color: #5f5f5f; } 
 .base>.details_subtitle { font-size: 10px; color: #5f5f5f; } 
-.base>.details_description{ font-family: Arial; font-size: 10px; color: #5f5f5f; }
+.base>.details_description { font-family: Arial; font-size: 10px; color: #5f5f5f; }
+.base>.details_view_more { font-family: Arial; font-size: 10px; color: #53cecf; text-decoration: underline; }
 
 .base>.about { font-family: Helvetica Neue LT Std 45 Light; font-size: 10px; color: #5f5f5f; multiline: true; wordWrap: true; width: 290px; leading: 7px; }
 .about>.about_title { font-size: 18px; }

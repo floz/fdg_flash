@@ -38,8 +38,7 @@ package fr.filsdegraphiste.module.site.ui.button
 			_cnt.mouseEnabled = false;
 			
 			_cntOut.x = -100;
-			_cntOver.x = -100;
-			
+			_cntOver.x = -100;			
 			
 			_init();
 			

@@ -3,8 +3,10 @@
 */
 package fr.filsdegraphiste.module.site.ui.diaporama 
 {
+	import fr.filsdegraphiste.config._;
 	import fr.filsdegraphiste.config.fdgDataLoaded;
 	import fr.filsdegraphiste.module.site.ui.MainView;
+	import fr.filsdegraphiste.module.site.ui.button.BtClose;
 	import fr.filsdegraphiste.module.site.ui.loading.LoadingRubView;
 
 	import flash.events.Event;
@@ -12,6 +14,7 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 	{
 		private var _project:Object;
 		private var _loadingView:LoadingRubView;
+		private var _btClose:BtClose;
 		
 		private var _first:Boolean = true;
 		
@@ -19,6 +22,9 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 		{
 			_project = project;
 			_projects = _project[ "images" ];
+			
+			addChild( _btClose = new BtClose() );
+			_btClose.x = _.stage.stageWidth >> 1;
 			
 			super( mainView );
 						
@@ -55,6 +61,17 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 				idx = 0;
 			
 			return idx;
+		}
+		
+		override public function show( delay:Number = 0 ):Number
+		{
+			_btClose.show( delay );
+			return super.show( delay );
+		}
+		
+		override public function hide( delay:Number = 0 ):Number
+		{
+			return super.hide( delay );
 		}
 
 	}

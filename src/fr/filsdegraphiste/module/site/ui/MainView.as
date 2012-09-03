@@ -3,6 +3,7 @@
  */
 package fr.filsdegraphiste.module.site.ui 
 {
+	import fr.filsdegraphiste.module.site.ui.diaporama.DiaporamaProject;
 	import fr.filsdegraphiste.module.site.ui.diaporama.BaseDiaporama;
 	import aze.motion.eaze;
 
@@ -30,6 +31,7 @@ package fr.filsdegraphiste.module.site.ui
 		private var _mid:MidContent;
 		
 		private var _diaporama:BaseDiaporama;
+		private var _diaporamaProject:DiaporamaProject;
 		
 		// - PUBLIC VARIABLES ------------------------------------------------------------
 		
@@ -73,12 +75,12 @@ package fr.filsdegraphiste.module.site.ui
 			}
 		}
 		
-		public function setDiaporamaProject( diaporama:BaseDiaporama ):void
+		public function setDiaporamaProject( diaporamaProject:DiaporamaProject ):void
 		{
 			//clear();
 			
-			addChild( _diaporama = diaporama );
-			_diaporama.show();
+			addChild( _diaporamaProject = diaporamaProject );
+			_diaporamaProject.show();
 		}
 
 		private function _navWorkHandler(event : NavEvent) : void 

@@ -21,10 +21,10 @@ package fr.filsdegraphiste.module.site.ui.image
 
 		override protected function _setSize() : void 
 		{
-			_w = _.stage.stageWidth * .5;
+			_w = _.stage.stageWidth;
 			_h = _.stage.stageHeight;
 			
-			_cntRight.x = _w;
+			//_cntRight.x = _w;
 		}
 			
 		override protected function _onDraw() : void 
@@ -34,12 +34,12 @@ package fr.filsdegraphiste.module.site.ui.image
 			g = _top.graphics;
 			g.clear();
 			g.beginBitmapFill( _bd, _matrix, false, true );
-			g.drawRect( 0, 0, _w, _h );
+			g.drawRect( 0, 0, _w >> 1, _h );
 			
 			g = _bot.graphics;
 			g.clear();
 			g.beginBitmapFill( _bd, _matrix, false, true );
-			g.drawRect( 0, 0, _w, _h );			
+			g.drawRect( _w >> 1, 0, _w >> 1, _h );			
 		}
 
 		override public function show(delay : Number = 0) : Number 

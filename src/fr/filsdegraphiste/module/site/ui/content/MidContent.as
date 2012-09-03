@@ -4,9 +4,9 @@
 package fr.filsdegraphiste.module.site.ui.content 
 {
 	import fr.filsdegraphiste.config._;
-	import fr.filsdegraphiste.module.site.ui.image.MidImage;
 	import fr.filsdegraphiste.module.site.ui.menu.MainMenu;
 	import fr.filsdegraphiste.module.site.ui.menu.WorkMenu;
+	import fr.filsdegraphiste.module.site.ui.image.MidImage;
 	import fr.minuit4.core.navigation.modules.ModulePart;
 
 	import flash.display.BitmapData;

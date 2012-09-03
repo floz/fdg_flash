@@ -54,7 +54,9 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 		{			
 			_zoomed = true;
 			
+			//_mainView.left.hide();
 			_mainView.mid.hide();
+			//_mainView.right.hide();
 			_btNext.hide();
 			_btPrev.hide();
 			

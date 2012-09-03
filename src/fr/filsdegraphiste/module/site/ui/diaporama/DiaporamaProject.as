@@ -13,6 +13,8 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 		private var _project:Object;
 		private var _loadingView:LoadingRubView;
 		
+		private var _first:Boolean = true;
+		
 		public function DiaporamaProject( project:Object, mainView:MainView )
 		{
 			_project = project;
@@ -35,10 +37,13 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 
 		override protected function _showProject() : void 
 		{
-			trace( _projects.length );
-			_mainView.left.setImage( fdgDataLoaded.getImage( _projects[ _correctIndex( _currentIdx - 1 ) ] ), .1 );
 			_mainView.mid.setImage( fdgDataLoaded.getImage( _projects[ _correctIndex( _currentIdx ) ] ) );
-			_mainView.right.setImage( fdgDataLoaded.getImage( _projects[ _correctIndex( _currentIdx + 1 ) ] ) ); 
+			if( !_first )
+			{
+				_mainView.left.setImage( fdgDataLoaded.getImage( _projects[ _correctIndex( _currentIdx - 1 ) ] ) );
+				_mainView.right.setImage( fdgDataLoaded.getImage( _projects[ _correctIndex( _currentIdx + 1 ) ] ) );
+			} 
+			_first = false;
 		}
 		
 		private function _correctIndex( idx:int ):int

@@ -75,7 +75,7 @@ package fr.filsdegraphiste.module.site.ui
 		
 		public function setDiaporamaProject( diaporama:BaseDiaporama ):void
 		{
-			clear();
+			//clear();
 			
 			addChild( _diaporama = diaporama );
 			_diaporama.show();

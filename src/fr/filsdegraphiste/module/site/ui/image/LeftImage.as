@@ -3,9 +3,6 @@
 */
 package fr.filsdegraphiste.module.site.ui.image 
 {
-	import aze.motion.easing.Expo;
-	import aze.motion.eaze;
-
 	import fr.filsdegraphiste.config._;
 
 	import flash.display.BitmapData;

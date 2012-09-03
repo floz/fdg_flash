@@ -3,6 +3,7 @@
  */
 package fr.filsdegraphiste.module.site.ui 
 {
+	import fr.filsdegraphiste.module.site.ui.diaporama.BaseDiaporama;
 	import aze.motion.eaze;
 
 	import fr.filsdegraphiste.config._;
@@ -28,7 +29,7 @@ package fr.filsdegraphiste.module.site.ui
 		private var _shadow:GradientShadow;
 		private var _mid:MidContent;
 		
-		private var _diaporama:Diaporama;
+		private var _diaporama:BaseDiaporama;
 		
 		// - PUBLIC VARIABLES ------------------------------------------------------------
 		
@@ -71,6 +72,14 @@ package fr.filsdegraphiste.module.site.ui
 				navWorkManager.addEventListener( NavEvent.NAV_CHANGE, _navWorkHandler );
 			}
 		}
+		
+		public function setDiaporamaProject( diaporama:BaseDiaporama ):void
+		{
+			clear();
+			
+			addChild( _diaporama = diaporama );
+			_diaporama.show();
+		}
 
 		private function _navWorkHandler(event : NavEvent) : void 
 		{
@@ -79,9 +88,11 @@ package fr.filsdegraphiste.module.site.ui
 			_diaporama.show( .2 );
 		}
 		
-		public function setContent( content:ModulePart ):void
+		public function setContent( content:ModulePart, andClear:Boolean = true ):void
 		{
-			clear();
+			if( andClear )
+				clear();
+			
 			_mid.setContent( content );
 		}
 		

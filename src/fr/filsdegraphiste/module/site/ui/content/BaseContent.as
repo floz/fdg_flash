@@ -34,7 +34,7 @@ package fr.filsdegraphiste.module.site.ui.content
 		{
 			if( _currentImage )
 			{
-				eaze( _currentImage ).delay( .4 ).onComplete( removeChild, _currentImage );
+				eaze( _currentImage ).delay( .4 ).onComplete( _currentImage.parent.removeChild, _currentImage );
 			}	
 		}
 		

@@ -3,21 +3,28 @@
 */
 package fr.filsdegraphiste.module.site.ui.image 
 {
+	import flash.display.Sprite;
 	import fr.filsdegraphiste.config._;
 
 	import flash.display.BitmapData;
 	import flash.display.Graphics;
-	public class RightImage extends BaseImage
+	public class MidImage extends BaseImage
 	{
-		public function RightImage( bd:BitmapData )
-		{
-			super( bd );
-		}
+		private var _cntRight:Sprite;
 		
-		override protected function _setSize():void
+		public function MidImage( bd:BitmapData )
+		{
+			addChild( _cntRight = new Sprite() );
+			super( bd );		
+			_cntRight.addChild( _top );
+		}
+
+		override protected function _setSize() : void 
 		{
 			_w = _.stage.stageWidth * .5;
 			_h = _.stage.stageHeight;
+			
+			_cntRight.x = _w;
 		}
 			
 		override protected function _onDraw() : void 
@@ -27,28 +34,26 @@ package fr.filsdegraphiste.module.site.ui.image
 			g = _top.graphics;
 			g.clear();
 			g.beginBitmapFill( _bd, _matrix, false, true );
-			g.moveTo( 0, 0 );
-			g.lineTo( _w, 0 );
-			g.lineTo( _w, _h );
+			g.drawRect( 0, 0, _w, _h );
 			
 			g = _bot.graphics;
 			g.clear();
 			g.beginBitmapFill( _bd, _matrix, false, true );
-			g.moveTo( 0, 0 );
-			g.lineTo( _w, _h );
-			g.lineTo( 0, _h );
+			g.drawRect( 0, 0, _w, _h );			
 		}
-			
+
 		override public function show(delay : Number = 0) : Number 
 		{
-			_top.x = -_w;
+			trace( "show" );
+			_top.x = 0;
 			_top.y = -_h;
 			
-			_bot.x = _w;
-			_bot.y = _h;
+			_bot.x = 0;
+			_bot.y = _h;			
 			
 			return super.show(delay);
 		}
-		
+
+
 	}
 }

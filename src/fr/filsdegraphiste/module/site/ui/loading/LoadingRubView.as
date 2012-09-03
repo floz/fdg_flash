@@ -79,7 +79,7 @@ package fr.filsdegraphiste.module.site.ui.loading
 		{
 			_initLetters();
 			_initLine();
-			if( _data != null )
+			if( _filesToLoad != null )
 				_initLoader();
 		}
 		
@@ -161,7 +161,7 @@ package fr.filsdegraphiste.module.site.ui.loading
 		{
 			_showAnimationComplete = true;
 			
-			if( _data == null )
+			if( _filesToLoad == null )
 			{
 				hide();
 				return;
@@ -215,7 +215,7 @@ package fr.filsdegraphiste.module.site.ui.loading
 			if( _loadingIcon )
 				eaze( _loadingIcon ).delay( delay ).to( .4, { alpha: 0 } );
 			
-			eaze( this ).delay( delay + .4 ).onComplete( _onLoadEnd );
+			eaze( this ).delay( delay + j * .07 + .4 ).onComplete( _onLoadEnd );
 						
 			return super.hide( delay );
 		}
@@ -227,7 +227,8 @@ package fr.filsdegraphiste.module.site.ui.loading
 			parent.removeChild( this );
 		}
 
-		public function get data() : Object {
+		public function get data() : Object 
+		{
 			return _data;
 		}
 	}

@@ -3,9 +3,6 @@
 */
 package fr.filsdegraphiste.module.site.ui.image 
 {
-	import aze.motion.easing.Quadratic;
-	import aze.motion.easing.Quint;
-	import aze.motion.easing.Back;
 	import aze.motion.easing.Expo;
 	import aze.motion.eaze;
 

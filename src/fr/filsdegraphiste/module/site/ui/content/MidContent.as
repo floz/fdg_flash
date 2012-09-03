@@ -3,11 +3,13 @@
  */
 package fr.filsdegraphiste.module.site.ui.content 
 {
-	import fr.filsdegraphiste.module.site.ui.menu.WorkMenu;
 	import fr.filsdegraphiste.config._;
+	import fr.filsdegraphiste.module.site.ui.image.MidImage;
 	import fr.filsdegraphiste.module.site.ui.menu.MainMenu;
+	import fr.filsdegraphiste.module.site.ui.menu.WorkMenu;
 	import fr.minuit4.core.navigation.modules.ModulePart;
 
+	import flash.display.BitmapData;
 	import flash.display.Graphics;
 	import flash.display.Shape;
 	import flash.display.Sprite;
@@ -80,12 +82,17 @@ package fr.filsdegraphiste.module.site.ui.content
 			_cntContent.addChild( content );			
 		}
 		
+		override public function setImage(bd : BitmapData, delay:Number = 0 ) : void 
+		{
+			super.setImage( bd, delay );
+			_cntContent.addChild( _currentImage = new MidImage( bd ) );
+			_currentImage.show( delay );
+		}
+		
 		public function clearContent():void
 		{
 			if( _currentContent != null )
 				_currentContent.hide();
-			//while( _cntContent.numChildren )
-				//_cntContent.removeChildAt( 0 );
 		}
 		
 		override public function show( delay:Number = 0 ):Number

@@ -50,8 +50,6 @@ package fr.filsdegraphiste.module.site
 			
 			addChildAt( _mainView = new MainView(), 0 );
 			_mainView.show();
-			
-			addChild( new FPS() );
 		}
 
 		private function _step2CompleteHandler(event : StepEvent) : void 

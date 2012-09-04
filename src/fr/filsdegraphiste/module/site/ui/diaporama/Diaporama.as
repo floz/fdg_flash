@@ -60,6 +60,8 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 			_btNext.hide();
 			_btPrev.hide();
 			
+			_mainView.mid.workMenu.hide();
+			
 			_diaporamaProject = new DiaporamaProject( _projects[ _currentIdx ], _mainView );
 			//_diaporamaProject.show();			
 		}

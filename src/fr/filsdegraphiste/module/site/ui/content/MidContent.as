@@ -103,6 +103,8 @@ package fr.filsdegraphiste.module.site.ui.content
 		
 		override public function hide( delay:Number = 0 ):Number
 		{
+			if( _currentImage )
+				_currentImage.hide( delay );
 			return _currentContent.hide(delay);
 		}
 		

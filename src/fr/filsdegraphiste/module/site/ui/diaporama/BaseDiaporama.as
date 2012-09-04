@@ -134,6 +134,8 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 		{
 			_btPrev.removeEventListener( MouseEvent.CLICK, _clickHandler );
 			_btNext.removeEventListener( MouseEvent.CLICK, _clickHandler );
+			if( parent )
+				parent.removeChild( this );
 		}
 		
 	}

@@ -71,6 +71,7 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 		
 		override public function hide( delay:Number = 0 ):Number
 		{
+			_btClose.hide( delay );
 			return super.hide( delay );
 		}
 

@@ -87,7 +87,7 @@ package fr.filsdegraphiste.module.site.ui
 		{
 			_diaporama.hide();
 			addChild( _diaporama = new Diaporama( _.data.works[ navWorkManager.currentId ], this ) );
-			_diaporama.show( .2 );
+			_diaporama.show( .25 );
 		}
 		
 		public function setContent( content:ModulePart, andClear:Boolean = true ):void

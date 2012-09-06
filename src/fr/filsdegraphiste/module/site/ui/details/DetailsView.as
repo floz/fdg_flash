@@ -104,6 +104,9 @@ package fr.filsdegraphiste.module.site.ui.details
 
 		private function _clear() : void 
 		{
+			if( parent == null )
+				return;
+			
 			parent.removeChild( this );
 		}
 	}

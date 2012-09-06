@@ -3,6 +3,7 @@
 */
 package fr.filsdegraphiste.module.site.ui.diaporama 
 {
+	import flash.events.MouseEvent;
 	import fr.filsdegraphiste.config._;
 	import fr.filsdegraphiste.config.fdgDataLoaded;
 	import fr.filsdegraphiste.module.site.ui.MainView;
@@ -24,7 +25,7 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 			_projects = _project[ "images" ];
 			
 			addChild( _btClose = new BtClose() );
-			_btClose.x = _.stage.stageWidth >> 1;
+			_btClose.addEventListener( MouseEvent.CLICK, _clickHandler );			
 			
 			super( mainView );
 						
@@ -32,6 +33,18 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 			_loadingView.addEventListener( Event.COMPLETE, _loadCompleteHandler, false, 0, true );
 			_mainView.setContent( _loadingView, false );
 			_loadingView.show( .4 );			
+		}
+		
+		private function _clickHandler( e:MouseEvent ):void
+		{
+			_btClose.removeEventListener( MouseEvent.CLICK, _clickHandler );
+			dispatchEvent( new Event( Event.COMPLETE ) );
+		}
+			
+		override protected function _onResize():void
+		{
+			_btClose.x = _.stage.stageWidth >> 1;
+			super._onResize();
 		}
 
 		private function _loadCompleteHandler(event : Event) : void 
@@ -74,6 +87,13 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 			_btClose.hide( delay );
 			return super.hide( delay );
 		}
+
+		override public function dispose():void
+		{
+			_btClose.removeEventListener( MouseEvent.CLICK, _clickHandler );
+			super.dispose();
+		}
+
 
 	}
 }

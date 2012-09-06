@@ -22,5 +22,14 @@
 			<url>fonts.swf</url>
 		</item>
 	</fonts>
+	
+	<about>
+		<title>Hello world !</title>
+		<content><![CDATA[My name is Lionel TAURUS, also known as Filsdegraphiste. I'm a graphic and interaction designer. %% I was a student at Gobelins, l'école de l'image, a design school and I'm currently working at Mob In Life since September 2011.]]></content>
+		<mail>tauruslionel@gmail.com</mail>
+		<cv>#</cv>
+		<linkedin>#</linkedin>
+		<twitter>#</twitter>
+	</about>
 
 </data>

@@ -6,7 +6,7 @@
 .work_menu_item>.work_menu_item_activated { color: #ffffff; thickness: -200; }
 .base>.rubrique_title { font-size: 36px; font-weight: bold; color: #ffffff; }
 
-.base>.loading_title { font-family: Star Avenue; font-size: 110px; color: #53cecf; }
+.base>.loading_title { font-family: Star Avenue; font-size: 110px; color: #53cecf; leading: 110px; }
 
 .base>.details_title { font-size: 18px; color: #5f5f5f; } 
 .base>.details_subtitle { font-size: 10px; color: #5f5f5f; } 

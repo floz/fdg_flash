@@ -3,6 +3,7 @@
  */
 package fr.filsdegraphiste.module.site.ui.content 
 {
+	import fr.filsdegraphiste.module.site.ui.button.BtViewAll;
 	import fr.filsdegraphiste.config._;
 	import fr.filsdegraphiste.module.site.ui.menu.MainMenu;
 	import fr.filsdegraphiste.module.site.ui.menu.WorkMenu;
@@ -25,6 +26,7 @@ package fr.filsdegraphiste.module.site.ui.content
 		private var _cntContent:Sprite;
 		private var _menu:MainMenu;
 		private var _workMenu:WorkMenu;
+		private var _btViewAll:BtViewAll;
 		private var _mask:Shape;
 		
 		private var _currentContent:ModulePart;
@@ -40,6 +42,7 @@ package fr.filsdegraphiste.module.site.ui.content
 			_cnt.addChild( _cntContent = new Sprite() );
 			_cnt.addChild( _menu = new MainMenu() );
 			_cnt.addChild( _workMenu = new WorkMenu() );
+			_cnt.addChild( _btViewAll = new BtViewAll( "View all" ) );
 			addChild( _mask = new Shape() );
 			
 			_cnt.mask = _mask;
@@ -79,7 +82,7 @@ package fr.filsdegraphiste.module.site.ui.content
 		public function setContent( content:ModulePart ):void
 		{
 			_currentContent = content;
-			_cntContent.addChild( content );			
+			_cntContent.addChild( content );
 		}
 		
 		override public function setImage(bd : BitmapData, delay:Number = 0 ) : void 
@@ -113,6 +116,11 @@ package fr.filsdegraphiste.module.site.ui.content
 		public function get workMenu() : WorkMenu 
 		{
 			return _workMenu;
+		}
+
+		public function get btViewAll():BtViewAll
+		{
+			return _btViewAll;
 		}
 		
 	}

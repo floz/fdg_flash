@@ -51,38 +51,31 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 		
 		protected function _updateButtons( delay:Number = 0 ):void
 		{
-			trace( "UPDATE BTS" );
-			trace( _currentIdx );
 			if( _currentIdx <= 0 )
 			{
-				trace( "a 1 " );
 				_btPrev.hide( delay );
 				_btPrev.removeEventListener( MouseEvent.CLICK, _clickHandler );
 			}
 			else 
 			{
-				trace( "a 2 " );
 				_btPrev.show( delay );
 				_btPrev.addEventListener( MouseEvent.CLICK, _clickHandler, false, 0, true );
 			}
 			
 			if( _currentIdx >= _projects.length - 1 )
 			{
-				trace( "b 1 " );
 				_btNext.hide( delay );
 				_btNext.removeEventListener( MouseEvent.CLICK, _clickHandler );
 			}
 			else
 			{
-				trace( "b 2 " );
 				_btNext.show( delay );
 				_btNext.addEventListener( MouseEvent.CLICK, _clickHandler, false, 0, true );	
 			}
 		}
 		
-		protected function _clickHandler(event : MouseEvent) : void 
+		private function _clickHandler(event : MouseEvent) : void 
 		{
-			trace( "click" );
 			switch( event.currentTarget )
 			{
 				case _btPrev: prev(); break;
@@ -111,7 +104,7 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 		
 		override public function show( delay:Number = 0 ):Number
 		{
-			next();
+			eaze( this ).delay( delay ).onComplete( next );
 			
 			return .5;
 		}

@@ -3,6 +3,7 @@
 */
 package fr.filsdegraphiste.module.site.ui.about 
 {
+	import fr.minuit4.core.configuration.conf;
 	import fr.filsdegraphiste.module.site.ui.MaskedText;
 	import assets.AssetAboutBigIcon;
 
@@ -38,8 +39,8 @@ package fr.filsdegraphiste.module.site.ui.about
 			addChild( _icon = new AssetAboutBigIcon() );
 			addChild( _cnt = new Sprite() );
 			_cnt.addChild( _separatorTop = new Shape() );
-			_cnt.addChild( _tfTitleContent = new MaskedText( "Hello world !", "about_title" ) );
-			_cnt.addChild( _tfContent = new MaskedText( "My name is Lionel TAURUS, also known as Filsdegraphiste. I'm a graphic and interaction designer. %% I was a student at Gobelins, l'école de l'image, a design school and I'm currently working at Mob In Life since September 2011.", "about" ) );
+			_cnt.addChild( _tfTitleContent = new MaskedText( conf.datas.about.title[ 0 ].toString(), "about_title" ) );
+			_cnt.addChild( _tfContent = new MaskedText( conf.datas.about.content[ 0 ].toString(), "about" ) );
 			_cnt.addChild( _separatorBot = new Shape() );
 			_cnt.addChild( _tfContact = new MaskedText( "Contact", "about_title" ) );
 			_cnt.addChild( _cntLink = new Sprite() );

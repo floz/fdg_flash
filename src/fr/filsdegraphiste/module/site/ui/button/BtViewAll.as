@@ -1,15 +1,13 @@
 /**
 * @author floz
 */
-package fr.filsdegraphiste.module.site.ui.menu 
+package fr.filsdegraphiste.module.site.ui.button 
 {
 	import aze.motion.easing.Expo;
 	import aze.motion.eaze;
 
 	import fr.filsdegraphiste.config._;
-	import fr.filsdegraphiste.module.site.nav.navWorkManager;
 	import fr.minuit4.core.navigation.modules.ModulePart;
-	import fr.minuit4.core.navigation.nav.events.NavEvent;
 	import fr.minuit4.text.Text;
 
 	import flash.display.CapsStyle;
@@ -17,23 +15,14 @@ package fr.filsdegraphiste.module.site.ui.menu
 	import flash.display.JointStyle;
 	import flash.display.LineScaleMode;
 	import flash.display.Shape;
-	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
-	public class WorkMenuItem extends ModulePart 
+	public class BtViewAll extends ModulePart 
 	{
 		private var _label:String;
 		private var _bg:Shape;
 		private var _bgLinesActivated:Shape;
-		private var _cntActivatedTop:Sprite;
-		private var _bgActivatedTop:Shape;
-		private var _tfActivatedTop:Text;
-		private var _cntActivatedBot:Sprite;
-		private var _bgActivatedBot:Shape;
-		private var _tfActivatedBot:Text;
-		private var _mskPartLeft:Shape;
-		private var _mskPartRight:Shape;
 		private var _tf:Text;
 		
 		private var _geom:Vector.<Point>;
@@ -45,94 +34,51 @@ package fr.filsdegraphiste.module.site.ui.menu
 		private var _lineRight:Point = new Point();		
 		private var _lineBotBase:Point = new Point();
 		private var _lineBot:Point = new Point();
-		private var _percents:Point = new Point();
 		
 		private var _isActivated:Boolean;
 		private var _isOver:Boolean;
+		private var _shown:Boolean;
 		
 		private var _w:Number;
 		private var _h:Number;
 		
-		public function WorkMenuItem( label:String )
+		public function BtViewAll( label:String )
 		{
 			_label = label;
 			
 			addChild( _bg = new Shape() );
 			addChild( _tf = new Text( label, "work_menu_item" ) );
 			addChild( _bgLinesActivated = new Shape() );
-			addChild( _cntActivatedTop = new Sprite() );
-			_cntActivatedTop.addChild( _bgActivatedTop = new Shape() );
-			_cntActivatedTop.addChild( _tfActivatedTop = new Text( label, "work_menu_item_activated" ) );
-			addChild( _cntActivatedBot = new Sprite() );
-			_cntActivatedBot.addChild( _bgActivatedBot = new Shape() );
-			_cntActivatedBot.addChild( _tfActivatedBot = new Text( label, "work_menu_item_activated" ) );
-			addChild( _mskPartLeft = new Shape() );
-			addChild( _mskPartRight = new Shape() );
 			
 			_init();
 			
 			_tf.x = 10;
 			_tf.y = ( _bg.height - _tf.height ) * .5 + 1 >> 0;
-			_tfActivatedTop.x = 
-			_tfActivatedBot.x = _tf.x;
-			_tfActivatedTop.y = 
-			_tfActivatedBot.y = _tf.y;
 			
 			this.buttonMode = 
 			this.useHandCursor = true;
 			
 			this.mouseChildren = false;
 			
-			navWorkManager.addEventListener( NavEvent.NAV_CHANGE, _navChangeHandler );
-			_onActivate();
-			
 			alpha = 0;
-		}
-
-		private function _clickHandler(event : MouseEvent) : void 
-		{
-			navWorkManager.currentId = _label;
-		}
-
-		private function _navChangeHandler(event : NavEvent) : void 
-		{				
-			_onActivate();		
-		}
-
-		private function _onActivate() : void 
-		{
-			var activatedStatus:Boolean = navWorkManager.currentId == _label;
-			if( activatedStatus == _isActivated )
-				return;	
 			
-			_isActivated = activatedStatus;
-			
-			if( _isActivated )
-			{
-				_activate();
-			}
-			else
-			{
-				_deactivate();
-			}			
+			_.stage.addEventListener( Event.RESIZE, _resizeHandler );
+			_onResize();
 		}
 
-		private function _activate() : void 
+		private function _resizeHandler( event:Event ):void
 		{
-			_mskPartLeft.rotation = 45;
-			_mskPartRight.rotation = -45;
-			
-			_mskPartLeft.alpha = 0;
-			_mskPartRight.alpha = 0;
-			
-			eaze( _mskPartLeft ).to( .25, { rotation: 0, alpha: 1 } ).easing( Expo.easeOut );
-			eaze( _mskPartRight ).delay( .1 ).to( .25, { rotation: 0, alpha: 1 } ).easing( Expo.easeOut );
+			_onResize();
 		}
 
-		private function _deactivate() : void 
+		private function _onResize():void
 		{
-			eaze( _mskPartLeft ).to( .25, { rotation: -45, alpha: 0 } ).easing( Expo.easeIn );
-			eaze( _mskPartRight ).delay( .1 ).to( .25, { rotation: 45, alpha: 0 } ).easing( Expo.easeIn );
+			var dx:Number = -_.stage.stageWidth * .5;
+			var dy:Number = _.stage.stageHeight;
+			var a:Number = Math.atan2( dy, dx );
+			
+			this.x = int( _.stage.stageWidth - this.width + Math.cos( a ) * 150 + 30 );
+			this.y = int( Math.sin( a ) * 150 ); 
 		}
 
 		private function _enterFrameHandler(event : Event) : void 
@@ -213,56 +159,6 @@ package fr.filsdegraphiste.module.site.ui.menu
 			g.lineTo( _geom[ 1 ].x, _geom[ 1 ].y );
 			g.lineTo( _geom[ 2 ].x, _geom[ 2 ].y );
 			g.lineTo( _geom[ 3 ].x, _geom[ 3 ].y );
-			
-			g = _bgActivatedTop.graphics;
-			g.beginFill( 0x53cecf );
-			g.moveTo( _geom[ 0 ].x, _geom[ 0 ].y );
-			g.lineTo( _geom[ 1 ].x, _geom[ 1 ].y );
-			g.lineTo( _geom[ 2 ].x, _geom[ 2 ].y );
-			g.lineTo( _geom[ 3 ].x, _geom[ 3 ].y );
-			
-			g = _bgActivatedBot.graphics;
-			g.beginFill( 0x53cecf );
-			g.moveTo( _geom[ 0 ].x, _geom[ 0 ].y );
-			g.lineTo( _geom[ 1 ].x, _geom[ 1 ].y );
-			g.lineTo( _geom[ 2 ].x, _geom[ 2 ].y );
-			g.lineTo( _geom[ 3 ].x, _geom[ 3 ].y );
-			
-			_generateMasks();
-			_cntActivatedTop.cacheAsBitmap = 
-			_mskPartLeft.cacheAsBitmap = true;
-			_cntActivatedTop.mask = _mskPartLeft;
-			
-			_cntActivatedBot.cacheAsBitmap = 
-			_mskPartRight.cacheAsBitmap = true;
-			_cntActivatedBot.mask = _mskPartRight;
-		}
-
-		private function _generateMasks() : void 
-		{
-			var g:Graphics = _mskPartLeft.graphics;
-			g.clear();
-			g.beginFill( 0x00ff00 );
-			g.moveTo( 0, 0 );
-			g.lineTo( -_bg.width + 1, 0 );
-			g.lineTo( -_bg.width + 1, _bg.height + 1 );			
-			
-			g = _mskPartRight.graphics;
-			g.clear();
-			g.beginFill( 0x0000ff );
-			g.moveTo( 0, 0 );
-			g.lineTo( _bg.width + 1, 0 );
-			g.lineTo( _bg.width + 1, -_bg.height - 1 );
-			
-			_mskPartLeft.x = _bg.width + _w;				
-			_mskPartRight.x =  _w;
-			_mskPartRight.y = _bg.height;
-			
-			_mskPartLeft.rotation = 45;
-			_mskPartRight.rotation = 45;
-			
-			_mskPartLeft.alpha = 0;
-			_mskPartRight.alpha = 0;	
 		}
 		
 		private function _rollOverHandler(event : MouseEvent) : void 
@@ -285,10 +181,12 @@ package fr.filsdegraphiste.module.site.ui.menu
 		}
 		
 		override public function show( delay:Number = 0 ):Number
-		{			
-			addEventListener( MouseEvent.ROLL_OVER, _rollOverHandler );
-			addEventListener( MouseEvent.CLICK, _clickHandler );
+		{
+			if( _shown )
+				return 0;
+			_shown = true;
 			
+			addEventListener( MouseEvent.ROLL_OVER, _rollOverHandler );			
 			addEventListener( Event.ENTER_FRAME, _enterFrameHandler );
 			
 			var px:int = this.x;
@@ -299,9 +197,11 @@ package fr.filsdegraphiste.module.site.ui.menu
 		
 		override public function hide( delay:Number = 0 ):Number
 		{
-			removeEventListener( MouseEvent.ROLL_OVER, _rollOverHandler );
-			removeEventListener( MouseEvent.CLICK, _clickHandler );
+			if( !_shown )
+				return 0;
+			_shown = false;
 			
+			removeEventListener( MouseEvent.ROLL_OVER, _rollOverHandler );			
 			removeEventListener( Event.ENTER_FRAME, _enterFrameHandler );
 			
 			eaze( this ).delay( delay ).to( .3, { alpha: 0 } );

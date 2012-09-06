@@ -3,20 +3,20 @@
  */
 package fr.filsdegraphiste.module.site 
 {
-	import fr.minuit4.debug.FPS;
-	import fr.filsdegraphiste.module.site.ui.about.AboutContent;
-	import fr.filsdegraphiste.module.site.nav.NavWorkId;
-	import fr.filsdegraphiste.module.site.nav.navWorkManager;
-	import flash.events.Event;
 	import fr.filsdegraphiste.config._;
 	import fr.filsdegraphiste.event.StepEvent;
 	import fr.filsdegraphiste.module.site.nav.NavSiteId;
+	import fr.filsdegraphiste.module.site.nav.NavWorkId;
 	import fr.filsdegraphiste.module.site.nav.navSiteManager;
+	import fr.filsdegraphiste.module.site.nav.navWorkManager;
 	import fr.filsdegraphiste.module.site.ui.MainView;
+	import fr.filsdegraphiste.module.site.ui.about.AboutContent;
 	import fr.filsdegraphiste.module.site.ui.loading.ExpandableLoadingIcon;
 	import fr.filsdegraphiste.module.site.ui.loading.LoadingRubView;
 	import fr.minuit4.core.navigation.modules.Module;
 	import fr.minuit4.core.navigation.nav.events.NavEvent;
+
+	import flash.events.Event;
 	
 	public class SiteModule extends Module
 	{

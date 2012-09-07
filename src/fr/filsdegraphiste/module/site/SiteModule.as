@@ -13,8 +13,10 @@ package fr.filsdegraphiste.module.site
 	import fr.filsdegraphiste.module.site.ui.about.AboutContent;
 	import fr.filsdegraphiste.module.site.ui.loading.ExpandableLoadingIcon;
 	import fr.filsdegraphiste.module.site.ui.loading.LoadingRubView;
+	import fr.filsdegraphiste.module.site.ui.viewall.ViewAll;
 	import fr.minuit4.core.navigation.modules.Module;
 	import fr.minuit4.core.navigation.nav.events.NavEvent;
+	import fr.minuit4.debug.FPS;
 
 	import flash.events.Event;
 	
@@ -25,6 +27,7 @@ package fr.filsdegraphiste.module.site
 		
 		private var _loadingIcon:ExpandableLoadingIcon;
 		private var _mainView:MainView;
+		private var _viewAll:ViewAll;
 		
 		private var _loadingRubView:LoadingRubView;
 		
@@ -49,6 +52,8 @@ package fr.filsdegraphiste.module.site
 			_loadingIcon.removeEventListener( StepEvent.STEP1_COMPLETE, _step1CompleteHandler );
 			
 			addChildAt( _mainView = new MainView(), 0 );
+			_viewAll = new ViewAll( _mainView );
+			addChild( new FPS() );
 			_mainView.show();
 		}
 
@@ -63,6 +68,8 @@ package fr.filsdegraphiste.module.site
 		private function _navChangeHandler(event : NavEvent) : void 
 		{ 
 			navSiteManager.frozen = true;
+			
+			_mainView.mid.btViewAll.hide();
 			
 			switch( navSiteManager.currentId )
 			{

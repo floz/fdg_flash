@@ -75,7 +75,7 @@ package fr.filsdegraphiste.module.site.ui.viewall
 			i += 1;
 			while( --i > - 1 )
 			{
-				_entries[ i ].show( delay + d );
+				_entries[ i ].showLeft( delay + d );
 				d += dRef;
 				dRef -= .025;
 			}
@@ -86,7 +86,7 @@ package fr.filsdegraphiste.module.site.ui.viewall
 			var n:int = _entries.length;
 			for( i = _entries.length * .5 >> 0; i < n; i++ )
 			{
-				_entries[ i ].show( delay + d );
+				_entries[ i ].showRight( delay + d );
 				d += dRef;
 				dRef -= .025;
 			}

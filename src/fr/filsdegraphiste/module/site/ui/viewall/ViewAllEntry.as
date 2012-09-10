@@ -60,7 +60,7 @@ package fr.filsdegraphiste.module.site.ui.viewall
 			//addChild( _image = new Shape() );
 			//var g:Graphics = _image.graphics;
 			var g:Graphics;// = _imageTop.graphics;
-			if( side == 0 )
+			if( side == 0 ) // left
 			{
 				g = _imageTop.graphics;
 				g.beginBitmapFill( fdgDataLoaded.getImage( data[ "preview" ] ) );
@@ -132,26 +132,91 @@ package fr.filsdegraphiste.module.site.ui.viewall
 		
 		private function _initLineData():void
 		{
+			/*
 			if( _side == 0 )
 			{
 				if( _left )
 				{
-						
+					_refP0Start = new Point( 0, 0 );
+					_refP0End = new Point( 0, _W );
+					_refP1Start = new Point( 0, _W );
+					_refP1End = new Point( _W, _W );
+					_refP2Start = new Point( _W, _W );
+					_refP2End = new Point( 0, 0 );
 				}
 				else
 				{
-					
+					_refP0Start = new Point( 0, 0 );
+					_refP0End = new Point( 0, _W );
+					_refP1Start = new Point( 0, _W );
+					_refP1End = new Point( _W, _W );
+					_refP2Start = new Point( _W, _W );
+					_refP2End = new Point( 0, 0 ); 
 				}
 			}
 			else
 			{
 				if( _left )
 				{
-						
+					_refP0Start = new Point( _W, _W );
+					_refP0End = new Point( 0, 0 );
+					_refP1Start = new Point( 0, 0 );
+					_refP1End = new Point( _W, 0 );
+					_refP2Start = new Point( _W, 0 );
+					_refP2End = new Point( _W, _W );
 				}
 				else
 				{
-					
+					_refP0Start = new Point( 0, 0 );
+					_refP0End = new Point( _W, 0 );
+					_refP1Start = new Point( _W, 0 );
+					_refP1End = new Point( _W, _W );
+					_refP2Start = new Point( _W, _W );
+					_refP2End = new Point( 0, 0 );
+				}
+			}
+			*/
+			
+			if( _side == 0 )
+			{
+				if( _left )
+				{
+					_refP0Start = new Point( 0, 0 );
+					_refP0End = new Point( 0, _W );
+					_refP1Start = new Point( _W, _W );
+					_refP1End = new Point( 0, _W );
+					_refP2Start = new Point( 0, 0 );
+					_refP2End = new Point( _W, _W );
+				}
+				else
+				{
+					_refP0Start = new Point( 0, 0 );
+					_refP0End = new Point( 0, _W );
+					_refP1Start = new Point( 0, _W );
+					_refP1End = new Point( _W, _W );
+					_refP2Start = new Point( 0, 0 );
+					_refP2End = new Point( _W, _W ); 
+				}
+			}
+			else
+			{
+				if( _left )
+				{
+					_refP0Start = new Point( _W, _W );
+					_refP0End = new Point( 0, 0 );
+					_refP1Start = new Point( _W, 0 );
+					_refP1End = new Point( 0, 0 );
+					_refP2Start = new Point( _W, _W );
+					_refP2End = new Point( 0, _W );
+				}
+				else
+				{
+					_refP0Start = new Point( _W, _W );
+					_refP0End = new Point( _W, 0 );
+					_refP1Start = new Point( 0, 0 );
+					_refP1End = new Point( _W, 0 );
+					_refP2Start = new Point( _W, _W );
+					_refP2End = new Point( 0, 0 );
 				}
 			}
 		}
@@ -160,7 +225,7 @@ package fr.filsdegraphiste.module.site.ui.viewall
 		{
 			var g:Graphics = _lines.graphics;
 			g.clear();
-			g.lineStyle( 2, 0x53cecf, 1, true, LineScaleMode.NORMAL, CapsStyle.SQUARE, JointStyle.MITER );
+			g.lineStyle( 2, 0xffffff, 1, true, LineScaleMode.NORMAL, CapsStyle.SQUARE, JointStyle.MITER );
 			g.moveTo( _p0Start.x, _p0Start.y );
 			g.lineTo( _p0End.x, _p0End.y );
 			g.moveTo( _p1Start.x, _p1Start.y );

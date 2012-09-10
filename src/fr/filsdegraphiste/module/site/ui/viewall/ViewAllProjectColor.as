@@ -51,7 +51,8 @@ package fr.filsdegraphiste.module.site.ui.viewall
 			
 			addEventListener( Event.ENTER_FRAME, _enterFrameHandler );
 			
-			this.alpha = .4;
+			this.mouseChildren =
+			this.mouseEnabled = false;
 		}
 
 		private function _enterFrameHandler( event:Event ):void

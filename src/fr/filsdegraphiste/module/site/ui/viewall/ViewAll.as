@@ -14,6 +14,7 @@ package fr.filsdegraphiste.module.site.ui.viewall
 
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
+	import flash.display.BlendMode;
 	import flash.display.GradientType;
 	import flash.display.Graphics;
 	import flash.display.Shape;
@@ -30,9 +31,11 @@ package fr.filsdegraphiste.module.site.ui.viewall
 		
 		private var _mainView:MainView;
 		
+		private var _projects:Object;
 		private var _capture:Bitmap;
 		private var _captureBd:BitmapData;
 		private var _halo:Shape;
+		private var _entriesBg:Bitmap;
 		private var _entriesRed:ViewAllProjectColor;
 		private var _entriesNormal:ViewAllProjects;
 		private var _entriesBlue:ViewAllProjectColor;
@@ -75,6 +78,9 @@ package fr.filsdegraphiste.module.site.ui.viewall
 			_capture.bitmapData = _captureBd;
 			_captureBd.draw( _mainView );
 			_captureBd.applyFilter( _captureBd, _captureBd.rect, _P, _BF );
+			
+			_entriesBg.x = _.stage.stageWidth - _entriesBg.width >> 1;
+			_entriesBg.y = _.stage.stageHeight - _entriesBg.height >> 1;
 		}
 
 		private function _clickHandler( event:MouseEvent ):void
@@ -90,6 +96,8 @@ package fr.filsdegraphiste.module.site.ui.viewall
 			_showProjects();
 			
 			_onResize();
+			
+			show();
 		}
 
 		private function _performTransition():void
@@ -100,19 +108,38 @@ package fr.filsdegraphiste.module.site.ui.viewall
 		
 		private function _showProjects():void
 		{
-			var projects:Object = _.data.projects[ navSiteManager.currentId ];
+			_projects = _.data.projects[ navSiteManager.currentId ];
 			if( navSiteManager.currentId == NavSiteId.WORKS )
-				projects = projects[ navWorkManager.currentId ];
-				
+				_projects = _projects[ navWorkManager.currentId ];
+			
+			addChild( _entriesBg = new Bitmap() );
 			addChild( _entriesRed = new ViewAllProjectColor( 0xff0000, new Point( 6, -3 ) ) );
-			addChild( _entriesNormal = new ViewAllProjects( projects ) );
+			addChild( _entriesNormal = new ViewAllProjects( _projects ) );
 			addChild( _entriesBlue = new ViewAllProjectsBlue() );
+			_entriesBlue.blendMode = BlendMode.OVERLAY;
+			//_entriesNormal.alpha = .7;
+			removeChild( _entriesBg );
+			removeChild( _entriesRed );
+			removeChild( _entriesBlue );
+			_entriesRed.alpha = .7;
 			
 			var bd:BitmapData = new BitmapData( _entriesNormal.width, _entriesNormal.height, true, 0x00 );
 			bd.draw( _entriesNormal );
 			
+			_entriesBg.bitmapData = bd;
 			_entriesRed.setImage( bd );
 			_entriesBlue.setImage( bd );					
+		}
+		
+		override public function show( delay:Number = 0 ):Number
+		{
+			_entriesNormal.show( delay );
+			return super.show( delay );
+		}
+		
+		override public function hide( delay:Number = 0 ):Number
+		{
+			return super.hide( delay );
 		}		
 		
 	}

@@ -26,7 +26,7 @@ package fr.filsdegraphiste.module.site.ui.viewall
 			var m:Matrix = new Matrix();
 			m.createGradientBox( _image.width, _image.height, -Math.PI * .5 );
 			var g:Graphics = msk.graphics;					
-			g.beginGradientFill( GradientType.LINEAR, [ 0xff00ff, 0xff00ff ], [ 1, 0 ], [ 0, 125 ], m );
+			g.beginGradientFill( GradientType.LINEAR, [ 0xff00ff, 0xff00ff ], [ 1, 0 ], [ 0, 175 ], m );
 			g.drawRect( 0, 0, _image.width, _image.height );
 			
 			_image.cacheAsBitmap = 

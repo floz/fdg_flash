@@ -132,7 +132,7 @@ package fr.filsdegraphiste.module.site.ui.viewall
 		
 		private function _initLineData():void
 		{
-			/*
+			
 			if( _side == 0 )
 			{
 				if( _left )
@@ -175,7 +175,8 @@ package fr.filsdegraphiste.module.site.ui.viewall
 					_refP2End = new Point( 0, 0 );
 				}
 			}
-			*/
+			
+			return;
 			
 			if( _side == 0 )
 			{
@@ -202,12 +203,12 @@ package fr.filsdegraphiste.module.site.ui.viewall
 			{
 				if( _left )
 				{
-					_refP0Start = new Point( _W, _W );
-					_refP0End = new Point( 0, 0 );
+					_refP0Start = new Point( _W, 0 );
+					_refP0End = new Point( _W, _W );
 					_refP1Start = new Point( _W, 0 );
 					_refP1End = new Point( 0, 0 );
 					_refP2Start = new Point( _W, _W );
-					_refP2End = new Point( 0, _W );
+					_refP2End = new Point( 0, 0 );
 				}
 				else
 				{
@@ -252,12 +253,23 @@ package fr.filsdegraphiste.module.site.ui.viewall
 			_p2Start.y = 
 			_p2End.y = _refP2Start.y;
 			
+			/*
 			eaze( _p0End ).delay( delay ).to( .3, { x: _refP0End.x, y: _refP0End.y } ).easing( Expo.easeOut );
 			eaze( _p0Start ).delay( delay + .25 ).to( .3, { x: _refP0End.x, y: _refP0End.y } ).easing( Expo.easeOut );
 			eaze( _p1End ).delay( delay + .3 ).to( .3, { x: _refP1End.x, y: _refP1End.y } ).easing( Expo.easeOut );
 			eaze( _p1Start ).delay( delay + .5 ).to( .3, { x: _refP1End.x, y: _refP1End.y } ).easing( Expo.easeOut );
 			eaze( _p2End ).delay( delay + .7 ).to( .3, { x: _refP2End.x, y: _refP2End.y } ).easing( Expo.easeOut );
 			eaze( _p2Start ).delay( delay + .75 ).to( .3, { x: _refP2End.x, y: _refP2End.y } ).easing( Expo.easeOut );
+			  * 
+			 */
+			
+			eaze( _p0End ).delay( delay ).to( .3, { x: _refP0End.x, y: _refP0End.y } ).easing( Expo.easeOut );
+			eaze( _p0Start ).delay( delay + .25 ).to( .3, { x: _refP0End.x, y: _refP0End.y } ).easing( Expo.easeOut );
+			eaze( _p1End ).delay( delay + .05 ).to( .3, { x: _refP1End.x, y: _refP1End.y } ).easing( Expo.easeOut );
+			eaze( _p1Start ).delay( delay + .3 ).to( .3, { x: _refP1End.x, y: _refP1End.y } ).easing( Expo.easeOut );
+			eaze( _p2End ).delay( delay + .2 ).to( .3, { x: _refP2End.x, y: _refP2End.y } ).easing( Expo.easeOut );
+			eaze( _p2Start ).delay( delay + .45 ).to( .3, { x: _refP2End.x, y: _refP2End.y } ).easing( Expo.easeOut );
+			
 				
 			return super.show( delay );
 		}

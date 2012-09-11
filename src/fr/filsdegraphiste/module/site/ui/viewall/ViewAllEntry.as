@@ -26,7 +26,6 @@ package fr.filsdegraphiste.module.site.ui.viewall
 	public class ViewAllEntry extends ModulePart
 	{
 		public static const W:int = 190;
-		private const _POS:Point = new Point();
 		
 		private var _side:int;
 		private var _data:Object;

@@ -68,7 +68,7 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 			
 			_mainView.mid.workMenu.hide();
 			
-			_diaporamaProject = new DiaporamaProject( _projects[ idx == -1 ? _currentIdx : idx ], _mainView, _currentIdx == idx );
+			_diaporamaProject = new DiaporamaProject( _projects[ idx == -1 ? _currentIdx : idx ], _mainView, idx == -1 || _currentIdx == idx );
 			_diaporamaProject.addEventListener( Event.COMPLETE, _diaporamaProjectCloseHandler );
 			if( idx != -1 ) 
 				_currentIdx = idx;

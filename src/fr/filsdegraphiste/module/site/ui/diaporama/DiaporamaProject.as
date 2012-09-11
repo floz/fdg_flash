@@ -60,6 +60,7 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 		override protected function _showProject( fromProject:Boolean = false ) : void 
 		{
 			_mainView.mid.setImage( fdgDataLoaded.getImage( _projects[ _correctIndex( _currentIdx ) ] ) );
+			trace( _sameProject );
 			if( !_first || !_sameProject )
 			{
 				_mainView.left.setImage( fdgDataLoaded.getImage( _projects[ _correctIndex( _currentIdx - 1 ) ] ) );

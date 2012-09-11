@@ -3,6 +3,8 @@
  */
 package fr.filsdegraphiste.module.site.ui.viewall 
 {
+	import aze.motion.easing.Quadratic;
+	import aze.motion.easing.Linear;
 	import flash.display.Sprite;
 	import aze.motion.easing.Expo;
 	import aze.motion.eaze;
@@ -132,6 +134,42 @@ package fr.filsdegraphiste.module.site.ui.viewall
 		
 		private function _initLineData():void
 		{
+			if( _side == 0 )
+			{
+				if( _left )
+				{
+					_refP0Start = new Point( _W, _W );
+					_refP0End = new Point( 0, _W );
+					_refP1Start = new Point( 0, _W );
+					_refP1End = new Point( 0, 0 );	
+				}
+				else
+				{
+					_refP0Start = new Point( 0, 0 );
+					_refP0End = new Point( 0, _W );
+					_refP1Start = new Point( 0, _W );
+					_refP1End = new Point( _W, _W );
+				}
+			}
+			else
+			{
+				if( _left )
+				{
+					_refP0Start = new Point( _W, 0 );
+					_refP0End = new Point( 0, 0 );
+					_refP1Start = new Point( 0, 0 );
+					_refP1End = new Point( _W, _W );
+				}
+				else
+				{
+					_refP0Start = new Point( _W, _W );
+					_refP0End = new Point( 0, 0 );
+					_refP1Start = new Point( 0, 0 );
+					_refP1End = new Point( _W, 0 );
+				}
+			}
+			
+			return;
 			
 			if( _side == 0 )
 			{
@@ -263,12 +301,12 @@ package fr.filsdegraphiste.module.site.ui.viewall
 			  * 
 			 */
 			
-			eaze( _p0End ).delay( delay ).to( .3, { x: _refP0End.x, y: _refP0End.y } ).easing( Expo.easeOut );
-			eaze( _p0Start ).delay( delay + .25 ).to( .3, { x: _refP0End.x, y: _refP0End.y } ).easing( Expo.easeOut );
-			eaze( _p1End ).delay( delay + .05 ).to( .3, { x: _refP1End.x, y: _refP1End.y } ).easing( Expo.easeOut );
-			eaze( _p1Start ).delay( delay + .3 ).to( .3, { x: _refP1End.x, y: _refP1End.y } ).easing( Expo.easeOut );
-			eaze( _p2End ).delay( delay + .2 ).to( .3, { x: _refP2End.x, y: _refP2End.y } ).easing( Expo.easeOut );
-			eaze( _p2Start ).delay( delay + .45 ).to( .3, { x: _refP2End.x, y: _refP2End.y } ).easing( Expo.easeOut );
+			eaze( _p0End ).delay( delay ).to( .3, { x: _refP0End.x, y: _refP0End.y } ).easing( Quadratic.easeOut );
+			eaze( _p0Start ).delay( delay + .3 ).to( .3, { x: _refP0End.x, y: _refP0End.y } ).easing( Expo.easeOut );
+			eaze( _p1End ).delay( delay + .3 ).to( .2, { x: _refP1End.x, y: _refP1End.y } ).easing( Quadratic.easeOut );
+			eaze( _p1Start ).delay( delay + .5 ).to( .2, { x: _refP1End.x, y: _refP1End.y } ).easing( Expo.easeOut );
+			//eaze( _p2End ).delay( delay + .2 ).to( .3, { x: _refP2End.x, y: _refP2End.y } ).easing( Expo.easeOut );
+			//eaze( _p2Start ).delay( delay + .45 ).to( .3, { x: _refP2End.x, y: _refP2End.y } ).easing( Expo.easeOut );
 			
 				
 			return super.show( delay );

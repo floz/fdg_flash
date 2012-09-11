@@ -3,8 +3,6 @@
  */
 package fr.filsdegraphiste.module.site.ui.viewall 
 {
-	import flash.geom.Matrix;
-	import flash.display.GradientType;
 	import aze.motion.eaze;
 
 	import fr.filsdegraphiste.config._;
@@ -12,10 +10,12 @@ package fr.filsdegraphiste.module.site.ui.viewall
 
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
+	import flash.display.GradientType;
 	import flash.display.Graphics;
 	import flash.display.Shape;
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.geom.Matrix;
 	import flash.geom.Point;
 	
 	public class ViewAllProjectColor extends ModulePart
@@ -32,6 +32,7 @@ package fr.filsdegraphiste.module.site.ui.viewall
 			_decalage = decalage;
 			
 			addChild( _cnt = new Sprite() );
+			_cnt.alpha = 0;
 			_cnt.addChild( _image = new Bitmap() );
 			addChild( _msk = new Shape() );
 			
@@ -46,8 +47,8 @@ package fr.filsdegraphiste.module.site.ui.viewall
 			_msk.cacheAsBitmap = true;
 			_cnt.mask = _msk;
 			
-			_.stage.addEventListener( Event.RESIZE, _resizeHandler );
-			_onResize();
+			this.x = _decalage.x;
+			this.y = _decalage.y;
 			
 			addEventListener( Event.ENTER_FRAME, _enterFrameHandler );
 			
@@ -60,26 +61,24 @@ package fr.filsdegraphiste.module.site.ui.viewall
 			_msk.x = this.mouseX + _decalage.x;
 			_msk.y = this.mouseY + _decalage.y;
 		}
-
-		private function _resizeHandler( event:Event ):void
-		{
-			_onResize();
-		}
-
-		private function _onResize():void
-		{
-			this.x = _.stage.stageWidth - _cnt.width >> 1;
-			this.y = _.stage.stageHeight - _cnt.height >> 1;
-			
-			this.x += _decalage.x;
-			this.y += _decalage.y;
-		}
 		
 		public function setImage( bd:BitmapData ):void
 		{
 			_image.bitmapData = bd;
 			eaze( _image ).apply().tint( _color, .75 );
-			_onResize();
+		}
+		
+		override public function show( delay:Number = 0 ):Number
+		{
+			eaze( _cnt ).delay( delay ).to( .4, { alpha: 1 } );
+			return super.show( delay );
+		}
+		
+		override public function hide( delay:Number = 0 ):Number
+		{
+			removeEventListener( Event.ENTER_FRAME, _enterFrameHandler )
+			eaze( _cnt ).delay( delay ).to( .4, { alpha: 0 } );
+			return super.hide( delay );
 		}
 	}
 }

@@ -30,7 +30,7 @@ package fr.filsdegraphiste.module.site.ui
 		private var _shadow:GradientShadow;
 		private var _mid:MidContent;
 		
-		private var _diaporama:BaseDiaporama;
+		private var _diaporama:Diaporama;
 		private var _diaporamaProject:DiaporamaProject;
 		
 		// - PUBLIC VARIABLES ------------------------------------------------------------
@@ -133,7 +133,15 @@ package fr.filsdegraphiste.module.site.ui
 
 		public function get right() : RightContent { return _right; }
 
-		public function get left() : LeftContent { return _left; }
+		public function get left():LeftContent
+		{
+			return _left;
+		}
+
+		public function get diaporama():Diaporama
+		{
+			return _diaporama;
+		}
 		
 	}
 	

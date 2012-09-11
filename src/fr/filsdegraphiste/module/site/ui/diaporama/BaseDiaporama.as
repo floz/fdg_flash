@@ -97,7 +97,7 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 			_updateButtons();
 		}
 		
-		protected function _showProject():void
+		protected function _showProject( fromProject:Boolean = false ):void
 		{
 			
 		}
@@ -129,6 +129,11 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 			_btNext.removeEventListener( MouseEvent.CLICK, _clickHandler );
 			if( parent )
 				parent.removeChild( this );
+		}
+
+		public function get currentIdx():int
+		{
+			return _currentIdx;
 		}
 		
 	}

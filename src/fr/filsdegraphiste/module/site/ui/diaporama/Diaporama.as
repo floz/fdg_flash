@@ -35,7 +35,7 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 			}
 		}
 
-		override protected function _showProject() : void 
+		override protected function _showProject( fromProject:Boolean = false ) : void 
 		{
 			var project:Object = _projects[ _currentIdx ];
 			
@@ -46,15 +46,18 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 				d = .2;
 			}
 			
-			_mainView.left.setImage( fdgDataLoaded.getImage( project.images[ project.images.length - 1 ] ), d );
-			_mainView.right.setImage( fdgDataLoaded.getImage( project.images[ 1 ] ), d );
+			//if( !fromProject || ( fromProject && _diaporamaProject.currentIdx != 0 ) )
+			//{
+				_mainView.left.setImage( fdgDataLoaded.getImage( project.images[ project.images.length - 1 ] ), d );
+				_mainView.right.setImage( fdgDataLoaded.getImage( project.images[ 1 ] ), d );
+			//}
 			
 			_detailsView = new DetailsView( project, this );
 			_mainView.mid.setContent( _detailsView );
 			_detailsView.show( d );
 		}
 		
-		public function zoomIn():void
+		public function zoomIn( idx:int = -1 ):void
 		{			
 			_zoomed = true;
 			
@@ -65,20 +68,21 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 			
 			_mainView.mid.workMenu.hide();
 			
-			_diaporamaProject = new DiaporamaProject( _projects[ _currentIdx ], _mainView );
+			_diaporamaProject = new DiaporamaProject( _projects[ idx == -1 ? _currentIdx : idx ], _mainView, _currentIdx == idx );
 			_diaporamaProject.addEventListener( Event.COMPLETE, _diaporamaProjectCloseHandler );
+			if( idx != -1 ) 
+				_currentIdx = idx;
 		}
 
 		private function _diaporamaProjectCloseHandler( event:Event ):void
 		{
 			_diaporamaProject.removeEventListener( Event.COMPLETE, _diaporamaProjectCloseHandler );
 			_diaporamaProject.hide();
-			_diaporamaProject = null;
 			
 			if( navSiteManager.currentId == NavSiteId.WORKS )
 				_mainView.mid.workMenu.show();
 			
-			_showProject();
+			_showProject( true );
 			_updateButtons();
 			
 			_mainView.mid.btViewAll.show();

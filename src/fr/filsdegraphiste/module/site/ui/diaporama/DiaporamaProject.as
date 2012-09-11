@@ -15,14 +15,17 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 	{
 		private var _project:Object;
 		private var _loadingView:LoadingRubView;
+		private var _sameProject:Boolean;
 		private var _btClose:BtClose;
 		
 		private var _first:Boolean = true;
 		
-		public function DiaporamaProject( project:Object, mainView:MainView )
+		public function DiaporamaProject( project:Object, mainView:MainView, sameProject:Boolean )
 		{
 			_project = project;
 			_projects = _project[ "images" ];
+			
+			_sameProject = sameProject;
 			
 			addChild( _btClose = new BtClose() );
 			_btClose.addEventListener( MouseEvent.CLICK, _clickHandler );			
@@ -54,10 +57,10 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 			_mainView.setDiaporamaProject( this );
 		}
 
-		override protected function _showProject() : void 
+		override protected function _showProject( fromProject:Boolean = false ) : void 
 		{
 			_mainView.mid.setImage( fdgDataLoaded.getImage( _projects[ _correctIndex( _currentIdx ) ] ) );
-			if( !_first )
+			if( !_first || !_sameProject )
 			{
 				_mainView.left.setImage( fdgDataLoaded.getImage( _projects[ _correctIndex( _currentIdx - 1 ) ] ) );
 				_mainView.right.setImage( fdgDataLoaded.getImage( _projects[ _correctIndex( _currentIdx + 1 ) ] ) );

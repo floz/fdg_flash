@@ -16,3 +16,5 @@
 .base>.about { font-family: Helvetica Neue LT Std 45 Light; font-size: 10px; color: #5f5f5f; multiline: true; wordWrap: true; width: 290px; leading: 7px; }
 .about>.about_title { font-size: 18px; }
 .about>.about_link { text-decoration: underline; }
+
+.base>.view_all_tooltip { font-family: Helvetica Neue LT Std 45 Light; font-size: 12px; color: #ffffff; thickness: -200; }

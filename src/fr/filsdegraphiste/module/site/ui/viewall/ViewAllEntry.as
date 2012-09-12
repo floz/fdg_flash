@@ -29,6 +29,7 @@ package fr.filsdegraphiste.module.site.ui.viewall
 		private var _side:int;
 		private var _data:Object;
 		private var _idx:int;
+		private var _previewUrl:String;
 		private var _cntImage:Sprite;
 		private var _imageTop:Shape;
 		private var _imageBot:Shape;
@@ -57,6 +58,8 @@ package fr.filsdegraphiste.module.site.ui.viewall
 			_data = data;
 			_idx = idx;
 			
+			_previewUrl = data[ "preview" ] is Array ? data[ "preview" ][ 0 ] : data[ "preview" ];
+			
 			addChild( _cntImage = new Sprite() );
 			_cntImage.addChild( _imageTop = new Shape() );
 			_cntImage.addChild( _imageBot = new Shape() );
@@ -65,13 +68,13 @@ package fr.filsdegraphiste.module.site.ui.viewall
 			if( side == 0 ) // left
 			{
 				g = _imageTop.graphics;
-				g.beginBitmapFill( fdgDataLoaded.getImage( data[ "preview" ] ) );
+				g.beginBitmapFill( fdgDataLoaded.getImage( _previewUrl ) );
 				g.moveTo( 0, 0 );
 				g.lineTo( W >> 1, W >> 1 );
 				g.lineTo( 0, W );
 				
 				g = _imageBot.graphics;
-				g.beginBitmapFill( fdgDataLoaded.getImage( data[ "preview" ] ) );
+				g.beginBitmapFill( fdgDataLoaded.getImage( _previewUrl ) );
 				g.moveTo( 0, W );
 				g.lineTo( W >> 1, W >> 1 );
 				g.lineTo( W, W );
@@ -85,13 +88,13 @@ package fr.filsdegraphiste.module.site.ui.viewall
 			else
 			{
 				g = _imageTop.graphics;
-				g.beginBitmapFill( fdgDataLoaded.getImage( data[ "preview" ] ) );
+				g.beginBitmapFill( fdgDataLoaded.getImage( _previewUrl ) );
 				g.moveTo( 0, 0 );
 				g.lineTo( W >> 1, W >> 1 );
 				g.lineTo( W, 0 );
 				
 				g = _imageBot.graphics;
-				g.beginBitmapFill( fdgDataLoaded.getImage( data[ "preview" ] ) );
+				g.beginBitmapFill( fdgDataLoaded.getImage( _previewUrl ) );
 				g.moveTo( W, 0 );
 				g.lineTo( W >> 1, W >> 1 );
 				g.lineTo( W, W );	

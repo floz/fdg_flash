@@ -115,7 +115,19 @@ package fr.filsdegraphiste.module.site.ui.viewall
 		{
 			_projects = _.data.projects[ navSiteManager.currentId ];
 			if( navSiteManager.currentId == NavSiteId.WORKS )
+			{
 				_projects = _projects[ navWorkManager.currentId ];
+			}
+			else
+			{
+				var projects:Object = {};
+				for( var s:String in _projects )
+				{
+					if( s != "files_to_load" )
+						projects[ s ] = _projects[ s ];
+				}
+				_projects = projects;
+			}
 			
 			addChild( _cntEntries = new Sprite() );
 			_tooltip = new ViewAllTooltip();

@@ -5,7 +5,7 @@ package fr.filsdegraphiste.module.loader
 {
 	import fr.filsdegraphiste.config.FDGData;
 	import fr.filsdegraphiste.config._;
-	import fr.filsdegraphiste.ui.loading.LoadingIcon;
+	import fr.filsdegraphiste.ui.loading.LoadingIconOK;
 	import fr.minuit4.core.configuration.conf;
 	import fr.minuit4.core.navigation.modules.Module;
 	import fr.minuit4.net.loaders.AssetLoader;
@@ -23,7 +23,7 @@ package fr.filsdegraphiste.module.loader
 		
 		// - PRIVATE VARIABLES -----------------------------------------------------------
 		
-		private var _loadingIcon:LoadingIcon;
+		private var _loadingIcon:LoadingIconOK;
 		private var _urlLoader:URLLoader;
 		
 		// - PUBLIC VARIABLES ------------------------------------------------------------
@@ -38,7 +38,7 @@ package fr.filsdegraphiste.module.loader
 			
 			_.stage = stage;
 			
-			addChild( _loadingIcon = new LoadingIcon() );
+			addChild( _loadingIcon = new LoadingIconOK() );
 			
 			if ( !isDev ) 
 			{

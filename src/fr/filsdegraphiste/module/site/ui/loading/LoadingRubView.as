@@ -11,7 +11,7 @@ package fr.filsdegraphiste.module.site.ui.loading
 	import fr.digitas.flowearth.net.BatchLoaderItem;
 	import fr.filsdegraphiste.config._;
 	import fr.filsdegraphiste.config.fdgDataLoaded;
-	import fr.filsdegraphiste.ui.loading.LoadingIcon2;
+	import fr.filsdegraphiste.ui.loading.LoadingIconOK;
 	import fr.minuit4.core.navigation.modules.ModulePart;
 	import fr.minuit4.text.Text;
 
@@ -34,7 +34,7 @@ package fr.filsdegraphiste.module.site.ui.loading
 		private var _line:Line;
 		private var _letters:Vector.<Text>;		
 		private var _batcher:Batcher;
-		private var _loadingIcon:LoadingIcon2;		
+		private var _loadingIcon:LoadingIconOK;		
 		
 		private var _idxLoaded:int;
 		
@@ -134,7 +134,7 @@ package fr.filsdegraphiste.module.site.ui.loading
 				_batcher.addItem( new BatchLoaderItem( new URLRequest( _filesToLoad[ i ] ) ) );
 			}
 			
-			addChild( _loadingIcon = new LoadingIcon2() );
+			addChild( _loadingIcon = new LoadingIconOK() );
 		}
 
 		private function _progressHandler(event : ProgressEvent) : void 

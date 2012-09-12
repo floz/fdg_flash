@@ -15,7 +15,7 @@ package fr.filsdegraphiste.ui.loading
 	import flash.display.Sprite;
 	import flash.events.Event;
 	
-	public class LoadingIcon2 extends Sprite
+	public class LoadingIconOK extends Sprite
 	{
 		
 		// - PRIVATE VARIABLES -----------------------------------------------------------
@@ -35,7 +35,7 @@ package fr.filsdegraphiste.ui.loading
 		
 		// - CONSTRUCTOR -----------------------------------------------------------------
 		
-		public function LoadingIcon2() 
+		public function LoadingIconOK() 
 		{
 			_mainShape = new Shape();
 			_mainShape.x = - W >> 1;

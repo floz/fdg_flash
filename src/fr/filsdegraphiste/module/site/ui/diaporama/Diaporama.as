@@ -65,8 +65,13 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 			_btNext.hide();
 			_btPrev.hide();
 			_mainView.mid.btViewAll.hide();
-			
 			_mainView.mid.workMenu.hide();
+			
+			if( idx != -1 && _currentIdx != idx )
+			{
+				_mainView.left.hide();
+				_mainView.right.hide();
+			}
 			
 			_diaporamaProject = new DiaporamaProject( _projects[ idx == -1 ? _currentIdx : idx ], _mainView, idx == -1 || _currentIdx == idx );
 			_diaporamaProject.addEventListener( Event.COMPLETE, _diaporamaProjectCloseHandler );

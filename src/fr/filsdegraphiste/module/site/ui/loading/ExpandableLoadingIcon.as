@@ -8,7 +8,7 @@ package fr.filsdegraphiste.module.site.ui.loading
 
 	import fr.filsdegraphiste.config._;
 	import fr.filsdegraphiste.event.StepEvent;
-	import fr.filsdegraphiste.ui.loading.LoadingIcon;
+	import fr.filsdegraphiste.ui.loading.LoadingIcon2;
 
 	import flash.display.CapsStyle;
 	import flash.display.Graphics;
@@ -17,7 +17,7 @@ package fr.filsdegraphiste.module.site.ui.loading
 	import flash.events.Event;
 	import flash.geom.Point;
 	
-	public class ExpandableLoadingIcon extends LoadingIcon
+	public class ExpandableLoadingIcon extends LoadingIcon2
 	{
 		protected var _endPoints:Vector.<Point>;		
 		protected var _expendBridge:ExpendBridge;

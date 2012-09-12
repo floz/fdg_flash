@@ -214,7 +214,10 @@ package fr.filsdegraphiste.module.site.ui.loading
 			_line.hide( delay + .2 );
 			
 			if( _loadingIcon )
+			{
 				eaze( _loadingIcon ).delay( delay ).to( .4, { alpha: 0 } );
+				//_loadingIcon.hide( delay );
+			}
 			
 			eaze( this ).delay( delay + j * .07 + .4 ).onComplete( _onLoadEnd );
 						

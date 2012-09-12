@@ -3,7 +3,8 @@
 */
 package fr.filsdegraphiste.module.site.ui.diaporama 
 {
-	import flash.events.MouseEvent;
+	import aze.motion.eaze;
+
 	import fr.filsdegraphiste.config._;
 	import fr.filsdegraphiste.config.fdgDataLoaded;
 	import fr.filsdegraphiste.module.site.ui.MainView;
@@ -11,6 +12,7 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 	import fr.filsdegraphiste.module.site.ui.loading.LoadingRubView;
 
 	import flash.events.Event;
+	import flash.events.MouseEvent;
 	public class DiaporamaProject extends BaseDiaporama
 	{
 		private var _project:Object;
@@ -60,7 +62,6 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 		override protected function _showProject( fromProject:Boolean = false ) : void 
 		{
 			_mainView.mid.setImage( fdgDataLoaded.getImage( _projects[ _correctIndex( _currentIdx ) ] ) );
-			trace( _sameProject );
 			if( !_first || !_sameProject )
 			{
 				_mainView.left.setImage( fdgDataLoaded.getImage( _projects[ _correctIndex( _currentIdx - 1 ) ] ) );
@@ -88,8 +89,17 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 		
 		override public function hide( delay:Number = 0 ):Number
 		{
+			_mainView.mid.hide( delay );
+			//_mainView.left.hide( delay );
+			//_mainView.right.hide( delay );
+			
+			_btPrev.hide( delay );
+			_btNext.hide( delay );
 			_btClose.hide( delay );
-			return super.hide( delay );
+			
+			eaze( this ).delay( .5 ).onComplete( dispose );
+			
+			return .5;
 		}
 
 		override public function dispose():void

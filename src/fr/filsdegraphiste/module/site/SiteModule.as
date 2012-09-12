@@ -101,6 +101,9 @@ package fr.filsdegraphiste.module.site
 			_mainView.setContent( _loadingRubView );
 			_loadingRubView.show( _firstLoad ? 0 : .4 );
 			
+			_mainView.left.hide();
+			_mainView.right.hide();
+			
 			_firstLoad = false;
 		}
 

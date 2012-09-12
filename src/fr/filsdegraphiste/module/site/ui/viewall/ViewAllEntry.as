@@ -3,15 +3,13 @@
  */
 package fr.filsdegraphiste.module.site.ui.viewall 
 {
-	import fr.filsdegraphiste.module.site.ui.viewall.events.ViewAllEvent;
-	import aze.motion.easing.Back;
-	import flash.events.MouseEvent;
 	import aze.motion.easing.Cubic;
 	import aze.motion.easing.Expo;
 	import aze.motion.easing.Quadratic;
 	import aze.motion.eaze;
 
 	import fr.filsdegraphiste.config.fdgDataLoaded;
+	import fr.filsdegraphiste.module.site.ui.viewall.events.ViewAllEvent;
 	import fr.minuit4.core.navigation.modules.ModulePart;
 
 	import flash.display.CapsStyle;
@@ -21,6 +19,7 @@ package fr.filsdegraphiste.module.site.ui.viewall
 	import flash.display.Shape;
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	
 	public class ViewAllEntry extends ModulePart

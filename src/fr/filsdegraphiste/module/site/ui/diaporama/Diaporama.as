@@ -46,11 +46,11 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 				d = .2;
 			}
 			
-			//if( !fromProject || ( fromProject && _diaporamaProject.currentIdx != 0 ) )
-			//{
+			if( !fromProject || ( fromProject && _diaporamaProject.currentIdx != 0 ) )
+			{
 				_mainView.left.setImage( fdgDataLoaded.getImage( project.images[ project.images.length - 1 ] ), d );
 				_mainView.right.setImage( fdgDataLoaded.getImage( project.images[ 1 ] ), d );
-			//}
+			}
 			
 			_detailsView = new DetailsView( project, this );
 			_mainView.mid.setContent( _detailsView );

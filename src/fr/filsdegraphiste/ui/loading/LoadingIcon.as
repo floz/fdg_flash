@@ -3,6 +3,8 @@
  */
 package fr.filsdegraphiste.ui.loading 
 {
+	import aze.motion.eaze;
+	import flash.geom.Point;
 	import fr.filsdegraphiste.config._;
 
 	import flash.display.CapsStyle;
@@ -25,6 +27,10 @@ package fr.filsdegraphiste.ui.loading
 		protected var _mainShape:Shape;
 		private var _percent:Number = 0;
 		
+		private var _p0:Point = new Point( 0, 0 );
+		private var _p1:Point = new Point( W, H );
+		private var _p2:Point = new Point( 0, H );
+		
 		// - PUBLIC VARIABLES ------------------------------------------------------------
 		
 		// - CONSTRUCTOR -----------------------------------------------------------------
@@ -45,6 +51,19 @@ package fr.filsdegraphiste.ui.loading
 		private function _resizeHandler(e:Event):void 
 		{
 			_onResize();
+		}
+		
+		private function _enterFrameHandler(event : Event) : void 
+		{
+			var g:Graphics = _mainShape.graphics;
+			g.clear();
+			g.lineStyle( 2, 0x53cecf, 1, true, LineScaleMode.NORMAL, CapsStyle.SQUARE, JointStyle.MITER );
+			g.moveTo( _p0.x, _p0.y );
+			g.lineTo( W, H );
+			g.moveTo( _p1.x, _p1.y );
+			g.lineTo( 0, H );
+			g.moveTo( _p2.x, _p2.y );
+			g.lineTo( 0, 0 );
 		}
 		
 		// - PRIVATE METHODS -------------------------------------------------------------
@@ -92,7 +111,21 @@ package fr.filsdegraphiste.ui.loading
 			}
 		}
 		
+		private function _dispose() : void 
+		{
+			removeEventListener( Event.ENTER_FRAME, _enterFrameHandler );
+		}
+		
 		// - PUBLIC METHODS --------------------------------------------------------------
+		
+		public function hide( delay:Number ):Number
+		{
+			addEventListener( Event.ENTER_FRAME, _enterFrameHandler );
+			eaze( _p0 ).delay( delay ).to( .2, { x: _p1.x, y: _p1.y } );
+			eaze( _p1 ).delay( delay + .2 ).to( .2, { x: _p2.x, y: _p2.y } );
+			eaze( _p2 ).delay( delay + .4 ).to( .2, { x: 0, y: 0 } ).onComplete( _dispose );
+			return 0;
+		}
 		
 		// - GETTERS & SETTERS -----------------------------------------------------------
 		

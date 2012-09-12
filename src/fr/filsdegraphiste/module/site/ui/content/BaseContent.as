@@ -40,6 +40,9 @@ package fr.filsdegraphiste.module.site.ui.content
 		
 		override public function hide( delay:Number = 0 ):Number
 		{
+			if( _currentImage == null )
+				return 0;
+			
 			_currentImage.hide( delay );
 			return super.hide( delay );
 		}

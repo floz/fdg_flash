@@ -3,8 +3,6 @@
 */
 package fr.filsdegraphiste.module.site.ui.viewall 
 {
-	import fr.filsdegraphiste.module.site.ui.viewall.events.ViewAllEvent;
-	import flash.events.MouseEvent;
 	import aze.motion.eaze;
 
 	import fr.filsdegraphiste.config._;
@@ -13,6 +11,7 @@ package fr.filsdegraphiste.module.site.ui.viewall
 	import fr.filsdegraphiste.module.site.nav.navWorkManager;
 	import fr.filsdegraphiste.module.site.ui.MainView;
 	import fr.filsdegraphiste.module.site.ui.button.BtClose;
+	import fr.filsdegraphiste.module.site.ui.viewall.events.ViewAllEvent;
 	import fr.minuit4.core.navigation.modules.ModulePart;
 
 	import flash.display.Bitmap;
@@ -23,6 +22,7 @@ package fr.filsdegraphiste.module.site.ui.viewall
 	import flash.display.Shape;
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.events.MouseEvent;
 	import flash.filters.BlurFilter;
 	import flash.geom.Matrix;
 	import flash.geom.Point;

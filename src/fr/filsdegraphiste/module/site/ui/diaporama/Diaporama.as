@@ -49,7 +49,9 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 			if( !fromProject || ( fromProject && _diaporamaProject.currentIdx != 0 ) )
 			{
 				_mainView.left.setImage( fdgDataLoaded.getImage( project.images[ project.images.length - 1 ] ), d );
-				_mainView.right.setImage( fdgDataLoaded.getImage( project.images[ 1 ] ), d );
+				
+				var sameSize:Boolean = project.images.length == project.elements.length;
+				_mainView.right.setImage( fdgDataLoaded.getImage( project.images[ sameSize ? 1 : 0 ] ), d );
 			}
 			
 			_detailsView = new DetailsView( project, this );

@@ -93,7 +93,8 @@ package fr.filsdegraphiste.module.loader
 		
 		private function _launchSite():void
 		{
-			removeChild( _loadingIcon );
+			while( numChildren )
+				removeChildAt( 0 );
 			
 			var site:Module = AssetLoader( conf.getItem( "site" ) ).content as Module;
 			addChild( site );

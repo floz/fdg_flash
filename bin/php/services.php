@@ -52,8 +52,17 @@ function getProjectsFromFolder( $result, &$news, $dir )
 
 					if( !isset( $result[ "images" ] ) )
 						$result[ "images" ] = array();
+					if( !isset( $result[ "elements" ] ) )
+						$result[ "elements" ] = array();
 
-					array_push( $result[ "images" ], substr( $dir, 3 ).$file );
+					$link = substr( $dir, 3 ).$file;
+					array_push( $result[ "images" ], $link );
+					array_push( $result[ "elements" ], $link );
+					break;
+				case "flv":
+					if( !isset( $result[ "elements" ] ) )
+						$result[ "elements" ] = array();
+					array_push( $result[ "elements" ], substr( $dir, 3 ).$file );
 					break;
 				case "json":
 					$json = file_get_contents( $dir.$file );
@@ -99,10 +108,12 @@ function grabFilesToLoad( &$projects )
 function addFilesToLoad( &$projects, $value )
 {
 	array_push( $projects[ "files_to_load" ], $value[ "preview" ] );
-	//$n = count( $value[ "images" ] );
-	//for( $i = 0; $i < $n; $i++ )
-	//	array_push( $projects[ "files_to_load" ], $value[ "images" ][ $i ] );
-	array_push( $projects[ "files_to_load" ], $value[ "images" ][ 1 ] );
+	
+	$images = $value[ "images" ];
+	$elements = $value[ "elements" ];
+	$sameSize = count( $images ) == count( $elements );
+
+	array_push( $projects[ "files_to_load" ], $value[ "images" ][ $sameSize ? 1 : 0 ] );
 	array_push( $projects[ "files_to_load" ], $value[ "images" ][ count( $value[ "images" ] ) - 1 ] );
 }
 

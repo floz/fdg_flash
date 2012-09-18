@@ -3,8 +3,9 @@
 */
 package fr.filsdegraphiste.module.site.ui.content 
 {
-	import fr.filsdegraphiste.module.site.ui.image.RightImage;
 	import flash.display.BitmapData;
+	import fr.filsdegraphiste.module.site.ui.diaporama.element.DiaporamaElement;
+	import fr.filsdegraphiste.module.site.ui.diaporama.element.image.RightImage;
 	public class RightContent extends BaseContent
 	{		
 		public function RightContent()
@@ -18,6 +19,14 @@ package fr.filsdegraphiste.module.site.ui.content
 			addChild( _currentImage = new RightImage( bd ) );
 			_currentImage.show( delay );
 		}
+
+		override public function setElement( element:DiaporamaElement, delay:Number = 0 ):void
+		{
+			super.setElement( element, delay );
+			addChild( _currentElement = element );
+			element.right( delay );
+		}
+
 
 	}
 }

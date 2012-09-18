@@ -3,6 +3,7 @@
 */
 package fr.filsdegraphiste.module.site.ui.diaporama 
 {
+	import fr.filsdegraphiste.module.site.ui.diaporama.element.DiaporamaElement;
 	import aze.motion.eaze;
 
 	import fr.filsdegraphiste.config._;
@@ -25,7 +26,7 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 		public function DiaporamaProject( project:Object, mainView:MainView, sameProject:Boolean )
 		{
 			_project = project;
-			_projects = _project[ "images" ];
+			_projects = _project[ "elements" ];
 			
 			_sameProject = sameProject;
 			
@@ -34,7 +35,7 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 			
 			super( mainView );
 						
-			_loadingView = new LoadingRubView( project[ "title" ], project, _projects );
+			_loadingView = new LoadingRubView( project[ "title" ], project, _project[ "images" ] );
 			_loadingView.addEventListener( Event.COMPLETE, _loadCompleteHandler, false, 0, true );
 			_mainView.setContent( _loadingView, false );
 			_loadingView.show( .4 );			
@@ -60,24 +61,38 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 		}
 
 		override protected function _showProject( fromProject:Boolean = false ) : void 
-		{
-			_mainView.mid.setImage( fdgDataLoaded.getImage( _projects[ _correctIndex( _currentIdx ) ] ) );
+		{			
+			trace( "///////")
+			for( var i:int; i < _projects.length; i++ )
+				trace( i + " : " + _projects[ i ] );
+			_mainView.mid.setElement( new DiaporamaElement( _projects[ _correctIndex( _currentIdx ) ] ) );
+			if( !_first || !_sameProject )
+			{
+				_mainView.left.setElement( new DiaporamaElement( _projects[ _correctIndex( _currentIdx - 1 ) ] ) );
+				_mainView.right.setElement( new DiaporamaElement( _projects[ _correctIndex( _currentIdx + 1 ) ] ) );
+			} 
+			_first = false;
+			
+			/*_mainView.mid.setImage( fdgDataLoaded.getImage( _projects[ _correctIndex( _currentIdx ) ] ) );
 			if( !_first || !_sameProject )
 			{
 				_mainView.left.setImage( fdgDataLoaded.getImage( _projects[ _correctIndex( _currentIdx - 1 ) ] ) );
 				_mainView.right.setImage( fdgDataLoaded.getImage( _projects[ _correctIndex( _currentIdx + 1 ) ] ) );
 			} 
 			_first = false;
+			 * */
 		}
 		
 		private function _correctIndex( idx:int ):int
 		{
-			var l:int = _projects.length; 
+			var l:int = _projects.length;
+			trace( "==" ); 
+			trace( idx, l );
 			if( idx < 0 )
 				idx = l - 1;
 			else if ( idx > l - 1 )
 				idx = 0;
-			
+			trace( idx, l );
 			return idx;
 		}
 		

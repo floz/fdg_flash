@@ -3,18 +3,19 @@
  */
 package fr.filsdegraphiste.module.site.ui.content 
 {
-	import fr.filsdegraphiste.module.site.ui.button.BtViewAll;
-	import fr.filsdegraphiste.config._;
-	import fr.filsdegraphiste.module.site.ui.menu.MainMenu;
-	import fr.filsdegraphiste.module.site.ui.menu.WorkMenu;
-	import fr.filsdegraphiste.module.site.ui.image.MidImage;
-	import fr.minuit4.core.navigation.modules.ModulePart;
-
 	import flash.display.BitmapData;
 	import flash.display.Graphics;
 	import flash.display.Shape;
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import fr.filsdegraphiste.config._;
+	import fr.filsdegraphiste.module.site.ui.button.BtViewAll;
+	import fr.filsdegraphiste.module.site.ui.diaporama.element.DiaporamaElement;
+	import fr.filsdegraphiste.module.site.ui.diaporama.element.image.MidImage;
+	import fr.filsdegraphiste.module.site.ui.menu.MainMenu;
+	import fr.filsdegraphiste.module.site.ui.menu.WorkMenu;
+	import fr.minuit4.core.navigation.modules.ModulePart;
+
 	
 	public class MidContent extends BaseContent
 	{
@@ -92,6 +93,13 @@ package fr.filsdegraphiste.module.site.ui.content
 			_currentImage.show( delay );
 		}
 		
+		override public function setElement( element:DiaporamaElement, delay:Number = 0 ):void
+		{
+			super.setElement( element, delay );
+			_cntContent.addChild( _currentElement = element );
+			element.mid( delay );
+		}
+		
 		public function clearContent():void
 		{
 			if( _currentContent != null )
@@ -108,6 +116,10 @@ package fr.filsdegraphiste.module.site.ui.content
 		{
 			if( _currentImage )
 				_currentImage.hide( delay );
+			
+			if( _currentElement )
+				_currentElement.hide( delay );
+			
 			return _currentContent.hide(delay);
 		}
 		

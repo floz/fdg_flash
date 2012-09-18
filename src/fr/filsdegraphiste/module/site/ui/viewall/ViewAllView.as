@@ -60,7 +60,7 @@ package fr.filsdegraphiste.module.site.ui.viewall
 			addChild( _halo = new Shape() );
 			var g:Graphics = _halo.graphics;
 			g.clear();
-			g.beginGradientFill( GradientType.RADIAL, [ 0x000000, 0x000000 ], [ .2, .5 ], [ 75, 255 ], m );
+			g.beginGradientFill( GradientType.RADIAL, [ 0x000000, 0x000000 ], [ .4, .5 ], [ 75, 255 ], m );
 			g.drawRect( 0, 0, 1000, 1000 );
 			_halo.alpha = 0;
 			
@@ -178,6 +178,8 @@ package fr.filsdegraphiste.module.site.ui.viewall
 		override public function hide( delay:Number = 0 ):Number
 		{
 			_entriesNormal.removeEventListener( ViewAllEvent.PROJECT_SELECTED, _projectSelectedHandler );
+			
+			_tooltip.hide();
 			
 			_btClose.removeEventListener( MouseEvent.CLICK, _closeClickHandler );			
 			_btClose.hide( delay );

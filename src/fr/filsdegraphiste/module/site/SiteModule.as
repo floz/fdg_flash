@@ -53,7 +53,6 @@ package fr.filsdegraphiste.module.site
 			
 			addChildAt( _mainView = new MainView(), 0 );
 			_viewAll = new ViewAll( _mainView );
-			addChild( new FPS() );
 			_mainView.show();
 		}
 

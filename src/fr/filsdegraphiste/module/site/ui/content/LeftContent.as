@@ -3,9 +3,10 @@
 */
 package fr.filsdegraphiste.module.site.ui.content 
 {
-	import fr.filsdegraphiste.module.site.ui.image.LeftImage;
-
 	import flash.display.BitmapData;
+	import fr.filsdegraphiste.module.site.ui.diaporama.element.DiaporamaElement;
+	import fr.filsdegraphiste.module.site.ui.diaporama.element.image.LeftImage;
+
 	public class LeftContent extends BaseContent
 	{
 		public function LeftContent()
@@ -19,5 +20,13 @@ package fr.filsdegraphiste.module.site.ui.content
 			addChild( _currentImage = new LeftImage( bd ) );
 			_currentImage.show( delay );
 		}
+		
+		override public function setElement( element:DiaporamaElement, delay:Number = 0 ):void
+		{
+			super.setElement( element, delay );
+			addChild( _currentElement = element );
+			element.left( delay );
+		}
+		
 	}
 }

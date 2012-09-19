@@ -44,10 +44,10 @@ package fr.filsdegraphiste.module.site.ui.about
 			_cnt.addChild( _separatorBot = new Shape() );
 			_cnt.addChild( _tfContact = new MaskedText( "Contact", "about_title" ) );
 			_cnt.addChild( _cntLink = new Sprite() );
-			_cntLink.addChild( _linkMail = new AboutLink( "tauruslionel@gmail.com" ) );
-			_cntLink.addChild( _linkCV = new AboutLink( "Download my CV" ) );
-			_cntLink.addChild( _linkLinkedin = new AboutLink( "Linkedin" ) );
-			_cntLink.addChild( _linkTwitter = new AboutLink( "Twitter" ) );
+			_cntLink.addChild( _linkMail = new AboutLink( "tauruslionel@gmail.com", conf.datas.about.mail[ 0 ].toString() ) );
+			_cntLink.addChild( _linkCV = new AboutLink( "Download my CV", conf.datas.about.cv[ 0 ].toString() ) );
+			_cntLink.addChild( _linkLinkedin = new AboutLink( "Linkedin", conf.datas.about.linkedin[ 0 ].toString() ) );
+			_cntLink.addChild( _linkTwitter = new AboutLink( "Twitter", conf.datas.about.twitter[ 0 ].toString() ) );
 			
 			_icon.x = _W >> 1;
 			_icon.alpha = 0;

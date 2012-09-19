@@ -18,3 +18,5 @@
 .about>.about_link { text-decoration: underline; }
 
 .base>.view_all_tooltip { font-family: Helvetica Neue LT Std 45 Light; font-size: 12px; color: #ffffff; thickness: -200; }
+
+.base>.player { font-family: Star Avenue; font-size: 78px; color: #53cecf; }

@@ -3,6 +3,7 @@
 */
 package fr.filsdegraphiste.module.site.ui.loading 
 {
+	import fr.filsdegraphiste.module.site.ui.TitleText;
 	import aze.motion.easing.Quint;
 	import aze.motion.eaze;
 
@@ -28,11 +29,7 @@ package fr.filsdegraphiste.module.site.ui.loading
 		private var _label:String;
 		private var _data:Object;
 		private var _filesToLoad:Array;
-		private var _cntTitle:Sprite;
-		private var _cntLetters:Sprite;
-		private var _mask:Shape;
-		private var _line:Line;
-		private var _letters:Vector.<Text>;		
+		private var _titleText:TitleText;
 		private var _batcher:Batcher;
 		private var _loadingIcon:LoadingIconOK;		
 		
@@ -62,61 +59,22 @@ package fr.filsdegraphiste.module.site.ui.loading
 		
 		private function _onResize():void
 		{
-			_cntTitle.x = _.stage.stageWidth - _cntTitle.width >> 1;
-			_cntTitle.y = _.stage.stageHeight - 110 >> 1;	
-			
-			_line.x = _cntTitle.x + _cntTitle.width - 35 >> 0;
-			_line.y = _cntTitle.y + 39;	
+			_titleText.x = _.stage.stageWidth - _titleText.width >> 1;
+			_titleText.y = _.stage.stageHeight - 110 >> 1;	
+				
 			
 			if( _loadingIcon != null )
 			{
 				_loadingIcon.x = _.stage.stageWidth >> 1;
-				_loadingIcon.y = _cntTitle.y - 100; 					
+				_loadingIcon.y = _titleText.y - 100; 					
 			}
 		}
 		
 		private function _init():void
 		{
-			_initLetters();
-			_initLine();
+			addChild( _titleText = new TitleText( _label, "loading_title" ) );
 			if( _filesToLoad != null )
 				_initLoader();
-		}
-		
-		private function _initLetters():void
-		{
-			addChild( _cntTitle = new Sprite() );
-			_cntTitle.addChild( _cntLetters = new Sprite() );
-			_cntTitle.addChild( _mask = new Shape() );
-			_letters = new Vector.<Text>();
-			
-			var letter:Text;
-			
-			var px:int = 0;
-			
-			var n:int = _label.length;
-			for( var i:int; i < n; i++ )
-			{
-				letter = new Text( _label.charAt( i ).toLowerCase(), "loading_title" );
-				letter.x = px;
-				letter.y = -130;
-				letter.cacheAsBitmap = true;
-				_letters[ i ] = letter;
-				_cntLetters.addChild( letter );
-				
-				px += letter.width;
-			}
-			
-			var g:Graphics = _mask.graphics;
-			g.beginFill( 0xff00ff, 1 );
-			g.drawRect( 0, -10, _cntLetters.width, 140 );
-			_cntLetters.mask = _mask;
-			_mask.y = 20;
-		}
-		
-		private function _initLine():void
-		{
-			addChild( _line = new Line() );
 		}
 		
 		private function _initLoader():void
@@ -179,16 +137,10 @@ package fr.filsdegraphiste.module.site.ui.loading
 			if( _shown )
 				return 0;
 			_shown = true;
+			 
+			_titleText.show( delay );
 			
-			var n:int = _letters.length;
-			for( var i:int; i < n; i++ )
-			{
-				eaze( _letters[ i ] ).delay( delay + i * .07 )
-									 .to( .3, { y: 0 } ).easing( Quint.easeOut );
-			}
-			_line.show( delay );
-			
-			var d:Number = delay + ( n - 1 ) * .07 + .3;
+			var d:Number = delay + ( _label.length - 1 ) * .07 + .3;
 			eaze( this ).delay( d ).onComplete( _onAnimationShowComplete );
 			if( _batcher != null )
 				eaze( this ).delay( d, false ).onComplete( _batcher.execute );
@@ -200,33 +152,21 @@ package fr.filsdegraphiste.module.site.ui.loading
 		{
 			if( !_shown	)
 				return 0;
-			_shown = false;			
+			_shown = false;
 			
-			var j:int, 
-				i:int = _letters.length;
-			
-			while( --i > -1 )
-			{
-				eaze( _letters[ i ] ).delay( delay + j * .07 )
-									 .to( .3, { y: -130 } ).easing( Quint.easeIn );
-				j++;
-			}
-			_line.hide( delay + .2 );
+			_titleText.hide( delay );
 			
 			if( _loadingIcon )
-			{
-				//eaze( _loadingIcon ).delay( delay ).to( .4, { alpha: 0 } );
-				//_loadingIcon.toto();
 				_loadingIcon.hide( delay );
-			}
 			
-			eaze( this ).delay( delay + j * .07 + .4 ).onComplete( _onLoadEnd );
+			eaze( this ).delay( delay + _label.length * .07 + .4 ).onComplete( _onLoadEnd );
 						
 			return super.hide( delay );
 		}
 
 		private function _onLoadEnd() : void 
 		{
+			_titleText.dispose();
 			dispatchEvent(new Event(Event.COMPLETE));			
 			_.stage.removeEventListener( Event.RESIZE, _resizeHandler );
 			parent.removeChild( this );
@@ -236,103 +176,5 @@ package fr.filsdegraphiste.module.site.ui.loading
 		{
 			return _data;
 		}
-	}
-}
-import aze.motion.easing.Expo;
-import aze.motion.eaze;
-
-import fr.minuit4.core.navigation.modules.ModulePart;
-
-import flash.display.CapsStyle;
-import flash.display.Graphics;
-import flash.display.JointStyle;
-import flash.display.LineScaleMode;
-import flash.display.Shape;
-import flash.events.Event;
-
-final class Line extends ModulePart
-{
-	private var _bg:Shape;
-	private var _s:Shape;
-	private var _percent:Number = 0;
-	
-	private var _show:Boolean;
-	
-	public function Line()
-	{
-		addChild( _bg = new Shape() );
-		addChild( _s = new Shape() );
-	}
-	
-	override public function show( delay:Number = 0 ):Number
-	{
-		_show = true;
-		addEventListener( Event.ENTER_FRAME, _enterFrameHandler );
-		eaze( this ).delay( delay ).to( .5, { percent: 1 } ).easing( Expo.easeOut );	
-		return super.show( delay );
-	}
-	
-	private function _enterFrameHandler( e:Event ):void
-	{
-		var g:Graphics;
-		
-		var p:Number = 70 * percent;
-		
-		if( _show )
-		{			
-			g = _s.graphics;
-			g.clear();
-			g.lineStyle( 0, 0x53cecf, 1, true, LineScaleMode.NORMAL, CapsStyle.SQUARE, JointStyle.MITER );
-			g.moveTo( 70, 0 );
-			g.lineTo( 70 - p, p );
-			
-			
-			p *= 2;
-			g = _bg.graphics;
-			g.clear();
-			g.beginFill( 0xffffff );
-			g.moveTo( 70, 0 );
-			g.lineTo( 70, p );
-			g.lineTo( 70 - p, p );
-		}
-		else
-		{
-			g = _s.graphics;
-			g.clear();
-			g.lineStyle( 0, 0x53cecf, 1, true, LineScaleMode.NORMAL, CapsStyle.SQUARE, JointStyle.MITER );
-			g.moveTo( 0, 70 );
-			g.lineTo( p, 70 - p );
-			
-			p *= 2;
-			g = _bg.graphics;
-			g.clear();
-			g.beginFill( 0xffffff );
-			g.moveTo( -70, 140 );
-			g.lineTo( -70 + p, 140 - p );
-			g.lineTo( -70 + p, 140 );		
-		}
-	}
-	
-	override public function hide( delay:Number = 0 ):Number
-	{
-		_show = false;
-		eaze( this ).delay( delay ).to( .5, { percent: 0 } ).easing( Expo.easeOut )
-					.onComplete( _dispose );
-		return super.hide(delay);
-	}
-
-	private function _dispose():void
-	{
-		removeEventListener( Event.ENTER_FRAME, _enterFrameHandler );
-	}
-
-	public function get percent() : Number 
-	{
-		return _percent;
-	}
-	
-	public function set percent(percent : Number) : void 
-	{
-		_percent = percent;
 	}
 }

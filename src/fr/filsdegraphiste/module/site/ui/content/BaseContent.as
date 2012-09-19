@@ -42,7 +42,7 @@ package fr.filsdegraphiste.module.site.ui.content
 			_clear( delay );
 		}
 
-		private function _clear( delay ):void
+		private function _clear( delay:Number ):void
 		{
 			if( _currentImage )
 			{

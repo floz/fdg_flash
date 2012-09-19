@@ -44,7 +44,6 @@ package fr.filsdegraphiste.module.site.ui.diaporama.element.image
 
 		override public function show(delay : Number = 0) : Number 
 		{
-			trace( "show" );
 			_top.x = 0;
 			_top.y = -_h;
 			

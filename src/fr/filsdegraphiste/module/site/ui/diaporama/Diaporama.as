@@ -3,6 +3,10 @@
 */
 package fr.filsdegraphiste.module.site.ui.diaporama 
 {
+	import fr.filsdegraphiste.module.site.nav.navWorkManager;
+	import swfaddress.SWFAddress;
+	import fr.minuit4.core.navigation.nav.events.NavEvent;
+	import fr.filsdegraphiste.module.site.nav.navProjectManager;
 	import fr.filsdegraphiste.module.site.nav.NavSiteId;
 	import fr.filsdegraphiste.module.site.nav.navSiteManager;
 	import fr.filsdegraphiste.config.fdgDataLoaded;
@@ -33,6 +37,13 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 				if( s != "files_to_load" )
 					_projects[ _projects.length ] = _data[ s ];
 			}
+			
+			navProjectManager.addEventListener( NavEvent.NAV_CHANGE, _navChangeHandler );
+		}
+
+		private function _navChangeHandler( event:NavEvent ):void
+		{
+			zoomIn( Number( navProjectManager.currentId ) );
 		}
 
 		override protected function _showProject( fromProject:Boolean = false ) : void 
@@ -61,6 +72,16 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 		
 		public function zoomIn( idx:int = -1 ):void
 		{			
+			if( idx == -1 )
+			{
+				var path:String = navSiteManager.currentId;
+				if( navSiteManager.currentId == NavSiteId.WORKS )
+					path += "/" + navWorkManager.currentId;
+				path += "/" + _currentIdx;
+				SWFAddress.setValue( path );
+				return;
+			}
+			
 			_zoomed = true;
 			
 			_mainView.mid.hide();
@@ -117,7 +138,17 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 				return 0;
 			}
 			else return super.hide( delay );
+		}
 			
+		override public function dispose():void
+		{
+			if( _diaporamaProject != null )
+			{
+				_diaporamaProject.removeEventListener( Event.COMPLETE, _diaporamaProjectCloseHandler );
+			}
+			
+			navProjectManager.removeEventListener( NavEvent.NAV_CHANGE, _navChangeHandler );
+			super.dispose();
 		}
 
 	}

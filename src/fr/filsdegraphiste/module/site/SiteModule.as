@@ -3,6 +3,9 @@
  */
 package fr.filsdegraphiste.module.site 
 {
+	import fr.filsdegraphiste.module.site.nav.navProjectManager;
+	import swfaddress.SWFAddressEvent;
+	import swfaddress.SWFAddress;
 	import fr.filsdegraphiste.config._;
 	import fr.filsdegraphiste.event.StepEvent;
 	import fr.filsdegraphiste.module.site.nav.NavSiteId;
@@ -74,8 +77,8 @@ package fr.filsdegraphiste.module.site
 			{
 				case NavSiteId.NEWS: _showLoadingView( "news", _.data.news, _.data.news.files_to_load ); break;
 				case NavSiteId.WORKS:
-					navWorkManager.currentId = NavWorkId.WEB; 
-					_showLoadingView( "works", _.data.works[ navWorkManager.currentId ], _.data.works.files_to_load ); 
+					//navWorkManager.currentId = NavWorkId.WEB;
+					//_showLoadingView( "works", _.data.works[ navWorkManager.currentId ], _.data.works.files_to_load ); 
 					break;
 				case NavSiteId.LAB: _showLoadingView( "lab", _.data.lab, _.data.lab.files_to_load ); break;
 				case NavSiteId.ABOUT: _showLoadingView( "fdg" ); break;
@@ -89,8 +92,66 @@ package fr.filsdegraphiste.module.site
 		
 		private function _start():void
 		{
+			SWFAddress.addEventListener( SWFAddressEvent.CHANGE, _swfAddressChangeHandler );
 			navSiteManager.addEventListener( NavEvent.NAV_CHANGE, _navChangeHandler );
-			navSiteManager.currentId = NavSiteId.WORKS;
+		}
+
+		private function _swfAddressChangeHandler( event:SWFAddressEvent ):void
+		{
+			trace( "...... : " + SWFAddress.getValue() );
+			var paths:Array = event.pathNames;
+			var n:int = paths.length;
+				
+			trace( n );
+				
+			if( n <= 0 )
+				return;
+				
+			switch( paths[ 0 ] )
+			{
+				case NavSiteId.NEWS:
+				case NavSiteId.WORKS:
+				case NavSiteId.LAB: 
+				case NavSiteId.ABOUT: 
+					navSiteManager.currentId = paths[ 0 ];
+					break;
+			}
+			
+			if( n <= 1 )
+			{
+				trace( "currentId: " + navSiteManager.currentId );
+				if( navSiteManager.currentId == NavSiteId.WORKS )
+				{
+					trace( "reroot" );
+					SWFAddress.setValue( paths[ 0 ] + "/" + NavWorkId.WEB );
+				}
+				return;
+			}
+			
+			var path1:String = paths[ 1 ];
+			var isNumber:Boolean = Number( path1 ).toString() != "NaN";
+			trace( path1 + " is Number " + isNumber );
+			if( isNumber )
+			{
+				navProjectManager.currentId = paths[ 1 ];
+			}
+			else
+			{
+				switch( paths[ 1 ] )
+				{
+					case NavWorkId.ILLUSTRATIONS:
+					case NavWorkId.INTERACTIVE_APP:
+					case NavWorkId.WEB:
+						navWorkManager.currentId = paths[ 1 ];
+						break;
+				}
+				trace( "paths[ 1 ] : " + paths[ 1 ] );
+			}
+			
+			if( n <= 2 )
+				return;
+			
+			navProjectManager.currentId = paths[ 2 ];
 		}
 		
 		private function _showLoadingView( title:String, data:Object = null, filesToLoad:Array = null ):void

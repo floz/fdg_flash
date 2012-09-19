@@ -3,13 +3,6 @@
  */
 package fr.filsdegraphiste.module.site.ui.menu 
 {
-	import flash.utils.Dictionary;
-	import flash.display.MovieClip;
-	import fr.minuit4.core.navigation.nav.events.NavEvent;
-	import fr.filsdegraphiste.module.site.nav.NavSiteId;
-	import fr.filsdegraphiste.module.site.nav.navSiteManager;
-	import flash.events.EventDispatcher;
-	import flash.events.MouseEvent;
 	import assets.icons.AssetAboutIcon;
 	import assets.icons.AssetLabIcon;
 	import assets.icons.AssetWorksIcon;
@@ -18,13 +11,22 @@ package fr.filsdegraphiste.module.site.ui.menu
 	import aze.motion.eaze;
 
 	import fr.filsdegraphiste.config._;
+	import fr.filsdegraphiste.module.site.nav.NavSiteId;
+	import fr.filsdegraphiste.module.site.nav.navSiteManager;
 	import fr.minuit4.core.navigation.modules.ModulePart;
+	import fr.minuit4.core.navigation.nav.events.NavEvent;
+
+	import swfaddress.SWFAddress;
 
 	import flash.display.GradientType;
 	import flash.display.Graphics;
+	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.events.EventDispatcher;
+	import flash.events.MouseEvent;
 	import flash.geom.Matrix;
+	import flash.utils.Dictionary;
 	
 	public class MainMenu extends ModulePart
 	{
@@ -108,7 +110,6 @@ package fr.filsdegraphiste.module.site.ui.menu
 		{
 			for( var s:String in _iconsById )
 			{
-				trace( navSiteManager.currentId, s, navSiteManager.currentId == s );
 				MovieClip( _iconsById[ s ] ).gotoAndStop( ( navSiteManager.currentId == s ) ? "over" : "out" );
 			}
 		}
@@ -153,9 +154,9 @@ package fr.filsdegraphiste.module.site.ui.menu
 		{
 			switch( event.currentTarget )
 			{
-				case _bgLeft: navSiteManager.currentId = NavSiteId.WORKS; break;
-				case _bgRight: navSiteManager.currentId = NavSiteId.LAB; break;
-				case _bgMid: navSiteManager.currentId = NavSiteId.ABOUT; break;
+				case _bgLeft: SWFAddress.setValue( NavSiteId.WORKS ); break;
+				case _bgRight: SWFAddress.setValue( NavSiteId.LAB ); break;
+				case _bgMid: SWFAddress.setValue( NavSiteId.ABOUT ); break;
 			}		
 		}
 		

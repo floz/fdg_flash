@@ -265,6 +265,7 @@ package fr.filsdegraphiste.module.site.ui.viewall
 
 		private function _clickHandler( event:MouseEvent ):void
 		{
+			//navProjectManager.currentId = _idx.toString();
 			dispatchEvent( new ViewAllEvent( ViewAllEvent.PROJECT_SELECTED, _idx, true ) );
 		}
 		

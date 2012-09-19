@@ -86,13 +86,10 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 		private function _correctIndex( idx:int ):int
 		{
 			var l:int = _projects.length;
-			trace( "==" ); 
-			trace( idx, l );
 			if( idx < 0 )
 				idx = l - 1;
 			else if ( idx > l - 1 )
 				idx = 0;
-			trace( idx, l );
 			return idx;
 		}
 		

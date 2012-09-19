@@ -5,7 +5,8 @@
 	<title>FilsDeGraphiste</title>
 	<meta name="description" content="" />
 	
-	<script src="js/swfobject.js"></script>
+	<script type="text/javascript" src="js/swfobject.js"></script>
+	<script type="text/javascript" src="js/swfaddress.js"></script>
 	<script>
 		var flashvars = {
 			isDev: "true"
@@ -23,7 +24,7 @@
 		};
 		swfobject.embedSWF(
 			"loader.swf", 
-			"altContent", "100%", "100%", "10.0.0", 
+			"site", "100%", "100%", "10.0.0", 
 			"expressInstall.swf", 
 			flashvars, params, attributes);
 	</script>
@@ -33,7 +34,7 @@
 	</style>
 </head>
 <body>
-	<div id="altContent">
+	<div id="site">
 		<h1>FilsDeGraphiste</h1>
 		<p><a href="http://www.adobe.com/go/getflashplayer">Get Adobe Flash player</a></p>
 	</div>

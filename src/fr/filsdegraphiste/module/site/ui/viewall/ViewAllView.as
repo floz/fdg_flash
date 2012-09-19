@@ -3,6 +3,7 @@
 */
 package fr.filsdegraphiste.module.site.ui.viewall 
 {
+	import swfaddress.SWFAddress;
 	import aze.motion.eaze;
 
 	import fr.filsdegraphiste.config._;
@@ -202,7 +203,11 @@ package fr.filsdegraphiste.module.site.ui.viewall
 
 		private function _selectNewProject():void
 		{
-			_mainView.diaporama.zoomIn( _selectedIdx );
+			var path:String = navSiteManager.currentId;
+			if( navSiteManager.currentId == NavSiteId.WORKS )
+				path += "/" + navWorkManager.currentId;
+			path += "/" + _selectedIdx;
+			SWFAddress.setValue( path );
 		}
 		
 		override public function dispose():void

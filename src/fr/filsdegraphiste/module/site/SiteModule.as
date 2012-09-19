@@ -98,6 +98,7 @@ package fr.filsdegraphiste.module.site
 
 		private function _swfAddressChangeHandler( event:SWFAddressEvent ):void
 		{
+			SWFAddress.removeEventListener( SWFAddressEvent.CHANGE, _swfAddressChangeHandler );
 			trace( "...... : " + SWFAddress.getValue() );
 			var paths:Array = event.pathNames;
 			var n:int = paths.length;
@@ -105,7 +106,10 @@ package fr.filsdegraphiste.module.site
 			trace( n );
 				
 			if( n <= 0 )
+			{
+				SWFAddress.addEventListener( SWFAddressEvent.CHANGE, _swfAddressChangeHandler );
 				return;
+			}
 				
 			switch( paths[ 0 ] )
 			{
@@ -125,6 +129,7 @@ package fr.filsdegraphiste.module.site
 					trace( "reroot" );
 					SWFAddress.setValue( paths[ 0 ] + "/" + NavWorkId.WEB );
 				}
+				SWFAddress.addEventListener( SWFAddressEvent.CHANGE, _swfAddressChangeHandler );
 				return;
 			}
 			
@@ -149,7 +154,10 @@ package fr.filsdegraphiste.module.site
 			}
 			
 			if( n <= 2 )
+			{
+				SWFAddress.addEventListener( SWFAddressEvent.CHANGE, _swfAddressChangeHandler );
 				return;
+			}
 			
 			navProjectManager.currentId = paths[ 2 ];
 		}

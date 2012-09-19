@@ -128,8 +128,10 @@ package fr.filsdegraphiste.module.site
 				{
 					trace( "reroot" );
 					SWFAddress.setValue( paths[ 0 ] + "/" + NavWorkId.WEB );
+					trace( SWFAddress.getValue() );
 				}
-				SWFAddress.addEventListener( SWFAddressEvent.CHANGE, _swfAddressChangeHandler );
+				//SWFAddress.addEventListener( SWFAddressEvent.CHANGE, _swfAddressChangeHandler );
+				trace( "FIN" );
 				return;
 			}
 			

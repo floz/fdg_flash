@@ -43,7 +43,10 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 
 		private function _navChangeHandler( event:NavEvent ):void
 		{
-			zoomIn( Number( navProjectManager.currentId ) );
+			if( navProjectManager.currentId != null )
+				zoomIn( Number( navProjectManager.currentId ) );
+			else
+				_onDiaporamaProjectClosed();
 		}
 
 		override protected function _showProject( fromProject:Boolean = false ) : void 
@@ -74,6 +77,7 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 		{			
 			if( idx == -1 )
 			{
+				trace( "ZOOM IN" );
 				var path:String = navSiteManager.currentId;
 				if( navSiteManager.currentId == NavSiteId.WORKS )
 					path += "/" + navWorkManager.currentId;
@@ -97,14 +101,12 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 			}
 			
 			_diaporamaProject = new DiaporamaProject( _projects[ idx == -1 ? _currentIdx : idx ], _mainView, idx == -1 || _currentIdx == idx );
-			_diaporamaProject.addEventListener( Event.COMPLETE, _diaporamaProjectCloseHandler );
 			if( idx != -1 ) 
 				_currentIdx = idx;
 		}
-
-		private function _diaporamaProjectCloseHandler( event:Event ):void
+		
+		private function _onDiaporamaProjectClosed():void
 		{
-			_diaporamaProject.removeEventListener( Event.COMPLETE, _diaporamaProjectCloseHandler );
 			_diaporamaProject.hide();
 			
 			if( navSiteManager.currentId == NavSiteId.WORKS )
@@ -141,12 +143,7 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 		}
 			
 		override public function dispose():void
-		{
-			if( _diaporamaProject != null )
-			{
-				_diaporamaProject.removeEventListener( Event.COMPLETE, _diaporamaProjectCloseHandler );
-			}
-			
+		{			
 			navProjectManager.removeEventListener( NavEvent.NAV_CHANGE, _navChangeHandler );
 			super.dispose();
 		}

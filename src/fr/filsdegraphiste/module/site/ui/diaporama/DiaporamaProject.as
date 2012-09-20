@@ -3,6 +3,10 @@
 */
 package fr.filsdegraphiste.module.site.ui.diaporama 
 {
+	import fr.filsdegraphiste.module.site.nav.navWorkManager;
+	import fr.filsdegraphiste.module.site.nav.NavSiteId;
+	import fr.filsdegraphiste.module.site.nav.navSiteManager;
+	import swfaddress.SWFAddress;
 	import fr.filsdegraphiste.module.site.ui.diaporama.element.DiaporamaElement;
 	import aze.motion.eaze;
 
@@ -44,7 +48,11 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 		private function _clickHandler( e:MouseEvent ):void
 		{
 			_btClose.removeEventListener( MouseEvent.CLICK, _clickHandler );
-			dispatchEvent( new Event( Event.COMPLETE ) );
+			var newPath:String = navSiteManager.currentId;
+			if( navSiteManager.currentId == NavSiteId.WORKS )
+				newPath += "/" + navWorkManager.currentId;
+			SWFAddress.setValue( newPath );
+			//dispatchEvent( new Event( Event.COMPLETE ) );
 		}
 			
 		override protected function _onResize():void
@@ -61,10 +69,7 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 		}
 
 		override protected function _showProject( fromProject:Boolean = false ) : void 
-		{			
-			trace( "///////")
-			for( var i:int; i < _projects.length; i++ )
-				trace( i + " : " + _projects[ i ] );
+		{
 			_mainView.mid.setElement( new DiaporamaElement( _projects[ _correctIndex( _currentIdx ) ] ) );
 			if( !_first || !_sameProject )
 			{
@@ -72,15 +77,6 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 				_mainView.right.setElement( new DiaporamaElement( _projects[ _correctIndex( _currentIdx + 1 ) ] ) );
 			} 
 			_first = false;
-			
-			/*_mainView.mid.setImage( fdgDataLoaded.getImage( _projects[ _correctIndex( _currentIdx ) ] ) );
-			if( !_first || !_sameProject )
-			{
-				_mainView.left.setImage( fdgDataLoaded.getImage( _projects[ _correctIndex( _currentIdx - 1 ) ] ) );
-				_mainView.right.setImage( fdgDataLoaded.getImage( _projects[ _correctIndex( _currentIdx + 1 ) ] ) );
-			} 
-			_first = false;
-			 * */
 		}
 		
 		private function _correctIndex( idx:int ):int

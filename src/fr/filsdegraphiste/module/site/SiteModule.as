@@ -78,7 +78,7 @@ package fr.filsdegraphiste.module.site
 				case NavSiteId.NEWS: _showLoadingView( "news", _.data.news, _.data.news.files_to_load ); break;
 				case NavSiteId.WORKS:
 					//navWorkManager.currentId = NavWorkId.WEB;
-					//_showLoadingView( "works", _.data.works[ navWorkManager.currentId ], _.data.works.files_to_load ); 
+					_showLoadingView( "works", _.data.works[ navWorkManager.currentId ], _.data.works.files_to_load ); 
 					break;
 				case NavSiteId.LAB: _showLoadingView( "lab", _.data.lab, _.data.lab.files_to_load ); break;
 				case NavSiteId.ABOUT: _showLoadingView( "fdg" ); break;
@@ -98,70 +98,95 @@ package fr.filsdegraphiste.module.site
 
 		private function _swfAddressChangeHandler( event:SWFAddressEvent ):void
 		{
-			SWFAddress.removeEventListener( SWFAddressEvent.CHANGE, _swfAddressChangeHandler );
-			trace( "...... : " + SWFAddress.getValue() );
-			var paths:Array = event.pathNames;
-			var n:int = paths.length;
+			trace( "!!!!!! SWFADDESS CHANGE" );
+			_performReroot( event.pathNames );
+		}
+
+		private function _performReroot( pathNames:Array ):void
+		{
+			trace( "!!! preformReroot " + pathNames );
+			
+			var n:int = pathNames.length;
+			
+			var newNavSiteId:String,
+				newNavWorkId:String,
+				newNavProjectId:String;
+			
+			var needReroot:Boolean = false;
 				
 			trace( n );
-				
-			if( n <= 0 )
+			if( n > 0 )
 			{
-				SWFAddress.addEventListener( SWFAddressEvent.CHANGE, _swfAddressChangeHandler );
-				return;
-			}
-				
-			switch( paths[ 0 ] )
-			{
-				case NavSiteId.NEWS:
-				case NavSiteId.WORKS:
-				case NavSiteId.LAB: 
-				case NavSiteId.ABOUT: 
-					navSiteManager.currentId = paths[ 0 ];
-					break;
-			}
-			
-			if( n <= 1 )
-			{
-				trace( "currentId: " + navSiteManager.currentId );
-				if( navSiteManager.currentId == NavSiteId.WORKS )
+				trace( "n > 0" );
+				switch( pathNames[ 0 ] )
 				{
-					trace( "reroot" );
-					SWFAddress.setValue( paths[ 0 ] + "/" + NavWorkId.WEB );
-					trace( SWFAddress.getValue() );
+					case NavSiteId.NEWS:
+					case NavSiteId.WORKS:
+					case NavSiteId.LAB: 
+					case NavSiteId.ABOUT: 
+						newNavSiteId = pathNames[ 0 ];
+						break;
+					default: 
+						newNavSiteId = NavSiteId.NEWS;
+						needReroot = true; 
+						break;
 				}
-				//SWFAddress.addEventListener( SWFAddressEvent.CHANGE, _swfAddressChangeHandler );
-				trace( "FIN" );
-				return;
+				
+				if( n > 1 )
+				{
+					trace( "n > 1" );
+					var isNumber:Boolean = Number( pathNames[ 1 ] ).toString() != "NaN";
+					if( isNumber )
+					{
+						newNavProjectId = pathNames[ 1 ];	
+					}
+					else
+					{
+						switch( pathNames[ 1 ] )
+						{
+							case NavWorkId.ILLUSTRATIONS:
+							case NavWorkId.INTERACTIVE_APP:
+							case NavWorkId.WEB:
+								newNavWorkId = pathNames[ 1 ];
+								break;
+							default:
+								newNavWorkId = NavWorkId.WEB;
+								needReroot = true;
+								break;
+						}
+					}
+					
+					if( n > 2 )
+					{
+						trace( "n > 2" );
+						newNavProjectId = pathNames[ 2 ];
+					}
+				}
+				else
+				{
+					if( newNavSiteId == NavSiteId.WORKS )
+					{
+						newNavWorkId = NavWorkId.WEB;
+						needReroot = true;
+					}
+				}
 			}
 			
-			var path1:String = paths[ 1 ];
-			var isNumber:Boolean = Number( path1 ).toString() != "NaN";
-			trace( path1 + " is Number " + isNumber );
-			if( isNumber )
+			if( needReroot )
 			{
-				navProjectManager.currentId = paths[ 1 ];
+				trace( "reroot" );
+				var newPath:String = newNavSiteId;
+				if( newNavWorkId != null ) newPath += "/" + newNavWorkId;
+				if( newNavProjectId != null ) newPath += "/" + newNavProjectId;
+				SWFAddress.setValue( newPath );			
 			}
 			else
 			{
-				switch( paths[ 1 ] )
-				{
-					case NavWorkId.ILLUSTRATIONS:
-					case NavWorkId.INTERACTIVE_APP:
-					case NavWorkId.WEB:
-						navWorkManager.currentId = paths[ 1 ];
-						break;
-				}
-				trace( "paths[ 1 ] : " + paths[ 1 ] );
+				trace( "apply" );
+				navProjectManager.currentId = newNavProjectId;
+				navWorkManager.currentId = newNavWorkId;
+				navSiteManager.currentId = newNavSiteId;
 			}
-			
-			if( n <= 2 )
-			{
-				SWFAddress.addEventListener( SWFAddressEvent.CHANGE, _swfAddressChangeHandler );
-				return;
-			}
-			
-			navProjectManager.currentId = paths[ 2 ];
 		}
 		
 		private function _showLoadingView( title:String, data:Object = null, filesToLoad:Array = null ):void

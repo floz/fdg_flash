@@ -163,6 +163,7 @@ package fr.filsdegraphiste.module.site.ui.diaporama.element.video
 		private function _onResize():void
 		{
 			_cnt.x = _.stage.stageWidth - _cnt.width >> 1;
+			_cnt.y = _.stage.stageHeight - _cnt.height >> 1;
 		}
 		
 		override public function show( delay:Number = 0 ):Number

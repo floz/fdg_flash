@@ -3,6 +3,8 @@
 */
 package fr.filsdegraphiste.module.site.ui.menu 
 {
+	import swfaddress.SWFAddress;
+	import fr.filsdegraphiste.module.site.nav.navSiteManager;
 	import aze.motion.easing.Expo;
 	import aze.motion.eaze;
 
@@ -91,7 +93,9 @@ package fr.filsdegraphiste.module.site.ui.menu
 
 		private function _clickHandler(event : MouseEvent) : void 
 		{
-			navWorkManager.currentId = _label;
+			//navWorkManager.currentId = _label;
+			var path:String = navSiteManager.currentId + "/" + _label;
+			SWFAddress.setValue( path );
 		}
 
 		private function _navChangeHandler(event : NavEvent) : void 
@@ -292,8 +296,7 @@ package fr.filsdegraphiste.module.site.ui.menu
 			addEventListener( Event.ENTER_FRAME, _enterFrameHandler );
 			
 			var px:int = this.x;
-			this.x += 50;
-			eaze( this ).delay( delay ).to( .3, { alpha: 1, x: px } );
+			eaze( this ).delay( delay + .1 ).apply( { x: px + 50 } ).to( .3, { alpha: 1, x: px } );
 			return super.show( delay );
 		}
 		

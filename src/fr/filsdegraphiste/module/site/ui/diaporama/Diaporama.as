@@ -3,6 +3,7 @@
 */
 package fr.filsdegraphiste.module.site.ui.diaporama 
 {
+	import aze.motion.eaze;
 	import fr.filsdegraphiste.module.site.nav.navWorkManager;
 	import swfaddress.SWFAddress;
 	import fr.minuit4.core.navigation.nav.events.NavEvent;
@@ -75,7 +76,7 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 		
 		public function zoomIn( idx:int = -1 ):void
 		{			
-			if( idx == -1 )
+			if( idx <= -1 )
 			{
 				trace( "ZOOM IN" );
 				var path:String = navSiteManager.currentId;
@@ -128,8 +129,30 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 		
 		override public function show( delay:Number = 0 ):Number
 		{
-			_mainView.mid.btViewAll.show( delay + .1 );
-			return super.show( delay );
+			if( navProjectManager.currentId != null )
+			{
+				if( Number( navProjectManager.currentId ) < _projects.length )
+				{
+					eaze( this ).delay( delay ).onComplete( zoomIn, Number( navProjectManager.currentId ) );
+					return delay;
+				}
+				else
+				{
+					var path:String = navSiteManager.currentId;
+					if( navSiteManager.currentId == NavSiteId.WORKS )
+						path += "/" + navWorkManager.currentId;
+					SWFAddress.setValue( path );
+					
+					_mainView.mid.btViewAll.show( delay + .1 );
+					return super.show( delay );
+				}
+			}			
+			else
+			{
+				_mainView.mid.btViewAll.show( delay + .1 );
+				return super.show( delay );
+			}
+			return 0;
 		}
 
 		override public function hide(delay : Number = 0) : Number 

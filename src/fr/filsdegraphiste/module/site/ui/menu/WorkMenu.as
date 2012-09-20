@@ -55,6 +55,8 @@ package fr.filsdegraphiste.module.site.ui.menu
 				return 0;
 			_shown = true;
 			
+			_onResize();
+			
 			var d:Number = 0;
 			var i:int = numChildren;
 			while( --i > -1 )

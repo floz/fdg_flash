@@ -171,6 +171,11 @@ package fr.filsdegraphiste.module.site
 					}
 				}
 			}
+			else
+			{
+				newNavSiteId = NavSiteId.NEWS;
+				needReroot = true;
+			}
 			
 			if( needReroot )
 			{

@@ -24,6 +24,7 @@ package fr.filsdegraphiste.module.site.ui.diaporama.element.video
 		private static const _BD:BitmapData = new AssetVideoScreenEmpty();
 		
 		private var _url:String;
+		private var _bg:Shape;
 		private var _cnt:Sprite;
 		private var _left:Shape;
 		private var _right:Shape;
@@ -38,10 +39,15 @@ package fr.filsdegraphiste.module.site.ui.diaporama.element.video
 		{
 			_url = url;
 			
+			addChild( _bg = new Shape() );
+			var g:Graphics = _bg.graphics;			
+			g.beginFill( 0xf7f7f7 );
+			g.drawRect( 0, 0, 10, 10 );
+			
 			addChild( _cnt = new Sprite() );
 			
 			_cnt.addChild( _left = new Shape() );
-			var g:Graphics = _left.graphics;
+			g = _left.graphics;
 			g.beginBitmapFill( _BD, null, false, true );
 			g.drawRect( 0, 0, _BD.width >> 1, _BD.height );
 			
@@ -162,6 +168,7 @@ package fr.filsdegraphiste.module.site.ui.diaporama.element.video
 
 		private function _onResize():void
 		{
+			_bg.width = _.stage.stageWidth;
 			_cnt.x = _.stage.stageWidth - _cnt.width >> 1;
 		}
 		

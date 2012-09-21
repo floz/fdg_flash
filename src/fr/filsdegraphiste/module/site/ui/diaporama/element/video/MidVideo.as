@@ -66,7 +66,7 @@ package fr.filsdegraphiste.module.site.ui.diaporama.element.video
 			_tfPlay.x = _cnt.width - _tfPlay.width >> 1;
 			_tfPlay.y = _cnt.height - _tfPlay.height >> 1;
 			
-			_cnt.addChild( _tfPause = new TitleText( "PAUSE", "player", false, 0xf7f7f7 ) );
+			_cnt.addChild( _tfPause = new TitleText( "STOP", "player", false, 0xf7f7f7 ) );
 			_tfPause.x = _cnt.width - _tfPause.width >> 1;
 			_tfPause.y = _cnt.height - _tfPause.height >> 1;
 						

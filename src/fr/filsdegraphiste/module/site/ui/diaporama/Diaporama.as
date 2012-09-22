@@ -78,7 +78,7 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 		{			
 			if( idx <= -1 || idx > _projects.length - 1 )
 			{
-				trace( "ZOOM IN" );
+				trace( "ZOOM IN" ); 
 				var path:String = navSiteManager.currentId;
 				if( navSiteManager.currentId == NavSiteId.WORKS )
 					path += "/" + navWorkManager.currentId;

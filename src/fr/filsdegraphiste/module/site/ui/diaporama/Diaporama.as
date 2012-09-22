@@ -76,13 +76,14 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 		
 		public function zoomIn( idx:int = -1 ):void
 		{			
-			if( idx <= -1 )
+			if( idx <= -1 || idx > _projects.length - 1 )
 			{
 				trace( "ZOOM IN" );
 				var path:String = navSiteManager.currentId;
 				if( navSiteManager.currentId == NavSiteId.WORKS )
 					path += "/" + navWorkManager.currentId;
-				path += "/" + _currentIdx;
+				if ( idx < _projects.length - 1 ) 
+					path += "/" + _currentIdx;
 				SWFAddress.setValue( path );
 				return;
 			}

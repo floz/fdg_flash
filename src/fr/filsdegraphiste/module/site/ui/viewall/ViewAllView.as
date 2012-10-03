@@ -35,7 +35,7 @@ package fr.filsdegraphiste.module.site.ui.viewall
 		
 		private var _mainView:MainView;
 		
-		private var _projects:Object;
+		private var _projects:XML;
 		private var _capture:Bitmap;
 		private var _captureBd:BitmapData;
 		private var _halo:Shape;
@@ -114,12 +114,13 @@ package fr.filsdegraphiste.module.site.ui.viewall
 		
 		private function _showProjects():void
 		{
-			_projects = _.data.projects[ navSiteManager.currentId ];
+			_projects = _.data.projects.rub.( @id == navSiteManager.currentId )[ 0 ];
 			if( navSiteManager.currentId == NavSiteId.WORKS )
 			{
-				_projects = _projects[ navWorkManager.currentId ];
+				//_projects = _projects[ navWorkManager.currentId ];
+				_projects = _projects.rub.( @id == navWorkManager.currentId )[ 0 ];
 			}
-			else
+			/*else
 			{
 				var projects:Object = {};
 				for( var s:String in _projects )
@@ -128,7 +129,7 @@ package fr.filsdegraphiste.module.site.ui.viewall
 						projects[ s ] = _projects[ s ];
 				}
 				_projects = projects;
-			}
+			}*/
 			
 			addChild( _cntEntries = new Sprite() );
 			_tooltip = new ViewAllTooltip();

@@ -27,10 +27,11 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 		
 		private var _first:Boolean = true;
 		
-		public function DiaporamaProject( project:Object, mainView:MainView, sameProject:Boolean )
+		public function DiaporamaProject( project:XML, mainView:MainView, sameProject:Boolean )
 		{
 			_project = project;
-			_projects = _project[ "elements" ];
+			_projectsCount = _project.elements.element.length();
+			//_projects = _project[ "elements" ];
 			
 			_sameProject = sameProject;
 			
@@ -39,7 +40,10 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 			
 			super( mainView );
 						
-			_loadingView = new LoadingRubView( project[ "title" ], project, _project[ "images" ] );
+			trace( "DIAPORAMA PROJECT" );
+			trace( "diaporamaProject : " + _project );
+			trace( "diaporamaProject filesToLoad : " + _project.files_to_load );
+			_loadingView = new LoadingRubView( project.title[ 0 ], project, _project.files_to_load[ 0 ] );
 			_loadingView.addEventListener( Event.COMPLETE, _loadCompleteHandler, false, 0, true );
 			_mainView.setContent( _loadingView, false );
 			_loadingView.show( .4 );			
@@ -70,22 +74,25 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 
 		override protected function _showProject( fromProject:Boolean = false ) : void 
 		{
-			_mainView.mid.setElement( new DiaporamaElement( _projects[ _correctIndex( _currentIdx ) ] ) );
+			var elements:XMLList = _project.elements.element;
+			trace( "showProject : " + elements );
+			_mainView.mid.setElement( new DiaporamaElement( elements[ _correctIndex( _currentIdx ) ] ) );
 			if( !_first || !_sameProject )
 			{
-				_mainView.left.setElement( new DiaporamaElement( _projects[ _correctIndex( _currentIdx - 1 ) ] ) );
-				_mainView.right.setElement( new DiaporamaElement( _projects[ _correctIndex( _currentIdx + 1 ) ] ) );
+				_mainView.left.setElement( new DiaporamaElement( elements[ _correctIndex( _currentIdx - 1 ) ] ) );
+				_mainView.right.setElement( new DiaporamaElement( elements[ _correctIndex( _currentIdx + 1 ) ] ) );
 			} 
 			_first = false;
 		}
 		
 		private function _correctIndex( idx:int ):int
 		{
-			var l:int = _projects.length;
+			var l:int = _projectsCount;
 			if( idx < 0 )
 				idx = l - 1;
 			else if ( idx > l - 1 )
 				idx = 0;
+			
 			return idx;
 		}
 		

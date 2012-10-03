@@ -169,6 +169,7 @@ package fr.filsdegraphiste.module.site.ui.diaporama.element.video
 		private function _onResize():void
 		{
 			_bg.width = _.stage.stageWidth;
+			_bg.height = _.stage.stageHeight;
 			_cnt.x = _.stage.stageWidth - _cnt.width >> 1;
 			_cnt.y = _.stage.stageHeight - _cnt.height >> 1;
 		}

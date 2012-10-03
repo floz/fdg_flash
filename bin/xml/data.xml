@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+
+	<projects>
+		<rub id="news">
+			<project id="FDG" />
+			<project id="MODERN HERO" />
+			<project id="WIDO GAME" />
+		</rub>
+		<rub id="lab">
+			<project id="FDG">
+				<title><![CDATA[Bird 01]]></title>
+				<subtitle><![CDATA[Motion]]></subtitle>
+				<description><![CDATA[Expérimentation vidéo avec Cinéma 4d et After Effects]]></description>
+				<preview>./images/projects/lab/FDG/preview.png</preview>
+				<elements>
+					<element type="image">./images/projects/lab/FDG/01.jpg</element>
+					<element type="image">./images/projects/lab/FDG/02.jpg</element>
+					<element type="image">./images/projects/lab/FDG/03.jpg</element>
+				</elements>
+			</project>
+			<project id="MODERN HERO">
+				<title><![CDATA[Modern Hero]]></title>
+				<subtitle><![CDATA[Concept Game]]></subtitle>
+				<description><![CDATA[Concept design pour un jeu sur mobile.]]></description>
+				<preview>./images/projects/lab/MODERN HERO/preview.png</preview>
+				<elements>
+					<element type="image">./images/projects/lab/MODERN HERO/01.jpg</element>
+					<element type="image">./images/projects/lab/MODERN HERO/02.jpg</element>
+					<element type="image">./images/projects/lab/MODERN HERO/03.jpg</element>
+					<element type="image">./images/projects/lab/MODERN HERO/04.jpg</element>
+					<element type="image">./images/projects/lab/MODERN HERO/05.jpg</element>
+				</elements>
+			</project>
+		</rub>
+		<rub id="works">
+			<rub id="illustrations">
+				<project id="SKATE">
+					<title><![CDATA[Stakeboard 3eOeil]]></title>
+					<subtitle><![CDATA[Design produit]]></subtitle>
+					<description><![CDATA[Lorem ipsum]]></description>
+					<preview>./images/projects/works/illustrations/SKATE/preview.png</preview>
+					<elements>
+						<element type="image">./images/projects/works/illustrations/SKATE/01.jpg</element>
+						<element type="image">./images/projects/works/illustrations/SKATE/02.jpg</element>
+						<element type="image">./images/projects/works/illustrations/SKATE/03.jpg</element>
+						<element type="image">./images/projects/works/illustrations/SKATE/04.jpg</element>
+						<element type="image">./images/projects/works/illustrations/SKATE/05.jpg</element>
+					</elements>
+				</project>
+			</rub>
+			<rub id="web">
+				<project id="BIMOLO">
+					<title><![CDATA[Bimolo]]></title>
+					<subtitle><![CDATA[Web design]]></subtitle>
+					<description><![CDATA[Lorem ipsum]]></description>
+					<preview>./images/projects/works/web/BIMOLO/preview.png</preview>
+					<elements>
+						<element type="image">./images/projects/works/web/BIMOLO/01.jpg</element>
+						<element type="image">./images/projects/works/web/BIMOLO/02.jpg</element>
+						<element type="image">./images/projects/works/web/BIMOLO/03.jpg</element>
+					</elements>
+				</project>
+				<project id="FORD">
+					<title><![CDATA[Ford]]></title>
+					<subtitle><![CDATA[Web design]]></subtitle>
+					<description><![CDATA[Lorem ipsum]]></description>
+					<preview>./images/projects/works/web/FORD/preview.png</preview>
+					<elements>
+						<element type="video">./images/projects/works/web/FORD/00.flv</element>
+						<element type="image">./images/projects/works/web/FORD/01.jpg</element>
+						<element type="image">./images/projects/works/web/FORD/02.jpg</element>
+						<element type="image">./images/projects/works/web/FORD/03.jpg</element>
+						<element type="image">./images/projects/works/web/FORD/04.jpg</element>
+					</elements>
+				</project>
+				<project id="FZFS">
+					<title><![CDATA[FZFS]]></title>
+					<subtitle><![CDATA[Concept design]]></subtitle>
+					<description><![CDATA[Lorem ipsum]]></description>
+					<preview>./images/projects/works/web/FZFS/preview.png</preview>
+					<elements>
+						<element type="image">./images/projects/works/web/FZFS/01.jpg</element>
+						<element type="image">./images/projects/works/web/FZFS/02.jpg</element>
+						<element type="image">./images/projects/works/web/FZFS/03.jpg</element>
+						<element type="image">./images/projects/works/web/FZFS/04.jpg</element>
+					</elements>
+				</project>
+				<project id="GRAND OPTICAL">
+					<title><![CDATA[GrandOptical]]></title>
+					<subtitle><![CDATA[Web design]]></subtitle>
+					<description><![CDATA[Lorem ipsum]]></description>
+					<preview>./images/projects/works/web/GRAND OPTICAL/preview.png</preview>
+					<elements>
+						<element type="image">./images/projects/works/web/GRAND OPTICAL/01.jpg</element>
+						<element type="image">./images/projects/works/web/GRAND OPTICAL/02.jpg</element>
+						<element type="image">./images/projects/works/web/GRAND OPTICAL/03.jpg</element>
+					</elements>
+				</project>
+				<project id="MIL">
+					<title><![CDATA[MobInLife]]></title>
+					<subtitle><![CDATA[Charte graphique]]></subtitle>
+					<description><![CDATA[Lorem ipsum]]></description>
+					<preview>./images/projects/works/web/MIL/preview.png</preview>
+					<elements>	
+						<element type="image">./images/projects/works/web/MIL/01.jpg</element>
+						<element type="image">./images/projects/works/web/MIL/02.jpg</element>
+						<element type="image">./images/projects/works/web/MIL/03.jpg</element>
+					</elements>
+				</project>
+				<project id="ONE PIECE">
+					<title><![CDATA[One Piece]]></title>
+					<subtitle><![CDATA[Web design]]></subtitle>
+					<description><![CDATA[Lorem ipsum]]></description>
+					<preview>./images/projects/works/web/ONE PIECE/preview.png</preview>
+					<elements>
+						<element type="image">./images/projects/works/web/ONE PIECE/01.jpg</element>
+						<element type="image">./images/projects/works/web/ONE PIECE/02.jpg</element>
+						<element type="image">./images/projects/works/web/ONE PIECE/03.jpg</element>
+						<element type="image">./images/projects/works/web/ONE PIECE/08.jpg</element>
+						<element type="image">./images/projects/works/web/ONE PIECE/09.jpg</element>
+						<element type="image">./images/projects/works/web/ONE PIECE/10.jpg</element>
+						<element type="image">./images/projects/works/web/ONE PIECE/11.jpg</element>
+						<element type="image">./images/projects/works/web/ONE PIECE/12.jpg</element>
+						<element type="image">./images/projects/works/web/ONE PIECE/13.jpg</element>
+						<element type="image">./images/projects/works/web/ONE PIECE/14.jpg</element>
+						<element type="image">./images/projects/works/web/ONE PIECE/15.jpg</element>
+						<element type="image">./images/projects/works/web/ONE PIECE/16.jpg</element>
+						<element type="image">./images/projects/works/web/ONE PIECE/17.jpg</element>
+						<element type="image">./images/projects/works/web/ONE PIECE/18.jpg</element>
+						<element type="image">./images/projects/works/web/ONE PIECE/19.jpg</element>
+						<element type="image">./images/projects/works/web/ONE PIECE/20.jpg</element>
+					</elements>
+				</project>
+				<project id="RICARD">
+					<title><![CDATA[Ricard]]></title>
+					<subtitle><![CDATA[Motion]]></subtitle>
+					<description><![CDATA[Lorem ipsum]]></description>
+					<preview>./images/projects/works/web/RICARD/preview.png</preview>
+					<elements>
+						<element type="image">./images/projects/works/web/RICARD/01.jpg</element>
+						<element type="image">./images/projects/works/web/RICARD/02.jpg</element>
+					</elements>
+				</project>
+			</rub>
+			<rub id="interactive_app">
+				<project id="FENCHURCH">
+					<title><![CDATA[Fenchurch app]]></title>
+					<subtitle><![CDATA[Concept mobile application]]></subtitle>
+					<description><![CDATA[Lorem ipsum]]></description>
+					<preview>./images/projects/works/interactive_app/FENCHURCH/preview.png</preview>
+					<elements>
+						<element type="image">./images/projects/works/interactive_app/FENCHURCH/01.jpg</element>
+						<element type="image">./images/projects/works/interactive_app/FENCHURCH/02.jpg</element>
+						<element type="image">./images/projects/works/interactive_app/FENCHURCH/03.jpg</element>
+						<element type="image">./images/projects/works/interactive_app/FENCHURCH/04.jpg</element>
+						<element type="image">./images/projects/works/interactive_app/FENCHURCH/05.jpg</element>
+					</elements>
+				</project>
+				<project id="MOBI MASTER">
+					<title><![CDATA[Mobi Master]]></title>
+					<subtitle><![CDATA[Jeu mobile iOs/Android]]></subtitle>
+					<description><![CDATA[Lorem ipsum]]></description>
+					<preview>./images/projects/works/interactive_app/MOBIMASTER/preview.png</preview>
+					<elements>
+						<element type="image">./images/projects/works/interactive_app/MOBIMASTER/01.jpg</element>
+						<element type="image">./images/projects/works/interactive_app/MOBIMASTER/02.jpg</element>
+						<element type="image">./images/projects/works/interactive_app/MOBIMASTER/03.jpg</element>
+						<element type="image">./images/projects/works/interactive_app/MOBIMASTER/04.jpg</element>
+						<element type="image">./images/projects/works/interactive_app/MOBIMASTER/05.jpg</element>
+					</elements>
+				</project>
+				<project id="PHORM">
+					<title><![CDATA[Phorm]]></title>
+					<subtitle><![CDATA[Concept Game]]></subtitle>
+					<description><![CDATA[Lorem ipsum]]></description>
+					<preview>./images/projects/works/interactive_app/PHORM/preview.png</preview>
+					<elements>
+						<element type="image">./images/projects/works/interactive_app/PHORM/01.jpg</element>
+						<element type="image">./images/projects/works/interactive_app/PHORM/02.jpg</element>
+						<element type="image">./images/projects/works/interactive_app/PHORM/03.jpg</element>
+						<element type="image">./images/projects/works/interactive_app/PHORM/04.jpg</element>
+						<element type="image">./images/projects/works/interactive_app/PHORM/05.jpg</element>
+						<element type="image">./images/projects/works/interactive_app/PHORM/06.jpg</element>
+						<element type="image">./images/projects/works/interactive_app/PHORM/07.jpg</element>
+						<element type="image">./images/projects/works/interactive_app/PHORM/08.jpg</element>
+						<element type="image">./images/projects/works/interactive_app/PHORM/09.jpg</element>
+					</elements>
+				</project>
+				<project id="TRAILER WIDO">
+					<title><![CDATA[Wido, rifts of destiny/Trailer]]></title>
+					<subtitle><![CDATA[Concept Game]]></subtitle>
+					<description><![CDATA[Lorem ipsum]]></description>
+					<preview>./images/projects/works/interactive_app/TRAILER WIDO/preview.png</preview>
+					<elements>
+						<element type="image">./images/projects/works/interactive_app/TRAILER WIDO/01.jpg</element>
+						<element type="image">./images/projects/works/interactive_app/TRAILER WIDO/02.jpg</element>
+						<element type="image">./images/projects/works/interactive_app/TRAILER WIDO/03.jpg</element>
+						<element type="image">./images/projects/works/interactive_app/TRAILER WIDO/04.jpg</element>
+					</elements>
+				</project>	
+				<project id="WIDO GAME">
+					<title><![CDATA[Wido, rifts of destiny/Trailer]]></title>
+					<subtitle><![CDATA[Concept Game]]></subtitle>
+					<description><![CDATA[Lorem ipsum]]></description>
+					<preview>./images/projects/works/interactive_app/WIDO GAME/preview.png</preview>
+					<elements>
+						<element type="image">./images/projects/works/interactive_app/WIDO GAME/01.jpg</element>
+						<element type="image">./images/projects/works/interactive_app/WIDO GAME/02.jpg</element>
+						<element type="image">./images/projects/works/interactive_app/WIDO GAME/03.jpg</element>
+						<element type="image">./images/projects/works/interactive_app/WIDO GAME/04.jpg</element>
+						<element type="image">./images/projects/works/interactive_app/WIDO GAME/05.jpg</element>
+						<element type="image">./images/projects/works/interactive_app/WIDO GAME/06.jpg</element>
+						<element type="image">./images/projects/works/interactive_app/WIDO GAME/07.jpg</element>
+					</elements>
+				</project>					
+			</rub>
+		</rub>
+	</projects>
+
+</data>

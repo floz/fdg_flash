@@ -88,7 +88,7 @@ package fr.filsdegraphiste.module.site.ui
 			for( var i:int; i < n; i++ )
 			{
 				eaze( _letters[ i ] ).delay( delay + i * .07 )
-									 .to( .3, { y: 0 } ).easing( Quint.easeOut );
+									 .to( .3, { y: 5 } ).easing( Quint.easeOut );
 			}
 			if( _line != null )
 				_line.show( delay );

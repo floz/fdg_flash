@@ -23,7 +23,7 @@ package fr.filsdegraphiste.module.site.ui.viewall
 		protected var _ref:BitmapData;
 		protected var _tooltip:ViewAllTooltip;
 		
-		public function ViewAllProjects( projects:Object, tooltip:ViewAllTooltip )
+		public function ViewAllProjects( data:XML, tooltip:ViewAllTooltip )
 		{
 			_entries = new Vector.<ViewAllEntry>();
 			_tooltip = tooltip;
@@ -37,16 +37,20 @@ package fr.filsdegraphiste.module.site.ui.viewall
 			var step:int;
 			var id:int;
 			var entry:ViewAllEntry;
-			for( var s:String in projects )
+			
+
+			var projects:XMLList = data.project;
+			var n:int = projects.length();
+			for( var i:int; i < n; i++ )
 			{
-				addChild( entry = new ViewAllEntry( id % 2, projects[ s ], id ) );
+				addChild( entry = new ViewAllEntry( id % 2, projects[ i ], id ) );
 				entry.x = px;
 				_entries[ _entries.length ] = entry;
 				
 				cntRef.addChild( refItem = new Shape() );
 				refItem.x = px;
 				g = refItem.graphics;
-				g.beginBitmapFill( fdgDataLoaded.getImage( projects[ s ][ "preview" ] ) );
+				g.beginBitmapFill( fdgDataLoaded.getImage( projects[ i ][ "preview" ] ) );
 				g.moveTo( 0, 0 );
 				g.lineTo( ViewAllEntry.W, ViewAllEntry.W );
 				if( id % 2 == 0 )

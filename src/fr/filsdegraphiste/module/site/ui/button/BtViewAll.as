@@ -186,6 +186,8 @@ package fr.filsdegraphiste.module.site.ui.button
 				return 0;
 			_shown = true;
 			
+			_onResize();
+			
 			addEventListener( MouseEvent.ROLL_OVER, _rollOverHandler );			
 			addEventListener( Event.ENTER_FRAME, _enterFrameHandler );
 			

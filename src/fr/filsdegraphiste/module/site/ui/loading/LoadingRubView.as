@@ -27,8 +27,8 @@ package fr.filsdegraphiste.module.site.ui.loading
 	public class LoadingRubView extends ModulePart
 	{
 		private var _label:String;
-		private var _data:Object;
-		private var _filesToLoad:Array;
+		private var _data:XML;
+		private var _filesToLoad:XML;
 		private var _titleText:TitleText;
 		private var _batcher:Batcher;
 		private var _loadingIcon:LoadingIconOK;		
@@ -40,7 +40,8 @@ package fr.filsdegraphiste.module.site.ui.loading
 		
 		private var _shown:Boolean;
 		
-		public function LoadingRubView( label:String, data:Object = null, filesToLoad:Array = null )
+		//public function LoadingRubView( label:String, data:Object = null, filesToLoad:Array = null )
+		public function LoadingRubView( label:String, data:XML = null, filesToLoad:XML = null )
 		{
 			_label = label;
 			_data = data;
@@ -72,6 +73,8 @@ package fr.filsdegraphiste.module.site.ui.loading
 		
 		private function _init():void
 		{
+			_.locked = true;
+			
 			addChild( _titleText = new TitleText( _label, "loading_title" ) );
 			if( _filesToLoad != null )
 				_initLoader();
@@ -86,10 +89,10 @@ package fr.filsdegraphiste.module.site.ui.loading
 			_batcher.addEventListener( BatchEvent.ITEM_COMPLETE, _itemCompleteHandler );
 			_batcher.addEventListener( Event.COMPLETE, _loadCompleteHandler );
 			
-			var n:int = _filesToLoad.length;
+			var n:int = _filesToLoad.image.length();
 			for( var i:int; i < n; i++ )
 			{
-				_batcher.addItem( new BatchLoaderItem( new URLRequest( _filesToLoad[ i ] ) ) );
+				_batcher.addItem( new BatchLoaderItem( new URLRequest( _filesToLoad.image[ i ] ) ) );
 			}
 			
 			addChild( _loadingIcon = new LoadingIconOK() );
@@ -103,7 +106,7 @@ package fr.filsdegraphiste.module.site.ui.loading
 		private function _itemCompleteHandler(event : BatchEvent) : void 
 		{
 			var b:BatchLoaderItem = _batcher.getCurrentItem() as BatchLoaderItem;
-			fdgDataLoaded.add( _filesToLoad[ _idxLoaded ], Bitmap( b.loader.content ).bitmapData );
+			fdgDataLoaded.add( _filesToLoad.image[ _idxLoaded ], Bitmap( b.loader.content ).bitmapData );
 			_idxLoaded++;
 		}
 
@@ -159,6 +162,7 @@ package fr.filsdegraphiste.module.site.ui.loading
 			if( _loadingIcon )
 				_loadingIcon.hide( delay );
 			
+			_.locked = false;
 			eaze( this ).delay( delay + _label.length * .07 + .4 ).onComplete( _onLoadEnd );
 						
 			return super.hide( delay );
@@ -172,7 +176,7 @@ package fr.filsdegraphiste.module.site.ui.loading
 			parent.removeChild( this );
 		}
 
-		public function get data() : Object 
+		public function get data() : XML 
 		{
 			return _data;
 		}

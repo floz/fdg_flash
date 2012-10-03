@@ -19,6 +19,7 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 		protected var _mainView:MainView;
 		
 		protected var _projects:Array;
+		protected var _projectsCount:int;
 		
 		protected var _btPrev:BtPrev;
 		protected var _btNext:BtNext;
@@ -62,7 +63,7 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 				_btPrev.addEventListener( MouseEvent.CLICK, _clickHandler, false, 0, true );
 			}
 			
-			if( _currentIdx >= _projects.length - 1 )
+			if( _currentIdx >= _projectsCount - 1 )
 			{
 				_btNext.hide( delay );
 				_btNext.removeEventListener( MouseEvent.CLICK, _clickHandler );

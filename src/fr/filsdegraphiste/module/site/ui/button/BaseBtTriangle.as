@@ -69,20 +69,20 @@ package fr.filsdegraphiste.module.site.ui.button
 		private function _init():void
 		{
 			_cntOut.addChild( _outTop = new Shape() );
-			_drawTriangleTop( _outTop.graphics, 0xffffff );
-			_drawIconTop( _outTop.graphics, 0x000000 );
+			_drawTriangleTop( _outTop.graphics, 0x53cecf );
+			_drawIconTop( _outTop.graphics, 0xffffff );
 			
 			_cntOut.addChild( _outBot = new Shape() );
-			_drawTriangleBot( _outBot.graphics, 0xffffff );
-			_drawIconBot( _outBot.graphics, 0x000000 );
+			_drawTriangleBot( _outBot.graphics, 0x53cecf );
+			_drawIconBot( _outBot.graphics, 0xffffff );
 			
 			_cntOver.addChild( _overTop = new Shape() );
-			_drawTriangleTop( _overTop.graphics, 0x53cecf );
-			_drawIconTop( _overTop.graphics, 0xffffff );
+			_drawTriangleTop( _overTop.graphics, 0xffffff );
+			_drawIconTop( _overTop.graphics, 0x000000 );
 			
 			_cntOver.addChild( _overBot = new Shape() );
-			_drawTriangleBot( _overBot.graphics, 0x53cecf );
-			_drawIconBot( _overBot.graphics, 0xffffff );
+			_drawTriangleBot( _overBot.graphics, 0xffffff );
+			_drawIconBot( _overBot.graphics, 0x000000 );
 		}
 		
 		private function _drawTriangleTop( g:Graphics, color:uint ):void

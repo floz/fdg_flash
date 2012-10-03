@@ -27,7 +27,7 @@ package fr.filsdegraphiste.module.site.ui.viewall
 		public static const W:int = 190;
 		
 		private var _side:int;
-		private var _data:Object;
+		private var _data:XML;
 		private var _idx:int;
 		private var _previewUrl:String;
 		private var _cntImage:Sprite;
@@ -52,7 +52,7 @@ package fr.filsdegraphiste.module.site.ui.viewall
 		public var prev:ViewAllEntry;
 		public var next:ViewAllEntry;		
 		
-		public function ViewAllEntry( side:int, data:Object, idx:int )
+		public function ViewAllEntry( side:int, data:XML, idx:int )
 		{
 			_side = side;
 			_data = data;

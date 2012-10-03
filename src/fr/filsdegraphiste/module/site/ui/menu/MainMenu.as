@@ -13,6 +13,7 @@ package fr.filsdegraphiste.module.site.ui.menu
 	import fr.filsdegraphiste.config._;
 	import fr.filsdegraphiste.module.site.nav.NavSiteId;
 	import fr.filsdegraphiste.module.site.nav.navSiteManager;
+	import fr.filsdegraphiste.module.site.ui.MainView;
 	import fr.minuit4.core.navigation.modules.ModulePart;
 	import fr.minuit4.core.navigation.nav.events.NavEvent;
 
@@ -33,6 +34,7 @@ package fr.filsdegraphiste.module.site.ui.menu
 		
 		// - PRIVATE VARIABLES -----------------------------------------------------------
 		
+		private var _mainView:MainView;
 		private var _bgLeft:Sprite;
 		private var _bgRight:Sprite;
 		private var _bgMid:Sprite;
@@ -49,8 +51,10 @@ package fr.filsdegraphiste.module.site.ui.menu
 		
 		// - CONSTRUCTOR -----------------------------------------------------------------
 		
-		public function MainMenu() 
+		public function MainMenu( mainView:MainView ) 
 		{
+			_mainView = mainView;
+			
 			addChild( _bgLeft = new Sprite() );
 			addChild( _bgRight = new Sprite() );
 			addChild( _bgMid = new Sprite() );
@@ -151,13 +155,22 @@ package fr.filsdegraphiste.module.site.ui.menu
 		}
 		
 		private function _clickHandler(event : MouseEvent) : void 
-		{
+		{						
+			var value:String;
 			switch( event.currentTarget )
 			{
-				case _bgLeft: SWFAddress.setValue( NavSiteId.WORKS ); break;
-				case _bgRight: SWFAddress.setValue( NavSiteId.LAB ); break;
-				case _bgMid: SWFAddress.setValue( NavSiteId.ABOUT ); break;
-			}		
+				case _bgLeft: value = NavSiteId.WORKS; break;//SWFAddress.setValue( NavSiteId.WORKS ); break;
+				case _bgRight: value = NavSiteId.LAB; break;//SWFAddress.setValue( NavSiteId.LAB ); break;
+				case _bgMid: value = NavSiteId.ABOUT; break;//SWFAddress.setValue( NavSiteId.ABOUT ); break;
+			}
+			
+			if( !_.locked && navSiteManager.currentId != value && !navSiteManager.frozen )
+			{		
+				_mainView.left.hide();
+				_mainView.right.hide();
+			}
+			
+			SWFAddress.setValue( value );
 		}
 		
 		// - PRIVATE METHODS -------------------------------------------------------------

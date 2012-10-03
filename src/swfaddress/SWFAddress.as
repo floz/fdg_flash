@@ -12,6 +12,7 @@
  * @author Piotr Zema <http://felixz.marknaegeli.com>
  */
 package swfaddress {
+	import fr.filsdegraphiste.config._;
 	import flash.errors.IllegalOperationError;
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
@@ -418,6 +419,8 @@ package swfaddress {
          * @param value A value which will be appended to the base link of the HTML document.
          */
         public static function setValue(value:String):void {
+			if( _.locked )
+				return;
             if (value == 'undefined' || value == null) value = '';
             value = encodeURI(decodeURI(_strictCheck(value, true)));
             if (SWFAddress._value == value) return;

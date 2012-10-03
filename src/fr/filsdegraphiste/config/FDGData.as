@@ -5,22 +5,85 @@ package fr.filsdegraphiste.config
 {
 	public class FDGData 
 	{
-		private var _data:Object;
+		//private var _data:Object;
+		private var _data:XML;
 		
-		public var projects:Object;
-		public var works:Object;
-		public var lab:Object;
-		public var news:Object;
+		public var projects:XML;
+		public var works:XML;
+		public var lab:XML;
+		public var news:XML;
 		
-		public function FDGData( data:Object )
+		public function FDGData( data:XML )
 		{
 			_data = data;
 			
-			this.projects = _data[ "result" ][ "projects" ];
+			var i:int, n:int;
+			var result:XMLList;			
 			
-			this.works = projects[ "works" ];
-			this.lab = projects[ "lab" ];
-			this.news = projects[ "news" ];
+			this.projects = _data[ "projects" ][ 0 ];
+			
+			this.works = projects.rub.( @id == "works" )[ 0 ];
+			this.works.appendChild( generateFilesToLoad( works..project ) );
+			generateFilesToLoadForProjects( works );
+			
+			this.lab = projects.rub.( @id == "lab" )[ 0 ];
+			this.lab.appendChild( generateFilesToLoad( lab..project ) );
+			generateFilesToLoadForProjects( lab );
+			
+			this.news = XML( "<rub id='news'></rub>" );
+			
+			var tmpNews:XMLList = projects.rub.( @id == "news" ).project;
+			n = tmpNews.length();
+			for( i = 0; i < n; i++ )
+			{
+				result = works..project.( @id == tmpNews[ i ].@id );
+				if( result.length() > 0 )
+				{
+					this.news.appendChild( result[ 0 ] );
+					continue;
+				}
+				
+				result = lab..project.( @id == tmpNews[ i ].@id );
+				if( result.length() > 0 )
+				{
+					this.news.appendChild( result[ 0 ] );
+				}
+			}
+			
+			this.news.appendChild( generateFilesToLoad( news..project ) );
+			
+			this.projects.rub.( @id == "news" )[ 0 ] = this.news;
+		}
+		
+		private function generateFilesToLoad( projects:XMLList ):XML
+		{
+			var filesToLoad:XML = XML( "<files_to_load></files_to_load>" );
+			
+			var n:int = projects.length();
+			for( var i:int = 0; i < n; i++ )
+			{
+				filesToLoad.appendChild( XML( "<image>" + projects[ i ].preview[ 0 ] + "</image>" ) );
+				filesToLoad.appendChild( XML( "<image>" + projects[ i ].elements.element.( @type == "image" )[ 1 ] + "</image>" ) );
+				filesToLoad.appendChild( XML( "<image>" + projects[ i ].elements.element.( @type == "image" )[ projects[ i ].elements.element.( @type == "image" ).length() - 1 ] + "</image>" ) );		
+			}
+			
+			return filesToLoad;
+		}
+		
+		private function generateFilesToLoadForProjects( data:XML ):void
+		{
+			var x:XML, filesToLoad:XML;
+			
+			var projects:XMLList = data..project;
+			var n:int = projects.length();
+			for( var i:int; i < n; i++ )
+			{
+				filesToLoad = XML( "<files_to_load></files_to_load>" );
+				for each( x in projects[ i ]..element.( @type == "image" ) )
+					filesToLoad.appendChild( XML( "<image>" + x.toString() + "</image>" ) );
+				
+				projects[ i ].appendChild( filesToLoad );
+			}
 		}
 	}
 }

@@ -3,6 +3,7 @@
  */
 package fr.filsdegraphiste.module.loader 
 {
+	import fr.minuit4.net.loaders.DataLoader;
 	import fr.filsdegraphiste.config.FDGData;
 	import fr.filsdegraphiste.config._;
 	import fr.filsdegraphiste.ui.loading.LoadingIconOK;
@@ -62,7 +63,9 @@ package fr.filsdegraphiste.module.loader
 		
 		private function confCompleteHandler(e:Event):void 
 		{
-			_loadData();
+			_.data = new FDGData( XML( DataLoader( conf.getItem( "data" ) ).content ) );
+			_launchSite();
+			trace( "CONF COMPLETE" );
 		}
 		
 		private function _enterFrameHandler(e:Event):void 
@@ -71,21 +74,12 @@ package fr.filsdegraphiste.module.loader
 			if ( _loadingIcon.percent >= 1 )
 			{
 				removeEventListener( Event.ENTER_FRAME, _enterFrameHandler );
-				_loadData();
 			}
-		}
-		
-		private function _loadData():void
-		{
-			_urlLoader = new URLLoader();
-			_urlLoader.dataFormat = URLLoaderDataFormat.TEXT;
-			_urlLoader.load( new URLRequest( "php/services.php") );
-			_urlLoader.addEventListener( Event.COMPLETE, _loadDataCompleteHandler );
 		}
 
 		private function _loadDataCompleteHandler(event : Event) : void 
 		{
-			_.data = new FDGData( JSON.parse( _urlLoader.data ) );			
+			//_.data = new FDGData(  );//JSON.parse( _urlLoader.data ) );			
 			_launchSite();
 		}
 		

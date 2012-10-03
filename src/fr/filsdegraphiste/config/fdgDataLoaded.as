@@ -23,6 +23,7 @@ class FDGDataLoaded
 	
 	public function getImage( url:String ):BitmapData
 	{
+		trace( _dataLoaded[ url ] );
 		return _dataLoaded[ url ];
 	}
 	

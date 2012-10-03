@@ -3,6 +3,7 @@
  */
 package fr.filsdegraphiste.module.site.ui.content 
 {
+	import fr.filsdegraphiste.module.site.ui.MainView;
 	import flash.display.BitmapData;
 	import flash.display.Graphics;
 	import flash.display.Shape;
@@ -22,6 +23,7 @@ package fr.filsdegraphiste.module.site.ui.content
 		
 		// - PRIVATE VARIABLES -----------------------------------------------------------
 		
+		private var _mainView:MainView;
 		private var _cnt:Sprite;
 		private var _bg:Shape;
 		private var _cntContent:Sprite;
@@ -36,12 +38,14 @@ package fr.filsdegraphiste.module.site.ui.content
 		
 		// - CONSTRUCTOR -----------------------------------------------------------------
 		
-		public function MidContent() 
+		public function MidContent( mainView:MainView ) 
 		{
+			_mainView = mainView;
+			
 			addChild( _cnt = new Sprite() );
 			_cnt.addChild( _bg = new Shape() );
 			_cnt.addChild( _cntContent = new Sprite() );
-			_cnt.addChild( _menu = new MainMenu() );
+			_cnt.addChild( _menu = new MainMenu( _mainView ) );
 			_cnt.addChild( _workMenu = new WorkMenu() );
 			_cnt.addChild( _btViewAll = new BtViewAll( "View all" ) );
 			addChild( _mask = new Shape() );

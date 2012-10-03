@@ -18,12 +18,11 @@ package fr.filsdegraphiste.module.site.ui.menu
 			
 			var px:int;
 			var wmi:WorkMenuItem;
-			for( var s:String in _.data.works )
+			var list:XMLList = _.data.works.rub;
+			var n:int = list.length();
+			for( var i:int; i < n; i++ )
 			{
-				if( s == "files_to_load" )
-					continue;
-				
-				wmi = new WorkMenuItem( s );
+				wmi = new WorkMenuItem( list[ i ].@id.toString() );
 				wmi.x = px;
 				addChild( wmi );
 				

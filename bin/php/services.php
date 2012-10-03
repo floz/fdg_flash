@@ -18,9 +18,29 @@ function getProjects()
 		$list[ "files_to_load" ] = array();
 		grabFilesToLoad( $list );
 		$result[ "projects" ][ $projectName ] = $list;
+
+		//echo ">>>>>>>>>>>>>>>>>>>>> ".$projectName."\n";
+		$order = array();
+		//$result[ "projects" ][ $projectName ][ "order" ] = generateOrders( $result[ "projects" ][ $projectName ], $order );
 	}
 
 	return $result;
+}
+
+function generateOrders( $data, &$order )
+{
+	echo "-------\n";
+
+	foreach( $data as $name=>$value )
+	{
+		echo $name."\n";
+		if( $data[ $name ][ "isDir" ] == 1 )
+		{
+			array_push( $order, $name ); 
+			echo "isDir: ".$name."\n";
+		}
+	}
+	return $data;
 }
 
 function getProjectsFromFolder( $result, &$news, $dir )
@@ -37,6 +57,7 @@ function getProjectsFromFolder( $result, &$news, $dir )
 		{
 			$result[ $file ] = array();
 			$result[ $file ] = getProjectsFromFolder( $result[ $file ], $news, $dir.$file."/", $file );
+			$result[ $file ][ "isDir" ] = true;
 		}
 		else
 		{
@@ -121,7 +142,7 @@ $result = array();
 $result[ "message" ] = "error";
 
 //$action = $_GET[ "action" ];
-$action = $_POST[ "action" ] || "get_projects";
+$action = isset( $_POST[ "action" ] ) || "get_projects";
 switch( $action )
 {
 	case "get_projects": 

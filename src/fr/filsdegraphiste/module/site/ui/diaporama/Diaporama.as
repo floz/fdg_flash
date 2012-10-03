@@ -18,7 +18,7 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 	
 	public class Diaporama extends BaseDiaporama
 	{
-		private var _data:Object;
+		private var _data:XML;
 		private var _detailsView:DetailsView;
 		private var _diaporamaProject:DiaporamaProject;
 		
@@ -26,24 +26,25 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 		
 		private var _zoomed:Boolean;
 		
-		public function Diaporama( data:Object, mainView:MainView )
+		public function Diaporama( data:XML, mainView:MainView )
 		{
 			_data = data;
+			_projectsCount = _data.project.length();
 			_projects = [];
 			
 			super( mainView );
-			
-			for( var s:String in _data )
-			{
-				if( s != "files_to_load" )
-					_projects[ _projects.length ] = _data[ s ];
-			}
 			
 			navProjectManager.addEventListener( NavEvent.NAV_CHANGE, _navChangeHandler );
 		}
 
 		private function _navChangeHandler( event:NavEvent ):void
 		{
+			_onNavChange();
+		}
+
+		private function _onNavChange() : void 
+		{
+			trace( "NAVCHANGEHANDLER ", navSiteManager.currentId, navProjectManager.currentId );
 			if( navProjectManager.currentId != null )
 				zoomIn( Number( navProjectManager.currentId ) );
 			else
@@ -52,7 +53,7 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 
 		override protected function _showProject( fromProject:Boolean = false ) : void 
 		{
-			var project:Object = _projects[ _currentIdx ];
+			var project:XML = _data.project[ _currentIdx ];
 			
 			var d:Number = 0;
 			if( _detailsView != null )
@@ -61,12 +62,14 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 				d = .2;
 			}
 			
+			trace( fromProject, _diaporamaProject != null ? _diaporamaProject.currentIdx : -1 );
 			if( !fromProject || ( fromProject && _diaporamaProject.currentIdx != 0 ) )
 			{
-				_mainView.left.setImage( fdgDataLoaded.getImage( project.images[ project.images.length - 1 ] ), d );
+				var images:XMLList = project.elements.element.( @type == "image" );
+				_mainView.left.setImage( fdgDataLoaded.getImage( images[ images.length() - 1 ] ), d );
 				
-				var sameSize:Boolean = project.images.length == project.elements.length;
-				_mainView.right.setImage( fdgDataLoaded.getImage( project.images[ sameSize ? 1 : 0 ] ), d );
+				//var sameSize:Boolean = project.images.length == project.elements.length;
+				_mainView.right.setImage( fdgDataLoaded.getImage( images[ 1 ] ), d );
 			}
 			
 			_detailsView = new DetailsView( project, this );
@@ -76,14 +79,15 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 		
 		public function zoomIn( idx:int = -1 ):void
 		{			
-			if( idx <= -1 || idx > _projects.length - 1 )
+			if( idx <= -1 || idx > _projectsCount - 1 )
 			{
-				trace( "ZOOM IN" ); 
+				trace( "ZOOM IN, " + _currentIdx ); 
 				var path:String = navSiteManager.currentId;
 				if( navSiteManager.currentId == NavSiteId.WORKS )
 					path += "/" + navWorkManager.currentId;
-				if ( idx < _projects.length - 1 ) 
+				if ( idx < _projectsCount - 1 ) 
 					path += "/" + _currentIdx;
+				trace( path );
 				SWFAddress.setValue( path );
 				return;
 			}
@@ -102,13 +106,16 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 				_mainView.right.hide();
 			}
 			
-			_diaporamaProject = new DiaporamaProject( _projects[ idx == -1 ? _currentIdx : idx ], _mainView, idx == -1 || _currentIdx == idx );
+			_diaporamaProject = new DiaporamaProject( _data.project[ idx == -1 ? _currentIdx : idx ], _mainView, idx == -1 || _currentIdx == idx );
 			if( idx != -1 ) 
 				_currentIdx = idx;
 		}
 		
 		private function _onDiaporamaProjectClosed():void
 		{
+			if( !_diaporamaProject )
+				return;
+			
 			_diaporamaProject.hide();
 			
 			if( navSiteManager.currentId == NavSiteId.WORKS )
@@ -132,13 +139,14 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 		{
 			if( navProjectManager.currentId != null )
 			{
-				if( Number( navProjectManager.currentId ) < _projects.length )
+				if( Number( navProjectManager.currentId ) < _projectsCount )
 				{
 					eaze( this ).delay( delay ).onComplete( zoomIn, Number( navProjectManager.currentId ) );
 					return delay;
 				}
 				else
 				{
+					trace( "SHOW !!! " + navProjectManager.currentId, _projectsCount );
 					var path:String = navSiteManager.currentId;
 					if( navSiteManager.currentId == NavSiteId.WORKS )
 						path += "/" + navWorkManager.currentId;
@@ -168,6 +176,7 @@ package fr.filsdegraphiste.module.site.ui.diaporama
 			
 		override public function dispose():void
 		{			
+			trace( "DIAPORAMA DISPOSE" );
 			navProjectManager.removeEventListener( NavEvent.NAV_CHANGE, _navChangeHandler );
 			super.dispose();
 		}

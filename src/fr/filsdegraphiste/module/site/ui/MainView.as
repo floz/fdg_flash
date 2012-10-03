@@ -42,7 +42,7 @@ package fr.filsdegraphiste.module.site.ui
 			addChild( _left = new LeftContent() );
 			addChild( _right = new RightContent() );
 			addChild( _shadow = new GradientShadow() );
-			addChild( _mid = new MidContent() );
+			addChild( _mid = new MidContent( this ) );
 			
 			_.stage.addEventListener( Event.RESIZE, _resizeHandler );
 			_onResize();
@@ -62,7 +62,7 @@ package fr.filsdegraphiste.module.site.ui
 		
 		// - PRIVATE METHODS -------------------------------------------------------------
 		
-		public function setDiaporama( data:Object ):void
+		public function setDiaporama( data:XML ):void
 		{
 			clear();	
 					
@@ -85,8 +85,16 @@ package fr.filsdegraphiste.module.site.ui
 
 		private function _navWorkHandler(event : NavEvent) : void 
 		{
+			if( navWorkManager.currentId == null )
+				return;
 			_diaporama.hide();
-			addChild( _diaporama = new Diaporama( _.data.works[ navWorkManager.currentId ], this ) );
+			trace( "#@$@#$#@$@#$@#$@#$@#$#@#$#@$@#$@#$@#$@#$@#$@#$@#$@#$@#$@#$@#$@#$@#$" );
+			trace( "#@$@#$#@$@#$@#$@#$@#$#@#$#@$@#$@#$@#$@#$@#$@#$@#$@#$@#$@#$@#$@#$@#$" );
+			trace( "#@$@#$#@$@#$@#$@#$@#$#@#$#@$@#$@#$@#$@#$@#$@#$@#$@#$@#$@#$@#$@#$@#$" );
+			trace( "#@$@#$#@$@#$@#$@#$@#$#@#$#@$@#$@#$@#$@#$@#$@#$@#$@#$@#$@#$@#$@#$@#$" );
+			trace( navWorkManager.currentId );
+			trace( _.data.works.rub );
+			addChild( _diaporama = new Diaporama( _.data.works.rub.( @id == navWorkManager.currentId )[ 0 ], this ) );
 			_diaporama.show( .25 );
 		}
 		

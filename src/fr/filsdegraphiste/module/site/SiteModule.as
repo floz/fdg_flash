@@ -55,6 +55,7 @@ package fr.filsdegraphiste.module.site
 			_loadingIcon.removeEventListener( StepEvent.STEP1_COMPLETE, _step1CompleteHandler );
 			
 			addChildAt( _mainView = new MainView(), 0 );
+//			_.mainView = _mainView;
 			_viewAll = new ViewAll( _mainView );
 			_mainView.show();
 		}
@@ -69,18 +70,22 @@ package fr.filsdegraphiste.module.site
 		
 		private function _navChangeHandler(event : NavEvent) : void 
 		{ 
+			trace( "SiteModule > NAV CHANGE HANDLER !!" );
 			navSiteManager.frozen = true;
 			
 			_mainView.mid.btViewAll.hide();
 			
 			switch( navSiteManager.currentId )
 			{
-				case NavSiteId.NEWS: _showLoadingView( "news", _.data.news, _.data.news.files_to_load ); break;
+				//case NavSiteId.NEWS: _showLoadingView( "news", _.data.news, _.data.news.files_to_load ); break;
+				case NavSiteId.NEWS: _showLoadingView( "news", _.data.news, _.data.news.files_to_load[ 0 ] ); break;
 				case NavSiteId.WORKS:
 					//navWorkManager.currentId = NavWorkId.WEB;
-					_showLoadingView( "works", _.data.works[ navWorkManager.currentId ], _.data.works.files_to_load ); 
+					//_showLoadingView( "works", _.data.works[ navWorkManager.currentId ], _.data.works.files_to_load );
+					_showLoadingView( "works", _.data.works.rub.( @id == navWorkManager.currentId )[ 0 ], _.data.works.files_to_load[ 0 ] ); 
 					break;
-				case NavSiteId.LAB: _showLoadingView( "lab", _.data.lab, _.data.lab.files_to_load ); break;
+				//case NavSiteId.LAB: _showLoadingView( "lab", _.data.lab, _.data.lab.files_to_load ); break;
+				case NavSiteId.LAB: _showLoadingView( "lab", _.data.lab, _.data.lab.files_to_load[ 0 ] ); break;
 				case NavSiteId.ABOUT: _showLoadingView( "fdg" ); break;
 			}
 			
@@ -104,6 +109,8 @@ package fr.filsdegraphiste.module.site
 
 		private function _performReroot( pathNames:Array ):void
 		{
+			if( _.locked )
+				return;
 			trace( "!!! preformReroot " + pathNames );
 			
 			var n:int = pathNames.length;
@@ -187,14 +194,15 @@ package fr.filsdegraphiste.module.site
 			}
 			else
 			{
-				trace( "apply" );
+				trace( "apply ", newNavProjectId, newNavWorkId, newNavSiteId );
 				navProjectManager.currentId = newNavProjectId;
 				navWorkManager.currentId = newNavWorkId;
 				navSiteManager.currentId = newNavSiteId;
 			}
 		}
 		
-		private function _showLoadingView( title:String, data:Object = null, filesToLoad:Array = null ):void
+		//private function _showLoadingView( title:String, data:Object = null, filesToLoad:Array = null ):void
+		private function _showLoadingView( title:String, data:XML = null, filesToLoad:XML = null ):void
 		{
 			_loadingRubView = new LoadingRubView( title, data, filesToLoad );
 			_loadingRubView.addEventListener( Event.COMPLETE, _loadCompleteHandler, false, 0, true );

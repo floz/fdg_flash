@@ -93,7 +93,6 @@ package fr.filsdegraphiste.module.site.ui.menu
 
 		private function _clickHandler(event : MouseEvent) : void 
 		{
-			//navWorkManager.currentId = _label;
 			var path:String = navSiteManager.currentId + "/" + _label;
 			SWFAddress.setValue( path );
 		}

@@ -9,6 +9,7 @@
 	</paths>
 	
 	<preload>
+		<item id="data"><![CDATA[data.xml]]></item>
 		<item id="site"><![CDATA[site.swf]]></item>
 	</preload>
 	

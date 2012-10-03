@@ -44,6 +44,7 @@ package fr.filsdegraphiste.module.site.ui.content
 
 		private function _clear( delay:Number ):void
 		{
+			trace( "clear !" );
 			if( _currentImage )
 			{
 				eaze( _currentImage ).delay( delay + .4 ).onComplete( _currentImage.parent.removeChild, _currentImage );
@@ -59,11 +60,19 @@ package fr.filsdegraphiste.module.site.ui.content
 		
 		override public function hide( delay:Number = 0 ):Number
 		{
-			if( _currentImage == null )
-				return 0;
+			trace( "hide: " + _currentImage + ", " + _currentElement );
+			if( _currentImage != null )
+			{
+				_currentImage.hide( delay );
+				return super.hide( delay );
+			}
+			else if ( _currentElement != null )
+			{
+				_currentElement.hide( delay );
+				return super.hide( delay );
+			}
+			return 0;
 			
-			_currentImage.hide( delay );
-			return super.hide( delay );
 		}
 		
 	}
